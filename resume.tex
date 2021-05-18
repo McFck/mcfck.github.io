@@ -1,0 +1,54 @@
+\expandafter\def\csname ver@fontenc.sty\endcsname{}
+\expandafter\def\csname opt@fontenc.sty\endcsname{T1}
+\PassOptionsToPackage{pdfpagelabels=false,unicode}{hyperref}
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+\moderncvtheme[blue]{classic}
+\usepackage[utf8]{inputenc}
+\usepackage[top=1.5cm,bottom=1.5cm,left=1.5cm,right=1.5cm,asymmetric]{geometry}
+
+\usepackage[pdfa]{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+
+\renewcommand*{\emailsymbol}{}
+\renewcommand*{\homepagesymbol}{}
+
+\firstname{Ilya}
+\familyname{Babunov}
+\email{contact@babunov.dev}
+\homepage{babunov.dev}
+\social[telegram]{IlyaIsMyName}
+
+\nopagenumbers{}
+\begin{document}
+\makecvtitle
+\vspace{-1cm}
+
+\section{Profile}
+\cvline{}{An up-and-coming expert in computer technology.}
+
+\section{Courses and achievements}
+\cventry{}{General C\#}{\href{https://ulearn.me/Certificate/5295d79b-6f91-4eb5-8f77-61d55fa4a360}{Kontur}}{}{}{}{}
+\cventry{}{Advanced C\#}{\href{https://ulearn.me/Certificate/5295d79b-6f91-4eb5-8f77-61d55fa4a360}{Kontur}}{}{}{}{}
+
+\section{Programming languages}
+\cvline{Comfortable}{C\#}
+\cvline{Familiar}{C++, Python}
+
+\section{Skills}
+\cvline{Git}{Experienced with branches, rebasing, conflicts}
+
+\section{Languages}
+\cvline{Russian}{Native}
+\cvline{English}{Proficient}
+
+\section{Education}
+\cventry{\footnotesize\\[-.50cm]2020 - Present}{Software Engineer}{Samara State Technical University}{Samara}{}{}{}
+
+\section{Hobbies}
+\cvlistitem{Reading}{}
+\cvlistitem{Learning}{}
+\cvlistitem{Playing games}{}
+
+\end{document}
