@@ -18,6 +18,7 @@ import { TranslateService } from './services/translate.service';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { AnimeHistoryComponent } from './components/anime-history/anime-history.component';
 import { DateAgoPipe } from './pipes/dateAgo.pipe';
+import { AnimeTimeComponent } from './components/anime-time/anime-time.component';
 
 export function setupTranslateServiceFactory(
   service: TranslateService): Function {
@@ -34,7 +35,8 @@ return () => service.use('en');
     LandingComponent,
     TranslatePipe,
     DateAgoPipe,
-    AnimeHistoryComponent
+    AnimeHistoryComponent,
+    AnimeTimeComponent
   ],
   imports: [
     BrowserModule,

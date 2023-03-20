@@ -1,4 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import { GeneralHelper } from '../helpers/general.helper';
+import { TranslateService } from '../services/translate.service';
 import { TranslatePipe } from './translate.pipe';
 
 @Pipe({
@@ -7,7 +9,7 @@ import { TranslatePipe } from './translate.pipe';
 })
 export class DateAgoPipe implements PipeTransform {
 
-    constructor(private translatePipe: TranslatePipe) {}
+    constructor(private translatePipe: TranslatePipe, private translateService: TranslateService) {}
 
     transform(value: any, args?: any): any {
         if (value) {
@@ -26,12 +28,15 @@ export class DateAgoPipe implements PipeTransform {
             let counter;
             for (const i in intervals) {
                 counter = Math.floor(seconds / intervals[i]);
-                if (counter > 0)
+                if (counter > 0) {
+                    const pluralForm = GeneralHelper.getPluralForm(counter, this.translateService.getLanguage());
+                    return `${counter} ${this.translatePipe.transform(i + '_' + pluralForm + '_ago')}`;
                     if (counter === 1) {
                         return counter + ' ' + this.translatePipe.transform(`${i}_ago`);
                     } else {
                         return counter + ' ' + this.translatePipe.transform(`${i}s_ago`);
                     }
+                }
             }
         }
         return value;

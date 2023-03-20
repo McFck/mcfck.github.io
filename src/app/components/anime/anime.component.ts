@@ -14,7 +14,7 @@ import { AnimeService } from 'src/app/services/anime.service';
 import { TranslatePipe } from 'src/app/pipes/translate.pipe';
 import { TranslateService } from 'src/app/services/translate.service';
 import { AnimeHelper } from 'src/app/helpers/anime.helper';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { ChartsHelper } from 'src/app/helpers/charts.helper';
 
 @Component({
@@ -31,10 +31,9 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   ) {}
 
   allData: Record<ANIME_TYPE, any[]> = {} as any;
-  history: AnimeHistory[] = [];
   
   statistics: Record<ANIME_TYPE, AnimeMangaStatistics> = {} as any;
-
+  
   isLoading = true;
 
   ngOnInit(): void {
@@ -49,13 +48,10 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     combineLatest([
       this.animeService.getAllAnimeList(),
-      this.animeService.getAllMangaList(),
-      this.animeService.getUserHistory()
-    ]).subscribe(([animeData, mangaData, history]: [AnimeData[], AnimeData[], AnimeHistory[]]) => {
+      this.animeService.getAllMangaList()
+    ]).subscribe(([animeData, mangaData]: [AnimeData[], AnimeData[]]) => {
       this.isLoading = false;
       this.cdr.detectChanges();
-
-      this.history = history;
 
       this.allData[ANIME_TYPE.ANIME] = animeData;
       this.allData[ANIME_TYPE.MANGA] = mangaData;
