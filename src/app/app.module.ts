@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateService } from './services/translate.service';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { AnimeHistoryComponent } from './components/anime-history/anime-history.component';
+import { DateAgoPipe } from './pipes/dateAgo.pipe';
 
 export function setupTranslateServiceFactory(
   service: TranslateService): Function {
@@ -30,7 +32,9 @@ return () => service.use('en');
     MoviesComponent,
     MiscComponent,
     LandingComponent,
-    TranslatePipe
+    TranslatePipe,
+    DateAgoPipe,
+    AnimeHistoryComponent
   ],
   imports: [
     BrowserModule,

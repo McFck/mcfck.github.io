@@ -64,7 +64,7 @@ li {
         &.nav-item { 
             color: #666;
             display: inline-block; 
-            margin: 0;
+            margin: 0.2px;
             text-transform: uppercase; 
             &:hover {
                 &:after {
@@ -78,7 +78,7 @@ li {
         color: #666;
         background-color: #FFF5F9;
         display: inline-block; 
-        margin: 0;
+        margin: 0.2px;
         text-transform: uppercase; 
         &:hover {
             background: rgba(0,0,0,.1);
@@ -95,6 +95,10 @@ li.nav-item {
     display: inline-block;
 }
 
+.nav-link, .nav-link.active {
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+}
 .nav-link.active {
     background-color: #FFF5F9;
     border-bottom: solid 3px #019fb6;

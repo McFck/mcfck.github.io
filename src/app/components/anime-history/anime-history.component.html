@@ -1,0 +1,24 @@
+<div class="anime-history__container">
+    <span class="anime-history__header">{{'ANIME_HISTORY' | translate}}</span>
+    
+    <div class="anime-history__item-image-wrapper">
+        <div class="anime-history__item" *ngFor="let historyItem of history; index as i">
+            <div class="anime-history__item">
+                <div class="anime-history__item-image">
+                    <a href="{{imageDataPath + historyItem.target.url}}"><img src="{{ imageDataPath + historyItem.target.image.x48 }}"></a>
+                    <div class="anime-history__item-block">
+                        <a class="anime-history__item-title" href="{{imageDataPath + historyItem.target.url}}">{{ historyItem.target[historyFieldName] }}</a>
+                        <span class="anime-history__bottom">{{ historyItem.description }}</span>
+                        <span class="anime-history__bottom">{{ historyItem.created_at | date | dateAgo }}</span>
+                    </div>
+                    <div class="anime-history__arrows" *ngIf="i !== history?.length - 1">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

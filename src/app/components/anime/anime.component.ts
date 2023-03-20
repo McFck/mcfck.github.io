@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import {
   AnimeData,
+  AnimeHistory,
   AnimeMangaStatistics,
   ANIME_TYPE
 } from 'src/app/models/dataModels';
@@ -30,6 +31,8 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   ) {}
 
   allData: Record<ANIME_TYPE, any[]> = {} as any;
+  history: AnimeHistory[] = [];
+  
   statistics: Record<ANIME_TYPE, AnimeMangaStatistics> = {} as any;
 
   isLoading = true;
@@ -47,10 +50,12 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     combineLatest([
       this.animeService.getAllAnimeList(),
       this.animeService.getAllMangaList(),
-    ]).subscribe(([animeData, mangaData]: [AnimeData[], AnimeData[]]) => {
-
+      this.animeService.getUserHistory()
+    ]).subscribe(([animeData, mangaData, history]: [AnimeData[], AnimeData[], AnimeHistory[]]) => {
       this.isLoading = false;
       this.cdr.detectChanges();
+
+      this.history = history;
 
       this.allData[ANIME_TYPE.ANIME] = animeData;
       this.allData[ANIME_TYPE.MANGA] = mangaData;
@@ -83,7 +88,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     this.allData[type].forEach((val) => {
       const map = dataMap.get(val.status);
       if (!map) {
-        dataMap.set(val.status, { name: this.translationPipe.transform(val.status), value: 1 });
+        dataMap.set(val.status, { name: this.translationPipe.transform(`${val.status}_${type}`), value: 1 });
       } else {
         map.value++;
         dataMap.set(val.status, map);

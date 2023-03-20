@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { reduce, takeWhile } from 'rxjs/operators';
-import { MAX_VALUES_REQUEST } from '../constants/generalConsts';
-import { AnimeData, ANIME_TYPE } from '../models/dataModels';
+import { MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
+import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,10 @@ export class AnimeService {
 
   baseUrl = 'https://shikimori.one';
   userId = "1121790";
+
+  getUserHistory(): Observable<AnimeHistory[]> {
+    return this.http.get<AnimeHistory[]>(`${this.baseUrl}/api/users/${this.userId}/history?limit=${MAX_ANIME_HISTORY_REQUEST}`);
+  }
 
   getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/v2/user_rates?user_id=${this.userId}`);

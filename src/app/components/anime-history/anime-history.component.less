@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
+.anime-history {
+    &__header {
+        font-size: 1.7em;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+
+    &__arrows {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3px;
+        margin-left: 3px;
+    }
+
+    &__bottom {
+        margin-left: 15px;
+        color: gray;
+    }
+
+    &__item {
+        width: fit-content;
+        margin-right: 5px;
+
+        &-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-title {
+            margin-left: 15px;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        &-image {
+            display: flex;
+
+            &-wrapper {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                @media (max-width:900px) {
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

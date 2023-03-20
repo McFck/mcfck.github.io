@@ -3,6 +3,28 @@ export enum ANIME_TYPE {
   ANIME = 'anime'
 }
 
+export interface AnimeHistory {
+  created_at: Date,
+  description: string,
+  id: number,
+  target: AnimeHistoryTarget
+}
+
+interface AnimeHistoryTarget {
+  aired_on: string,
+  chapters: number,
+  id: number,
+  image: Image,
+  kind: ANIME_TYPE,
+  name: string,
+  released_on: string,
+  russian: string,
+  score: string,
+  status: string,
+  url: string;
+  volumes: number;
+}
+
 export interface Tooltip {
   headerName: string;
   pointName: string;
