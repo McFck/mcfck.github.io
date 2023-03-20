@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "deploy": "ng deploy --base-href=https://mcfck.github.io/personalSite/",
-    "githubPages": "npx angular-cli-ghpages --dir=dist/personal --repo=https://github.com/McFck/personalSite.git"
+    "githubPages": "npx angular-cli-ghpages --dir=dist/personal --repo=https://github.com/McFck/personalSite.git",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
