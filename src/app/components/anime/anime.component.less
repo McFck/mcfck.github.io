@@ -1,4 +1,8 @@
 .anime {
+  &__wrapper {
+    position: relative;
+  }
+
   &__time,
   &__credits {
     display: flex;
@@ -25,6 +29,7 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
+      margin-top: 5px;
       &__block {
         display: flex;
         flex-direction: row;
@@ -123,4 +128,38 @@
 a {
   color: inherit;
   text-decoration: inherit;
+}
+
+
+.blurred-effect {
+  &:before {
+    content: '';
+    backdrop-filter: blur(5px);
+    @media (max-width:900px) {
+      backdrop-filter: unset;
+    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  position: relative;
+  background-color: rgb(193 198 219 / 83%);
+  @media (max-width:900px) {
+    background-color: unset;
+  }
+}
+
+.bg { 
+  @media (max-width:900px) {
+    background-image: none;
+  }
+  background-image: url("../../../assets/anime_bg_1.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }

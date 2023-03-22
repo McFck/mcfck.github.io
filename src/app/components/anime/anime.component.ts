@@ -56,6 +56,8 @@ export class AnimeComponent implements OnInit, AfterViewInit {
       this.allData[ANIME_TYPE.ANIME] = animeData;
       this.allData[ANIME_TYPE.MANGA] = mangaData;
 
+      this.allData = {...this.allData};
+
       this.drawStatusPie(ANIME_TYPE.ANIME);
       this.drawStatusPie(ANIME_TYPE.MANGA);
 
@@ -103,7 +105,8 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     const originalData = AnimeHelper.calculateScoreStatistics(this.allData[type]).map((score, index)=>{
       return {
         name: `${index + 1} ⭐`,
-        value: score
+        value: score,
+        x: index + 1
       }
     });
     const tooltip = { headerName: this.translationPipe.transform('SCORE'), pointName: this.translationPipe.transform('AMOUNT') };

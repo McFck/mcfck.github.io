@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { reduce, takeWhile } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { expand, reduce, switchMap, takeWhile } from 'rxjs/operators';
 import { MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
 import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 import { TranslateService } from './translate.service';
@@ -20,7 +20,14 @@ export class AnimeService {
   }
 
   getUserList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/v2/user_rates?user_id=${this.userId}`);
+    return this.http.get(`${this.baseUrl}/api/v2/user_rates/?user_id=${this.userId}`);
+  }
+
+  getAnimeDetailedList(ids:any[], page = 1): Observable<any> {
+    if (ids?.length > 0) {
+      return this.http.get(`${this.baseUrl}/api/animes/?ids=${ids.join(',')}&limit=50&page=${page}`);
+    }
+    return of([]);
   }
 
   getAnimeList(page = 1): Observable<AnimeData[]> {
@@ -41,7 +48,8 @@ export class AnimeService {
 
   fetchPaginatedData<AnimeData>(
     inputMethod: (page: number) => Observable<AnimeData[]>,
-    type: ANIME_TYPE
+    type: ANIME_TYPE, 
+    customMaxValue?: number
   ): Observable<AnimeData[]> {
     let isFetching = true;
     let curPage = 1;
@@ -49,9 +57,17 @@ export class AnimeService {
       .bind(this)
       .call(this, curPage)
       .pipe(
-        takeWhile((fetchedData: AnimeData[]) => {
+      expand((_)=>{
         if (isFetching) {
-          if (fetchedData.length < MAX_VALUES_REQUEST[type]) {
+          return inputMethod
+          .bind(this)
+          .call(this, curPage);
+        }
+        return EMPTY;
+      }),
+      takeWhile((fetchedData: AnimeData[]) => {
+        if (isFetching) {
+          if (fetchedData.length < (customMaxValue ?? MAX_VALUES_REQUEST[type])) {
             isFetching = false;
           } else {
             curPage++;

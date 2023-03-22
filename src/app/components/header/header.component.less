@@ -33,9 +33,17 @@
         margin-left: 5px;
     }
 
-    &__logo-sub {
-        font-size: 1.3em;
-        margin-top: 5px;
+    &__logo{
+
+        &-wrapper {
+            display: flex;
+            cursor: pointer;
+        }
+
+        &-sub {
+            font-size: 1.3em;
+            margin-top: 5px;
+        }
     }
 
     &__nav {
@@ -87,7 +95,7 @@ li {
 }
 
 ul.header__nav.nav {
-    margin-bottom: 5px;
+    // margin-bottom: 5px;
     display: flex;
 }
 
@@ -102,4 +110,8 @@ li.nav-item {
 .nav-link.active {
     background-color: #FFF5F9;
     border-bottom: solid 3px #019fb6;
+}
+
+.nav-tabs {
+    border-bottom: unset;
 }

@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
         }
     });
   }
-
+  
   localize(language: string): void {
     this.translateService.use(language);
   }

@@ -1,7 +1,9 @@
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="nav-tabs header__nav">
-    <a href="/" class="header__logo">BABUNOV</a>
-    <div class="header__logo">|</div>
-    <div class="header__logo-sub">HOBBIES</div>
+    <a class="header__logo-wrapper" href="/">
+        <span class="header__logo">BABUNOV</span>
+        <span class="header__logo">|</span>
+        <span class="header__logo-sub">HOBBIES</span>
+    </a> 
     <span class="header__list">
         <li *ngFor="let routeObj of headerRoutes; index as i" [class.active]="active===i" [ngbNavItem]="i" [destroyOnHide]="true">
             <a ngbNavLink [routerLink]="routeObj.route">{{routeObj.title}}</a>
@@ -34,7 +36,8 @@
     </div>
 </ul>
 
-<div [ngbNavOutlet]="nav" class="mt-2"></div>
+<!-- class="mt-2" -->
+<div [ngbNavOutlet]="nav"></div>
 
 <mat-menu class="header__localization-menu" #menu="matMenu">
     <button mat-menu-item (click)="localize('ru')">

@@ -13,6 +13,7 @@ export class ChartsHelper {
             headerName: tooltip.headerName,
             pointName: tooltip.pointName,
             y: originalData[i]?.value,
+            x: originalData[i]?.x
           });
         }
         return data;

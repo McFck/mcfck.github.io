@@ -51,4 +51,8 @@ export class AnimeHistoryComponent implements OnInit {
     this.historyFieldName =
       this.translationService.getLanguage() === 'ru' ? 'russian' : 'name';
   }
+
+  goToHistory(url: string): void {
+    window.location.href = url;
+  }
 }
