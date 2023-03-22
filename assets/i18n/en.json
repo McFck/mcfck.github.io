@@ -31,23 +31,32 @@
     "TIME_SPENT_ANIME_SUM": "Time spent on anime & manga",
     "TIME_SPENT_ANIME_TEMPL": "{{animeTime}} days on anime and {{mangaTime}} days on manga",
     "HOURS_SHORT": "H",
-    "year_ago": "year ago",
-    "years_ago": "years ago",
-    "month_ago": "month ago",
-    "months_ago": "months ago",
-    "week_ago": "week ago",
-    "weeks_ago": "weeks ago",
-    "day_ago": "day ago",
-    "days_ago": "days ago",
-    "hour_ago": "hour ago",
-    "hours_ago": "hours ago",
-    "minute_ago": "minute ago",
-    "minutes_ago": "minutes ago",
-    "second_ago": "second ago",
-    "seconds_ago": "seconds ago",
+
+    "year_0_ago": "year ago",
+    "year_1_ago": "years ago",
+
+    "month_0_ago": "month ago",
+    "month_1_ago": "months ago",
+
+    "week_0_ago": "week ago",
+    "week_1_ago": "weeks ago",
+
+    "day_0_ago": "day ago",
+    "day_1_ago": "days ago",
+
+    "hour_0_ago": "hour ago",
+    "hour_1_ago": "hours ago",
+
+    "minute_0_ago": "minute ago",
+    "minute_1_ago": "minutes ago",
+
+    "second_0_ago": "second ago",
+    "second_1_ago": "seconds ago",
+    
     "TIME_NOW": "just now",
     "ANIME_HISTORY": "Recent activity",
     "LINKED_IN": "Hire me",
     "GITHUB": "Review my code",
-    "TELEGRAM": "Shoot me a msg"
+    "TELEGRAM": "Shoot me a msg",
+    "Favourite_anime": "My finest collection"
 }
