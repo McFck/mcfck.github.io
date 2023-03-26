@@ -1,0 +1,41 @@
+<div class="anime-stats-graphics__statistics-container">
+    <div class="anime-stats-graphics__statistics-block">
+        <div class="anime-stats-graphics__statistics-header">
+            <span class="anime-stats-graphics__header-medium">{{'TOTAL_WATCHED_ANIME' | translate}}</span>
+            <span class="anime-stats-graphics__header-data">{{statistics['anime']?.totalAmount}}</span>
+        </div>
+        <div class="anime-stats-graphics__piechart-pie">
+            <div class="anime-stats-graphics__piechart-pie" id="status-anime-pie"></div>
+        </div>
+    </div>
+
+    <div class="anime-stats-graphics__statistics-block">
+        <div class="anime-stats-graphics__statistics-header">
+            <span class="anime-stats-graphics__header-medium">{{'TOTAL_READ_MANGA' | translate}}</span>
+            <span class="anime-stats-graphics__header-data">{{statistics['manga']?.totalAmount}}</span>
+        </div>
+        <div class="anime-stats-graphics__piechart-pie">
+            <div class="anime-stats-graphics__piechart-pie" id="status-manga-pie"></div>
+        </div>
+    </div>
+
+    <div class="anime-stats-graphics__statistics-block">
+        <div class="anime-stats-graphics__statistics-header">
+            <span class="anime-stats-graphics__header-medium">{{'MEDIUM_RATING' | translate}}</span>
+            <span class="anime-stats-graphics__header-data">{{statistics['anime']?.mediumScore | number:'1.0-1'}}</span>
+        </div>
+        <div class="anime-stats-graphics__piechart-pie">
+            <div class="anime-stats-graphics__piechart-pie" id="score-anime-bar"></div>
+        </div>
+    </div>
+
+    <div class="anime-stats-graphics__statistics-block">
+        <div class="anime-stats-graphics__statistics-header">
+            <span class="anime-stats-graphics__header-medium">{{'MEDIUM_RATING' | translate}}</span>
+            <span class="anime-stats-graphics__header-data">{{statistics['manga']?.mediumScore | number:'1.0-1'}}</span>
+        </div>
+        <div class="anime-stats-graphics__piechart-pie">
+            <div class="anime-stats-graphics__piechart-pie" id="score-manga-bar"></div>
+        </div>
+    </div>
+</div>

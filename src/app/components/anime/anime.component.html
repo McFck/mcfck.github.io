@@ -16,47 +16,28 @@
             <app-anime-time [allData]="allData"></app-anime-time>
 
             <div>
-                <div class="anime__statistics-container">
-                    <div class="anime__statistics-block">
-                        <div class="anime__statistics-header">
-                            <span class="anime__header-medium">{{'TOTAL_WATCHED_ANIME' | translate}}</span>
-                            <span class="anime__header-data">{{statistics['anime']?.totalAmount}}</span>
-                        </div>
-                        <div class="anime__piechart-pie">
-                            <div class="anime__piechart-pie" id="status-anime-pie"></div>
-                        </div>
-                    </div>
-
-                    <div class="anime__statistics-block">
-                        <div class="anime__statistics-header">
-                            <span class="anime__header-medium">{{'TOTAL_READ_MANGA' | translate}}</span>
-                            <span class="anime__header-data">{{statistics['manga']?.totalAmount}}</span>
-                        </div>
-                        <div class="anime__piechart-pie">
-                            <div class="anime__piechart-pie" id="status-manga-pie"></div>
-                        </div>
-                    </div>
-
-                    <div class="anime__statistics-block">
-                        <div class="anime__statistics-header">
-                            <span class="anime__header-medium">{{'MEDIUM_RATING' | translate}}</span>
-                            <span class="anime__header-data">{{statistics['anime']?.mediumScore | number:'1.0-1'}}</span>
-                        </div>
-                        <div class="anime__piechart-pie">
-                            <div class="anime__piechart-pie" id="score-anime-bar"></div>
-                        </div>
-                    </div>
-
-                    <div class="anime__statistics-block">
-                        <div class="anime__statistics-header">
-                            <span class="anime__header-medium">{{'MEDIUM_RATING' | translate}}</span>
-                            <span class="anime__header-data">{{statistics['manga']?.mediumScore | number:'1.0-1'}}</span>
-                        </div>
-                        <div class="anime__piechart-pie">
-                            <div class="anime__piechart-pie" id="score-manga-bar"></div>
-                        </div>
-                    </div>
-                </div>
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="anime__nav">
+                    <li [routerLinkActive]="['active']" [ngbNavItem]="1" [destroyOnHide]="false" class="anime__nav-item">
+                        <a ngbNavLink>{{'GENERAL_STATS' | translate}}</a>
+                        <ng-template ngbNavContent>
+                            <app-anime-stats-graphics [allData]="allData" [statistics]="statistics"></app-anime-stats-graphics>
+                        </ng-template>
+                    </li>
+                    <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="anime__nav-item">
+                        <a ngbNavLink>{{'ANIME_LIST' | translate}}</a>
+                        <ng-template ngbNavContent>
+                            <app-anime-stats-lists [data]="allData.anime"></app-anime-stats-lists>
+                        </ng-template>
+                    </li>
+                    <li [routerLinkActive]="['active']" [ngbNavItem]="3" class="anime__nav-item">
+                        <a ngbNavLink>{{'MANGA_LIST' | translate}}</a>
+                        <ng-template ngbNavContent let-active>
+                            <app-anime-stats-lists [data]="allData.manga"></app-anime-stats-lists>
+                        </ng-template>
+                    </li>
+                </ul>
+                
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
             </div>
             <div>
                 <app-anime-history></app-anime-history>

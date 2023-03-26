@@ -1,0 +1,165 @@
+.anime-stats-graphics {
+    &__wrapper {
+      position: relative;
+    }
+  
+    &__time,
+    &__credits {
+      display: flex;
+      justify-content: center;
+      // margin-bottom: 15px;
+      &-provider {
+        font-weight: 700;
+        margin-left: 5px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: -moz-fit-content;
+        width: fit-content;
+      }
+    }
+    &__time {
+      margin-bottom: 30px;
+    }
+    &__statistics {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      &-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 5px;
+        &__block {
+          display: flex;
+          flex-direction: row;
+        }
+      }
+      &-container {
+        flex-wrap: wrap;
+        flex-direction: row;
+        display: flex;
+        justify-content: space-around;
+      }
+      &-block {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__piechart {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      &-pie {
+        display: flex;
+      }
+    }
+    &__header {
+      font-size: 3em;
+      display: flex;
+      justify-content: center;
+      &-medium,
+      &-data {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: fit-content;
+      }
+      &-data {
+        font-weight: 500;
+        margin-left: 5px;
+      }
+    }
+    &__chika {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      margin: -100px 0 0 -60px;
+      -webkit-animation: spin 4s linear infinite;
+      -moz-animation: spin 4s linear infinite;
+      animation: pulse 1s linear infinite;
+    }
+  
+    @-webkit-keyframes pulse {
+      0% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+      50% {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+      }
+      100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+    @keyframes pulse {
+      0% {
+        -webkit-transform: scale(1.4);
+        transform: scale(1.4);
+      }
+      50% {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+      }
+      100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+  
+    // @-moz-keyframes spin {
+    //     100% { -moz-transform: rotate(360deg); }
+    // }
+    // @-webkit-keyframes spin {
+    //     100% { -webkit-transform: rotate(360deg); }
+    // }
+    // @keyframes spin {
+    //     100% {
+    //         -webkit-transform: rotate(360deg);
+    //         transform:rotate(360deg);
+    //     }
+    // }
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  
+  
+  .blurred-effect {
+    &:before {
+      content: '';
+      backdrop-filter: blur(5px);
+      @media (max-width:900px) {
+        backdrop-filter: unset;
+      }
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    
+    position: relative;
+    background-color: rgb(193 198 219 / 83%);
+    @media (max-width:900px) {
+      background-color: unset;
+    }
+  }
+  
+  .bg { 
+    @media (max-width:900px) {
+      background-image: none;
+    }
+    background-image: url("../../../assets/anime_bg_1.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }

@@ -6,7 +6,9 @@
                 <img class="top-anime-item-img" src="{{ imageDataPath + (data.anime?.image?.original || data.manga?.image?.original) }}">
             </div>
             <div class="top-anime-item-name">
-                <span>{{data.anime?.[fieldName] || data.manga?.[fieldName]}}</span>
+                <a href="{{ imageDataPath + (data.anime?.url || data.manga?.url) }}" class="top-anime-item-name__text">
+                    {{data.anime?.[fieldName] || data.manga?.[fieldName]}}
+                </a>
                 <span>{{data.score}} ❤️</span>
             </div>
         </div>

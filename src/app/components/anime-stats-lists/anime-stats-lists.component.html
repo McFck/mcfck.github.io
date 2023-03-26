@@ -1,0 +1,22 @@
+<mat-form-field class="anime-stat-lists__filter">
+  <mat-label>{{'Filter' | translate}}</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="{{'EXAMPLE SEARCH' | translate}}" #input>
+</mat-form-field>
+<div *ngFor="let source of dataSources">
+  <mat-expansion-panel class="anime-stat-lists__extension" expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="anime-stat-lists__list-title">{{isAnime ? ((source.key + "_anime") | translate) : ((source.key + "_manga") | translate)}}</div>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span *ngIf="source.summary?.episodes" class="anime-stat-lists__summary">
+          {{ (isAnime ? 'SUMMARY_TABLE_EPISODES' : 'SUMMARY_TABLE_CHAPTERS') | translate: {episodes: source.summary?.episodes} }} 
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="anime-stat-lists__table">
+      <app-anime-stats-table *ngIf="source.data" [tableData]="source.data" [isAnime]="isAnime" [filter]="filterValue"></app-anime-stats-table>
+    </div>
+  </mat-expansion-panel>
+</div>
+

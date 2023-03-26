@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, of } from 'rxjs';
 import { expand, reduce, switchMap, takeWhile } from 'rxjs/operators';
-import { MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
+import { BASE_ANIME_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
 import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 import { TranslateService } from './translate.service';
 
@@ -11,31 +11,29 @@ import { TranslateService } from './translate.service';
 })
 export class AnimeService {
   constructor(private http: HttpClient, private translateService: TranslateService) {}
-
-  baseUrl = 'https://shikimori.one';
   userId = "1121790";
 
   getUserHistory(): Observable<AnimeHistory[]> {
-    return this.http.get<AnimeHistory[]>(`${this.baseUrl}/api/users/${this.userId}/history?limit=${MAX_ANIME_HISTORY_REQUEST}&locale=${this.translateService.getLanguage()}`);
+    return this.http.get<AnimeHistory[]>(`${BASE_ANIME_URL}/api/users/${this.userId}/history?limit=${MAX_ANIME_HISTORY_REQUEST}&locale=${this.translateService.getLanguage()}`);
   }
 
   getUserList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/v2/user_rates/?user_id=${this.userId}`);
+    return this.http.get(`${BASE_ANIME_URL}/api/v2/user_rates/?user_id=${this.userId}`);
   }
 
   getAnimeDetailedList(ids:any[], page = 1): Observable<any> {
     if (ids?.length > 0) {
-      return this.http.get(`${this.baseUrl}/api/animes/?ids=${ids.join(',')}&limit=50&page=${page}`);
+      return this.http.get(`${BASE_ANIME_URL}/api/animes/?ids=${ids.join(',')}&limit=50&page=${page}`);
     }
     return of([]);
   }
 
   getAnimeList(page = 1): Observable<AnimeData[]> {
-    return this.http.get<AnimeData[]>(`${this.baseUrl}/api/users/${this.userId}/anime_rates?limit=${MAX_VALUES_REQUEST[ANIME_TYPE.ANIME]}&page=${page}`);
+    return this.http.get<AnimeData[]>(`${BASE_ANIME_URL}/api/users/${this.userId}/anime_rates?limit=${MAX_VALUES_REQUEST[ANIME_TYPE.ANIME]}&page=${page}`);
   }
 
   getMangaList(page = 1): Observable<AnimeData[]> {
-    return this.http.get<AnimeData[]>(`${this.baseUrl}/api/users/${this.userId}/manga_rates?limit=${MAX_VALUES_REQUEST[ANIME_TYPE.MANGA]}&page=${page}`);
+    return this.http.get<AnimeData[]>(`${BASE_ANIME_URL}/api/users/${this.userId}/manga_rates?limit=${MAX_VALUES_REQUEST[ANIME_TYPE.MANGA]}&page=${page}`);
   }
 
   getAllAnimeList(): Observable<AnimeData[]> {

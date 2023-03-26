@@ -36,6 +36,8 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   
   isLoading = true;
 
+  active = 1;
+
   ngOnInit(): void {
     this.isLoading = true;
     this.translationService.localeChange.subscribe(() => {

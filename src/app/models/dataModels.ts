@@ -1,3 +1,6 @@
+import { TableData } from "../components/anime-stats-lists/anime-stats-lists.component";
+import { MAIN_ANIME_STATUSES } from "../constants/generalConsts";
+
 export enum ANIME_TYPE {
   MANGA = 'manga',
   ANIME = 'anime'
@@ -104,4 +107,12 @@ export interface AnimeMangaStatistics {
   totalAmount?: number;
   mediumScore?: string;
   scoreChart?: number[];
+}
+
+export interface DataSourceTransfer {
+  key: MAIN_ANIME_STATUSES, 
+  data: TableData[], 
+  summary: {
+    episodes: number
+  }
 }

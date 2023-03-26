@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { BASE_ANIME_URL } from 'src/app/constants/generalConsts';
 import { AnimeHistory } from 'src/app/models/dataModels';
 import { TranslatePipe } from 'src/app/pipes/translate.pipe';
 import { AnimeService } from 'src/app/services/anime.service';
@@ -23,7 +24,7 @@ export class AnimeHistoryComponent implements OnInit {
   history: AnimeHistory[];
 
   historyFieldName = 'name';
-  imageDataPath = 'https://shikimori.one';
+  imageDataPath = BASE_ANIME_URL;
 
   ngOnInit(): void {
     this.getHistory();

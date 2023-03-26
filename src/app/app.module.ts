@@ -14,16 +14,26 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { TranslateService } from './services/translate.service';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { AnimeHistoryComponent } from './components/anime-history/anime-history.component';
 import { DateAgoPipe } from './pipes/dateAgo.pipe';
 import { AnimeTimeComponent } from './components/anime-time/anime-time.component';
 import { TopAnimeComponent } from './components/top-anime/top-anime.component';
+import { AnimeStatsGraphicsComponent } from './components/anime-stats-graphics/anime-stats-graphics.component';
+import { AnimeStatsListsComponent } from './components/anime-stats-lists/anime-stats-lists.component';
+import { AnimeStatsTableComponent } from './components/anime-stats-table/anime-stats-table.component';
 
 export function setupTranslateServiceFactory(
-  service: TranslateService): Function {
-return () => service.use('en');
+  service: TranslateService
+): Function {
+  return () => service.use('en');
 }
 
 @NgModule({
@@ -38,7 +48,10 @@ return () => service.use('en');
     DateAgoPipe,
     AnimeHistoryComponent,
     AnimeTimeComponent,
-    TopAnimeComponent
+    TopAnimeComponent,
+    AnimeStatsGraphicsComponent,
+    AnimeStatsListsComponent,
+    AnimeStatsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,20 +61,24 @@ return () => service.use('en');
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatExpansionModule
   ],
   providers: [
     TranslateService,
     {
       provide: APP_INITIALIZER,
       useFactory: setupTranslateServiceFactory,
-      deps: [
-        TranslateService
-      ],
-      multi: true
+      deps: [TranslateService],
+      multi: true,
     },
     TranslatePipe
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
