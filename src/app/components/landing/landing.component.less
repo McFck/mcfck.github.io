@@ -1,48 +1,84 @@
-.component{
-    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
-    width: 750px;
-    margin:0 auto;
-    padding: 3rem;
+.frame {
+  position: fixed;
+  z-index: 10;
+  left: max(20px, 4vmin);
+  right: max(20px, 4vmin);
+  top: max(20px, 4vmin);
+  bottom: max(20px, 4vmin);
+  mix-blend-mode: difference;
+  pointer-events: none;
+
+
+  @media (max-width: 900px) {
+    top: max(99px, 19vmin);
   }
-  
-  .component blockquote.quote {
-      position: relative; 
-      text-align: center;
-      padding: 1rem 1.2rem;
-      width: 80%;  /* create space for the quotes */
-      color: #484748;
-      margin: 1rem auto 2rem;
+}
+
+.frame_line {
+  position: absolute;
+  background-color: #fff;
+  opacity: 0.5;
+}
+
+.frame_line-right {
+  right: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.frame_line-top {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.frame_line-bottom {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.frame_line-left {
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.siteHeader {
+  position: fixed;
+  z-index: 10;
+  left: calc(max(20px, 4vmin) * 2);
+  top: calc(max(20px, 4vmin) * 2);
+  font-family: "Neue Montreal";
+
+  @media (max-width: 900px) {
+    top: calc(max(53px, 10vmin) * 2);
   }
-  .component blockquote.EN {
-      background:
-      linear-gradient(to right, #039be5 4px, transparent 4px) 0 100%,
-      linear-gradient(to left, #039be5 4px, transparent 4px) 100% 0,
-      linear-gradient(to bottom, #039be5 4px, transparent 4px) 100% 0,
-      linear-gradient(to top, #039be5 4px, transparent 4px) 0 100%;
-      background-repeat: no-repeat;
-      background-size: 20px 20px;
-  }
-  
-  /* -- create the quotation marks -- */
-  .component blockquote.quote:before,
-  .component blockquote.quote:after{
-      font-family: FontAwesome;
-      position: absolute;
-      color: #039be5;
-      font-size: 34px;
-  }
-  
-  .component blockquote.EN:before{
-      content: "\f10d";
-      top: -12px;
-      margin-right: -20px;
-      right: 100%;
-  }
-  
-  .component blockquote.EN:after{
-      content: "\f10e";
-      margin-left: -20px;
-      left: 100%;  
-      top: auto;
-      bottom: -20px;
-  }
+}
+
+.siteHeader_title {
+  margin: -0.1em 0 0 -0.04em;
+  font-weight: 200;
+  font-size: 60px;
+  font-family: "Neue Montreal";
+}
+
+.home {
+  position: absolute;
+  right: calc(max(20px, 4vmin) * 2);
+  bottom: calc(max(20px, 4vmin) * 2);
+  white-space: nowrap;
+}
+
+.home_aboutme {
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.home_aboutme span {
+  display: block;
+}

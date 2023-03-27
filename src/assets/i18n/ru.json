@@ -13,6 +13,8 @@
   "manga by score": "Оценки манги",
   "ANIME": "Аниме",
   "MANGA": "Манга",
+  "Anime": "Аниме",
+  "Movies": "Фильмы",
   "LOADING": "Загрузка...",
   "STATUS": "Статус",
   "AMOUNT": "Количество",
@@ -35,9 +37,9 @@
 
   "TIME_NOW": "только что",
   "ANIME_HISTORY": "Последняя активность",
-  "LINKED_IN": "Отличный кандидат на работу",
-  "GITHUB": "Вкусные спаггети",
-  "TELEGRAM": "Моя телега",
+  "LINKED_IN": "Для рабочих предложений",
+  "GITHUB": "Ревью моего кода",
+  "TELEGRAM": "Для обратной связи",
 
   "year_0_ago": "год назад",
   "year_1_ago": "года назад",
@@ -96,5 +98,6 @@
   "Select page of": "Select page of",
   "SUMMARY_TABLE_EPISODES": "Эпизоды: {{episodes}}",
   "SUMMARY_TABLE_CHAPTERS": "Главы: {{episodes}}",
-  "SUMMARY_TABLE_ENTRIES": "Всего: {{entries}}"
+  "SUMMARY_TABLE_ENTRIES": "Всего: {{entries}}",
+  "Under construction": "В разработке"
 }
