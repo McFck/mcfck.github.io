@@ -7,7 +7,7 @@ export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
 
 export const MAX_ANIME_HISTORY_REQUEST = 2;
 
-export const BASE_ANIME_URL = "https://shikimori.one";
+export const BASE_ANIME_URL = "https://shikimori.me";
 
 export enum MAIN_ANIME_STATUSES {
     PLANNED = 'planned',
