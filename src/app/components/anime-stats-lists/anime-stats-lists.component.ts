@@ -60,7 +60,6 @@ export class AnimeStatsListsComponent {
           }})
         }
       }
-      console.log("VALUES", this.dataSources)
       this.isAnime = value.findIndex((entry)=>entry.anime?.episodes > 0) !== -1;
     }
   }

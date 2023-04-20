@@ -94,32 +94,41 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
   }
 
   translatePaginator(paginator: MatPaginator): void {
-    paginator._intl.itemsPerPageLabel =
-      this.translatePipe.transform('ItemsPerPage');
-    paginator._intl.nextPageLabel = this.translatePipe.transform('NextPage');
-    paginator._intl.previousPageLabel =
-      this.translatePipe.transform('PreviousPage');
-    paginator._intl.getRangeLabel = (
-      page: number,
-      pageSize: number,
-      length: number
-    ) => {
-      if (length == 0 || pageSize == 0) {
-        return this.translatePipe.transform('OUT_OF', {first: 0, second: length});//`0 van ${length}`;
-      }
+    if (paginator?._intl) {
+      paginator._intl.itemsPerPageLabel =
+        this.translatePipe.transform('ItemsPerPage');
+      paginator._intl.nextPageLabel = this.translatePipe.transform('NextPage');
+      paginator._intl.previousPageLabel =
+        this.translatePipe.transform('PreviousPage');
+      paginator._intl.getRangeLabel = (
+        page: number,
+        pageSize: number,
+        length: number
+      ) => {
+        if (length == 0 || pageSize == 0) {
+          return this.translatePipe.transform('OUT_OF', {
+            first: 0,
+            second: length,
+          }); //`0 van ${length}`;
+        }
 
-      length = Math.max(length, 0);
+        length = Math.max(length, 0);
 
-      const startIndex = page * pageSize;
+        const startIndex = page * pageSize;
 
-      // If the start index exceeds the list length, do not try and fix the end index to the end.
-      const endIndex =
-        startIndex < length
-          ? Math.min(startIndex + pageSize, length)
-          : startIndex + pageSize;
+        // If the start index exceeds the list length, do not try and fix the end index to the end.
+        const endIndex =
+          startIndex < length
+            ? Math.min(startIndex + pageSize, length)
+            : startIndex + pageSize;
 
-      return this.translatePipe.transform('N_OUT_OF', {first: startIndex + 1, second: endIndex, third: length});//`${startIndex + 1} - ${endIndex} van ${length}`;
-    };
-    paginator._intl.changes.next();
+        return this.translatePipe.transform('N_OUT_OF', {
+          first: startIndex + 1,
+          second: endIndex,
+          third: length,
+        }); //`${startIndex + 1} - ${endIndex} van ${length}`;
+      };
+      paginator._intl.changes.next();
+    }
   }
 }

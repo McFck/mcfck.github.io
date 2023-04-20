@@ -1,5 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+
+const DEFAULT_LANGUAGE = 'en';
 
 @Injectable({ providedIn: 'root' })
 export class TranslateService {
@@ -8,7 +11,7 @@ export class TranslateService {
 
   constructor(private http: HttpClient) {}
 
-  localeChange: EventEmitter<void> = new EventEmitter();
+  localeChange: BehaviorSubject<void> = new BehaviorSubject<void>(null);
 
   getLanguage(): string {
     return this.selectedLanguage;
@@ -23,11 +26,15 @@ export class TranslateService {
           this.data = response || {};
           resolve(this.data);
           this.selectedLanguage = lang;
-          this.localeChange.emit();
+          this.localeChange.next();
         },
         (err) => {
-          this.data = {};
-          resolve(this.data);
+          if (lang == DEFAULT_LANGUAGE) {
+            this.data = {};
+            resolve(this.data);
+          } else {
+            this.use(DEFAULT_LANGUAGE)
+          }
         }
       );
     });
