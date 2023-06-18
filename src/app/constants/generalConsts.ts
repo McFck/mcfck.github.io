@@ -8,7 +8,7 @@ export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
 export const MAX_ANIME_HISTORY_REQUEST = 2;
 
 export const BASE_ANIME_URL = 'https://shikimori.me';
-export const BASE_BACKEND_URL = 'http://localhost:3000'; //CHANGE ME;
+export const BASE_BACKEND_URL = 'https://backend-ojji.onrender.com/'; //http://localhost:3000 CHANGE ME
 
 export enum MAIN_ANIME_STATUSES {
   PLANNED = 'planned',
