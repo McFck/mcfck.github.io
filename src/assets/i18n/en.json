@@ -16,6 +16,7 @@
   "DATA_PROVIDER": "Data provided by:",
   "TOTAL_WATCHED_ANIME": "Total watched anime:",
   "TOTAL_READ_MANGA": "Total read manga:",
+  "TOTAL_GENERAL_COUNTER": "Total entries",
   "anime by status": "Anime by statuses",
   "manga by status": "Manga by statuses",
   "MEDIUM_RATING": "Medium rating",
@@ -40,8 +41,10 @@
   "on_hold_manga": "Hold",
   "rewatching_manga": "Rereading",
   "TIME_SPENT_ANIME_SUM": "Time spent on anime & manga",
-  "TIME_SPENT_ANIME_TEMPL": "{{animeTime}} days on anime and {{mangaTime}} days on manga",
-  "HOURS_SHORT": "H",
+  "TIME_SPENT_ANIME_TEMPL": "{{animeTime}} days on anime",
+  "TIME_SPENT_MANGA_TEMPL": "{{mangaTime}} days on manga",
+  "HOURS_SHORT": "HOURS",
+  "DAYS_SHORT": "DAYS",
 
   "year_0_ago": "year ago",
   "year_1_ago": "years ago",
@@ -66,9 +69,11 @@
 
   "TIME_NOW": "just now",
   "ANIME_HISTORY": "Recent activity",
+
   "LINKED_IN": "Hire me",
   "GITHUB": "Review my code",
   "TELEGRAM": "Shoot me a msg",
+
   "Favourite_anime": "My finest collection",
   "GENERAL_STATS": "General statistics",
   "ANIME_LIST": "Anime list",
@@ -90,6 +95,7 @@
   "NOT RATED": "—",
   "ONGOING": "ongoing",
   "Episodes": "Episodes",
+  "Chapters": "Chapters",
   "OUT_OF": "{{first}} out of {{second}}",
   "ItemsPerPage": "Items per page",
   "NextPage": "Next page",

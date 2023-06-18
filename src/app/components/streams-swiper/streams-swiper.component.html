@@ -1,0 +1,16 @@
+<swiper-container fmSwiper [config]="config" init="false">
+    <swiper-slide *ngFor="let data of _topArr" #switch>
+        <fm-stream-item>
+            <a class="swiper-display-link" href="{{ imageDataPath + (data.anime?.url || data.manga?.url) }}">
+                <div class="swiper-display-item">
+                    <div class="swiper-display-thumbnail-container">
+                        <img class="swiper-display-item-img" src="{{ imageDataPath + (data.anime?.image?.original || data.manga?.image?.original) }}">
+                    </div>
+                    <div class="swiper-display-item-name" >
+                        <span>{{data.score}} ❤️</span>
+                    </div>
+                </div>
+            </a>
+        </fm-stream-item>
+    </swiper-slide>
+</swiper-container>

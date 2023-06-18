@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, startWith } from 'rxjs/operators';
 import { TranslateService } from './services/translate.service';
 import { Title } from '@angular/platform-browser';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { register } from 'swiper/element/bundle'
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,12 @@ export class AppComponent {
     private translationService: TranslateService,
     private translationPipe: TranslatePipe,
     private titleService: Title
-    ) {}
+    ) {
+      register();
+    }
   
   ngOnInit() {
-    this.translationService.localeChange.subscribe(()=>{
+    this.translationService.localeChange.pipe(startWith()).subscribe(()=>{
       this.titleService.setTitle(this.translationPipe.transform("TITLE"));
 
       const queryParams = this.router.parseUrl(this.router.url).queryParams;

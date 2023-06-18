@@ -1,8 +1,10 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  HostListener,
   Input,
   OnInit,
   ViewChild,
@@ -13,6 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TranslatePipe } from 'src/app/pipes/translate.pipe';
 import { TranslateService } from 'src/app/services/translate.service';
 import { TableData } from '../anime-stats-lists/anime-stats-lists.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-anime-stats-table',
@@ -38,36 +41,55 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
 
   dataSource: MatTableDataSource<TableData>;
 
-  displayedColumns: string[] = [
+  defaultColumns: string[] = [
     'orderNumber',
     'name',
     'score',
     'episodes',
     'kind',
   ];
+
+  mobileColumns: string[] = ['orderNumber', 'name', 'score'];
+
+  displayedColumns: string[] = [...this.defaultColumns];
+
   historyFieldName = 'name';
 
   constructor(
     private translationService: TranslateService,
     private cdr: ChangeDetectorRef,
-    private translatePipe: TranslatePipe
+    private translatePipe: TranslatePipe,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit() {
     if (!this.isAnime) {
-      this.displayedColumns = [
+      this.defaultColumns = [
         'orderNumber',
         'name',
         'score',
         'chapters',
         'kind',
       ];
+
+      this.displayedColumns = [...this.defaultColumns];
     }
+
     this.translationService.localeChange.subscribe(() => {
       this.updateHistoryFieldName();
       this.translatePaginator(this.paginator);
       this.cdr.detectChanges();
     });
+
+    this.breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.displayedColumns = this.mobileColumns;
+        } else {
+          this.displayedColumns = this.defaultColumns;
+        }
+      });
   }
 
   ngAfterViewInit(): void {

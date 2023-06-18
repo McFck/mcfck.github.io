@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +29,14 @@ import { TopAnimeComponent } from './components/top-anime/top-anime.component';
 import { AnimeStatsGraphicsComponent } from './components/anime-stats-graphics/anime-stats-graphics.component';
 import { AnimeStatsListsComponent } from './components/anime-stats-lists/anime-stats-lists.component';
 import { AnimeStatsTableComponent } from './components/anime-stats-table/anime-stats-table.component';
+import { ResponsiveTemplateDirective } from './directives/ResponsiveTemplateDirective';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SwiperDirective } from './directives/SwiperDirective';
+import { StreamsSwiperComponent } from './components/streams-swiper/streams-swiper.component';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -52,6 +60,9 @@ export function setupTranslateServiceFactory(
     AnimeStatsGraphicsComponent,
     AnimeStatsListsComponent,
     AnimeStatsTableComponent,
+    ResponsiveTemplateDirective,
+    SwiperDirective,
+    StreamsSwiperComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +78,14 @@ export function setupTranslateServiceFactory(
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatButtonModule,
+    FlexLayoutModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     TranslateService,
     {

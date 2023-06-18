@@ -1,84 +1,41 @@
-.frame {
-  position: fixed;
-  z-index: 10;
-  left: max(20px, 4vmin);
-  right: max(20px, 4vmin);
-  top: max(20px, 4vmin);
-  bottom: max(20px, 4vmin);
-  mix-blend-mode: difference;
-  pointer-events: none;
+.parallax {
+  /* The image used */
+  background-image: url("https://wallpaperaccess.com/full/1579893.jpg");
 
+  /* Set a specific height */
+  min-height: 500px; 
 
-  @media (max-width: 900px) {
-    top: max(99px, 19vmin);
-  }
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.frame_line {
-  position: absolute;
-  background-color: #fff;
-  opacity: 0.5;
+.parallax1 {
+  /* The image used */
+  background-image: url("https://cdn.wallpapersafari.com/89/24/iP0rJE.jpg");
+
+  /* Set a specific height */
+  min-height: 500px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.frame_line-right {
-  right: 0;
-  top: 0;
-  width: 1px;
-  height: 100%;
-}
+.parallax2 {
+  /* The image used */
+  background-color: #133d60;
 
-.frame_line-top {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 1px;
-}
+  /* Set a specific height */
+  min-height: 500px; 
 
-.frame_line-bottom {
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-}
-
-.frame_line-left {
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 100%;
-}
-
-.siteHeader {
-  position: fixed;
-  z-index: 10;
-  left: calc(max(20px, 4vmin) * 2);
-  top: calc(max(20px, 4vmin) * 2);
-  font-family: "Neue Montreal";
-
-  @media (max-width: 900px) {
-    top: calc(max(53px, 10vmin) * 2);
-  }
-}
-
-.siteHeader_title {
-  margin: -0.1em 0 0 -0.04em;
-  font-weight: 200;
-  font-size: 60px;
-  font-family: "Neue Montreal";
-}
-
-.home {
-  position: absolute;
-  right: calc(max(20px, 4vmin) * 2);
-  bottom: calc(max(20px, 4vmin) * 2);
-  white-space: nowrap;
-}
-
-.home_aboutme {
-  line-height: 1.5;
-  font-weight: 600;
-}
-
-.home_aboutme span {
-  display: block;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

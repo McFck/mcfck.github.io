@@ -26,7 +26,7 @@ export class ChartsHelper {
         chartTitle: string,
         tooltip: Tooltip,
         additionalOptions?: {}
-      ): void {
+      ): Highcharts.Chart {
         const data: any[] = ChartsHelper.prepareChartData(originalData, tooltip);
     
         const defaultOptions: any = {
@@ -90,6 +90,6 @@ export class ChartsHelper {
           ],
         };
     
-        Highcharts.chart(divId, { ...defaultOptions, ...additionalOptions } as any);
+        return Highcharts.chart(divId, { ...defaultOptions, ...additionalOptions } as any);
       }
 }

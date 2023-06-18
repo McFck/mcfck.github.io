@@ -42,7 +42,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     this.translationService.localeChange.subscribe(() => {
       for (let type of Object.keys(this.allData)) {
-        this.drawTypeGroupGraphics(type as ANIME_TYPE);
+        // this.drawTypeGroupGraphics(type as ANIME_TYPE);
       }
     });
   }
@@ -60,11 +60,11 @@ export class AnimeComponent implements OnInit, AfterViewInit {
 
       this.allData = {...this.allData};
 
-      this.drawStatusPie(ANIME_TYPE.ANIME);
-      this.drawStatusPie(ANIME_TYPE.MANGA);
+      // this.drawStatusPie(ANIME_TYPE.ANIME);
+      // this.drawStatusPie(ANIME_TYPE.MANGA);
 
-      this.drawScoreBar(ANIME_TYPE.ANIME);
-      this.drawScoreBar(ANIME_TYPE.MANGA);
+      // this.drawScoreBar(ANIME_TYPE.ANIME);
+      // this.drawScoreBar(ANIME_TYPE.MANGA);
 
       this.statistics[ANIME_TYPE.ANIME] = {
         mediumScore: AnimeHelper.calculateMediumScoreStatistics(animeData).toFixed(2),
@@ -78,74 +78,74 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  drawTypeGroupGraphics(type: ANIME_TYPE): void {
-    this.drawStatusPie(type);
-    this.drawScoreBar(type);
-  }
+  // drawTypeGroupGraphics(type: ANIME_TYPE): void {
+  //   this.drawStatusPie(type);
+  //   this.drawScoreBar(type);
+  // }
 
-  drawStatusPie(type: ANIME_TYPE): void {
-    const dataMap = new Map<string, { name: string; value: number }>();
-    this.allData[type].forEach((val) => {
-      const map = dataMap.get(val.status);
-      if (!map) {
-        dataMap.set(val.status, { name: this.translationPipe.transform(`${val.status}_${type}`), value: 1 });
-      } else {
-        map.value++;
-        dataMap.set(val.status, map);
-      }
-    });
-    ChartsHelper.drawChart(
-      `status-${type}-pie`,
-      Array.from(dataMap.values()),
-      'pie',
-      this.translationPipe.transform(`${type} by status`),
-      { headerName: this.translationPipe.transform('STATUS'), pointName: this.translationPipe.transform('AMOUNT') }
-    );
-  }
+  // drawStatusPie(type: ANIME_TYPE): void {
+  //   const dataMap = new Map<string, { name: string; value: number }>();
+  //   this.allData[type].forEach((val) => {
+  //     const map = dataMap.get(val.status);
+  //     if (!map) {
+  //       dataMap.set(val.status, { name: this.translationPipe.transform(`${val.status}_${type}`), value: 1 });
+  //     } else {
+  //       map.value++;
+  //       dataMap.set(val.status, map);
+  //     }
+  //   });
+  //   ChartsHelper.drawChart(
+  //     `status-${type}-pie`,
+  //     Array.from(dataMap.values()),
+  //     'pie',
+  //     this.translationPipe.transform(`${type} by status`),
+  //     { headerName: this.translationPipe.transform('STATUS'), pointName: this.translationPipe.transform('AMOUNT') }
+  //   );
+  // }
 
-  drawScoreBar(type: ANIME_TYPE): void {
-    const originalData = AnimeHelper.calculateScoreStatistics(this.allData[type]).map((score, index)=>{
-      return {
-        name: `${index + 1} ⭐`,
-        value: score,
-        x: index + 1
-      }
-    });
-    const tooltip = { headerName: this.translationPipe.transform('SCORE'), pointName: this.translationPipe.transform('AMOUNT') };
-    ChartsHelper.drawChart(
-      `score-${type}-bar`,
-      AnimeHelper.calculateScoreStatistics(this.allData[type]).map((score, index)=>{
-        return {
-          name: `${index + 1} ⭐`,
-          value: score
-        }
-      }),
-      'bar',
-      this.translationPipe.transform(`${type} by score`),
-      tooltip,
-      {  
-        yAxis: {
-          visible: false,
-        },
-        xAxis: {
-          allowDecimals: false,
-          tickInterval: 1,
-          labels: {
-            step: 1,
-          },
-        },
-        series: [
-          {
-            name: null,
-            innerSize: '50%',
-            data: ChartsHelper.prepareChartData(originalData, tooltip),
-            dataLabels: {
-              enabled: true,
-            },
-            showInLegend: false,
-          },
-        ]
-      }
-    );
-  }
+  // drawScoreBar(type: ANIME_TYPE): void {
+  //   const originalData = AnimeHelper.calculateScoreStatistics(this.allData[type]).map((score, index)=>{
+  //     return {
+  //       name: `${index + 1} ⭐`,
+  //       value: score,
+  //       x: index + 1
+  //     }
+  //   });
+  //   const tooltip = { headerName: this.translationPipe.transform('SCORE'), pointName: this.translationPipe.transform('AMOUNT') };
+  //   ChartsHelper.drawChart(
+  //     `score-${type}-bar`,
+  //     AnimeHelper.calculateScoreStatistics(this.allData[type]).map((score, index)=>{
+  //       return {
+  //         name: `${index + 1} ⭐`,
+  //         value: score
+  //       }
+  //     }),
+  //     'bar',
+  //     this.translationPipe.transform(`${type} by score`),
+  //     tooltip,
+  //     {  
+  //       yAxis: {
+  //         visible: false,
+  //       },
+  //       xAxis: {
+  //         allowDecimals: false,
+  //         tickInterval: 1,
+  //         labels: {
+  //           step: 1,
+  //         },
+  //       },
+  //       series: [
+  //         {
+  //           name: null,
+  //           innerSize: '50%',
+  //           data: ChartsHelper.prepareChartData(originalData, tooltip),
+  //           dataLabels: {
+  //             enabled: true,
+  //           },
+  //           showInLegend: false,
+  //         },
+  //       ]
+  //     }
+  //   );
+  // }
 }

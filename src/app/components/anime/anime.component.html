@@ -33,9 +33,9 @@
                 </a>
             </div>
             
-            <app-top-anime [allData]="allData"></app-top-anime>
+            <app-top-anime *ngIf="(allData | json) != '{}'" [allData]="allData"></app-top-anime>
 
-            <app-anime-time [allData]="allData"></app-anime-time>
+            <app-anime-time *ngIf="(allData | json) != '{}'" [allData]="allData"></app-anime-time>
 
             <div>
                 <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="anime__nav">

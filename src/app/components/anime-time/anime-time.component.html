@@ -10,9 +10,15 @@
         <div class="anime-time__text">
             {{'TIME_SPENT_ANIME_SUM' | translate}}
         </div>
-        <div class="anime-time__amount" ngbTooltip="{{'TIME_SPENT_ANIME_TEMPL' | translate : {animeTime: '1', mangaTime: '1'} }}">
-            1 {{'HOURS_SHORT' | translate}}
+        <div class="anime-time__amount" [ngbTooltip]="tooltip">
+            {{ totalDaysSpent }} {{'DAYS_SHORT' | translate}}
         </div>
     </div>
 </div>
 
+<ng-template #tooltip>
+    <div class="d-flex flex-column">
+      <span>{{'TIME_SPENT_ANIME_TEMPL' | translate : {animeTime: totalAnimeDays} }}</span>
+      <span>{{'TIME_SPENT_MANGA_TEMPL' | translate : {mangaTime: totalMangaDays} }}</span>
+    </div>
+</ng-template>

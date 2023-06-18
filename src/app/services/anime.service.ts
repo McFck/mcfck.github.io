@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, of } from 'rxjs';
 import { expand, reduce, switchMap, takeWhile } from 'rxjs/operators';
-import { BASE_ANIME_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
+import { BASE_ANIME_URL, BASE_BACKEND_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
 import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 import { TranslateService } from './translate.service';
 
@@ -12,6 +12,10 @@ import { TranslateService } from './translate.service';
 export class AnimeService {
   constructor(private http: HttpClient, private translateService: TranslateService) {}
   userId = "1121790";
+
+  getTotalTimeSpentAnime(): Observable<number> {
+    return this.http.get<number>(`${BASE_BACKEND_URL}/main/total-time`);
+  }
 
   getUserHistory(): Observable<AnimeHistory[]> {
     return this.http.get<AnimeHistory[]>(`${BASE_ANIME_URL}/api/users/${this.userId}/history?limit=${MAX_ANIME_HISTORY_REQUEST}&locale=${this.translateService.getLanguage()}`);
@@ -42,6 +46,13 @@ export class AnimeService {
 
   getAllMangaList(): Observable<AnimeData[]> {
     return this.fetchPaginatedData(this.getMangaList, ANIME_TYPE.MANGA);
+  }
+
+  test(): Observable<any> {
+    return this.http.get('https://api.myanimelist.net/v2/anime/35968', {headers: {
+      'X-MAL-CLIENT-ID': '6d9b0f0711770ac5cc15082603f9c57c',
+      'Access-Control-Allow-Origin': '*'
+    }});
   }
 
   fetchPaginatedData<AnimeData>(

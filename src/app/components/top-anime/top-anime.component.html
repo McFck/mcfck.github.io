@@ -1,6 +1,7 @@
 <div class="top-anime__container">
     <span class="top-anime__header-text">{{'Favourite_anime' | translate}}</span>
-    <div class="top-anime__wrapper">
+
+    <div *ngIf='getScreenWidth >= 1000' class="top-anime__wrapper">
         <div *ngFor="let data of topArr" class="top-anime-item">
             <div class="top-anime-thumbnail-container">
                 <img class="top-anime-item-img" src="{{ imageDataPath + (data.anime?.image?.original || data.manga?.image?.original) }}">
@@ -14,3 +15,5 @@
         </div>
     </div>
 </div>
+
+<fm-streams-swiper *ngIf='getScreenWidth < 1000' [topArr]="topArr" [fieldName]="fieldName"></fm-streams-swiper>
