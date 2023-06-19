@@ -9,7 +9,7 @@ export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
 export const MAX_ANIME_HISTORY_REQUEST = 2;
 
 export const BASE_ANIME_URL = 'https://shikimori.me';
-export const BASE_BACKEND_URL = isDevMode() ? 'http://localhost:3000' : 'https://backend-ojji.onrender.com';
+export const BASE_BACKEND_URL = isInDevMode() ? 'http://localhost:3000' : 'https://backend-ojji.onrender.com';
 
 export enum MAIN_ANIME_STATUSES {
   PLANNED = 'planned',
@@ -44,4 +44,8 @@ export const MAIN_ANIME_GENRES_MAP = {
   'Romance': 22,
   'Sci-Fi': 24,
   'Ecchi': 9
+}
+
+export function isInDevMode():boolean {
+  return isDevMode();
 }
