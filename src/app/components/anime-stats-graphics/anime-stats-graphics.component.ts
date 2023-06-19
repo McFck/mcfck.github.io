@@ -101,10 +101,7 @@ export class AnimeStatsGraphicsComponent implements OnInit {
     ];
 
     if (Object.keys(this.genresStatistics).length !== 0) {
-      Object.values(MAIN_ANIME_GENRES_MAP).forEach((categoryId) => {
-        console.log(this.genresStatistics[categoryId]);
-        series[0].data.push(this.genresStatistics[categoryId]);
-      });
+      Object.values(MAIN_ANIME_GENRES_MAP).forEach((categoryId) => series[0].data.push(this.genresStatistics[categoryId]));
     }
 
     const chartHeight = window.innerWidth < 900 ? 'auto' : '50%';
