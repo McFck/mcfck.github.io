@@ -13,6 +13,10 @@ export class AnimeService {
   constructor(private http: HttpClient, private translateService: TranslateService) {}
   userId = "1121790";
 
+  getGeneralGenresStats(): Observable<any> {
+    return this.http.get(`${BASE_BACKEND_URL}/main/genres-stats`);
+  }
+
   getTotalTimeSpentAnime(): Observable<number> {
     return this.http.get<number>(`${BASE_BACKEND_URL}/main/total-time`);
   }
@@ -46,13 +50,6 @@ export class AnimeService {
 
   getAllMangaList(): Observable<AnimeData[]> {
     return this.fetchPaginatedData(this.getMangaList, ANIME_TYPE.MANGA);
-  }
-
-  test(): Observable<any> {
-    return this.http.get('https://api.myanimelist.net/v2/anime/35968', {headers: {
-      'X-MAL-CLIENT-ID': '6d9b0f0711770ac5cc15082603f9c57c',
-      'Access-Control-Allow-Origin': '*'
-    }});
   }
 
   fetchPaginatedData<AnimeData>(

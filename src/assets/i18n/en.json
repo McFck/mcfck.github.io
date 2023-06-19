@@ -104,5 +104,7 @@
   "Select page of": "Select page of",
   "SUMMARY_TABLE_EPISODES": "Episodes: {{episodes}}",
   "SUMMARY_TABLE_CHAPTERS": "Chapters: {{episodes}}",
-  "SUMMARY_TABLE_ENTRIES": "Total: {{entries}}"
+  "SUMMARY_TABLE_ENTRIES": "Total: {{entries}}",
+  "GENRES_TITLE": "Genres preferences",
+  "NO_DATA_CHART": "No data is available in the chart"
 }

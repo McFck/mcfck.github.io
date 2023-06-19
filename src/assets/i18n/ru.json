@@ -103,5 +103,18 @@
   "SUMMARY_TABLE_EPISODES": "Эпизоды: {{episodes}}",
   "SUMMARY_TABLE_CHAPTERS": "Главы: {{episodes}}",
   "SUMMARY_TABLE_ENTRIES": "Всего: {{entries}}",
-  "Under construction": "В разработке"
+  "Under construction": "В разработке",
+  "GENRES_TITLE": "Жанровые предпочтения",
+  "Action": "Экшен",
+  "Adventure": "Приключение",
+  "Comedy": "Комедия",
+  "Drama": "Драма",
+  "Slice of Life": "Ломтик жизни",
+  "Fantasy": "Фэнтези",
+  "Supernatural": "Сверхъестественное",
+  "Horror": "Ужас",
+  "Mystery": "Загадка",
+  "Suspense": "Саспенс",
+  "Romance": "Романтика",
+  "NO_DATA_CHART": "Данные отсутствуют"
 }

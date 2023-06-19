@@ -6,12 +6,26 @@ import {
   OnInit,
 } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import { GENERAL_PARAMETERS_NAME_MAP, MAIN_ANIME_STATUSES } from 'src/app/constants/generalConsts';
+import more from 'highcharts/highcharts-more';
+import {
+  GENERAL_PARAMETERS_NAME_MAP,
+  MAIN_ANIME_GENRES_MAP,
+  MAIN_ANIME_STATUSES,
+} from 'src/app/constants/generalConsts';
 import { AnimeHelper } from 'src/app/helpers/anime.helper';
 import { ChartsHelper } from 'src/app/helpers/charts.helper';
-import { AnimeMangaStatistics, ANIME_TYPE, AnimeData } from 'src/app/models/dataModels';
+import {
+  AnimeMangaStatistics,
+  ANIME_TYPE,
+  AnimeData,
+} from 'src/app/models/dataModels';
 import { TranslatePipe } from 'src/app/pipes/translate.pipe';
+import { AnimeService } from 'src/app/services/anime.service';
 import { TranslateService } from 'src/app/services/translate.service';
+import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
+
+more(Highcharts);
+NoDataToDisplay(Highcharts);
 
 @Component({
   selector: 'app-anime-stats-graphics',
@@ -40,48 +54,128 @@ export class AnimeStatsGraphicsComponent implements OnInit {
 
   generalTypes: string[] = ['anime', 'manga'];
   generalParametersNames = GENERAL_PARAMETERS_NAME_MAP;
+
   episodesCounters = {
     anime: 0,
-    manga: 0
+    manga: 0,
   };
-  animeStatusesColorsArr: string[] = ['#c3c3c3','#2db039','#26448f', '#f9d457', '#a12f31'];
+
+  animeStatusesColorsArr: string[] = [
+    '#c3c3c3',
+    '#2db039',
+    '#26448f',
+    '#f9d457',
+    '#a12f31',
+  ];
+
+  genresStatistics = {};
 
   constructor(
     private translationPipe: TranslatePipe,
     private translationService: TranslateService,
+    private animeService: AnimeService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.animeService.getGeneralGenresStats().subscribe((data) => {
+      this.genresStatistics = data;
+      this.drawRadarGraph();
+    });
     this.translationService.localeChange.subscribe(() => {
       for (let type of Object.keys(this._allData)) {
         this.drawGeneralStatistics(type as ANIME_TYPE);
       }
+      this.drawRadarGraph();
     });
+  }
+
+  drawRadarGraph(): void {
+    const chartTitle = this.translationPipe.transform('GENRES_TITLE');
+    const categories = [...Object.keys(MAIN_ANIME_GENRES_MAP)];
+    const series = [
+      {
+        type: 'area',
+        data: [] as any,
+      },
+    ];
+
+    if (Object.keys(this.genresStatistics).length !== 0) {
+      Object.values(MAIN_ANIME_GENRES_MAP).forEach((categoryId) => {
+        console.log(this.genresStatistics[categoryId]);
+        series[0].data.push(this.genresStatistics[categoryId]);
+      });
+    }
+
+    const chartHeight = window.innerWidth < 900 ? 'auto' : '50%';
+
+    for (let i = 0; i < categories.length; i++) {
+      categories[i] = this.translationPipe.transform(categories[i]);
+    }
+    ChartsHelper.drawChart(
+      'radar',
+      [],
+      null,
+      chartTitle,
+      {
+        headerName: this.translationPipe.transform('STATUS'),
+        pointName: this.translationPipe.transform('AMOUNT'),
+      },
+      {
+        chart: {
+          polar: true,
+          backgroundColor: null,
+          height: chartHeight,
+          spacingLeft: 45,
+          spacingRight: 45,
+        },
+        xAxis: {
+          categories,
+          tickmarkPlacement: 'on',
+        },
+        yAxis: {
+          gridLineInterpolation: 'polygon',
+          min: 0,
+        },
+        tooltip: {
+          enabled: false,
+        },
+        plotOptions: {
+          series: {
+            color: 'rgb(103 122 255 / 76%)',
+          },
+        },
+        legend: false,
+        series,
+        lang: {
+          noData: this.translationPipe.transform('NO_DATA_CHART'),
+        },
+      }
+    );
   }
 
   drawGeneralStatistics(type: string): void {
     this._legendMap[type] = [];
     this.episodesCounters[type] = 0;
-    const series: { name: any; color: string; data: number[], grouping: boolean}[] = [];
-    Object.keys(MAIN_ANIME_STATUSES).forEach((status, index)=>{
+    const series: { name: any; color: string; data: number[] }[] = []; //, grouping: boolean
+    Object.keys(MAIN_ANIME_STATUSES).forEach((status, index) => {
       series.push({
         name: status.toLowerCase(),
         color: this.animeStatusesColorsArr[index],
-        data: [0],
-        grouping: false
-      })
-    })
-    
-    this._allData[type]?.forEach((dataSet: any )=>{
-      let found = series.find(s=>s.name === dataSet.status)
-      found.data[0]++;
-      this.episodesCounters[type]+= type === ANIME_TYPE.ANIME ? dataSet.episodes : dataSet.chapters;
+        data: [0]
+      });
     });
 
-    series.forEach(s=>{
+    this._allData[type]?.forEach((dataSet: any) => {
+      let found = series.find((s) => s.name === dataSet.status);
+      found.data[0]++;
+      this.episodesCounters[type] +=
+        type === ANIME_TYPE.ANIME ? dataSet.episodes : dataSet.chapters;
+    });
+
+    series.forEach((s) => {
       s.name = this.translationPipe.transform(`${s.name}_${type}`);
-    })
+    });
 
     ChartsHelper.drawChart(
       type,
@@ -117,10 +211,10 @@ export class AnimeStatsGraphicsComponent implements OnInit {
           },
         },
         plotOptions: {
-          bar: {
-            borderWidth: 0,
+          series: {
             borderRadius: 3,
-            stacking: 'normal'
+            borderWidth: 0,
+            stacking: 'normal',
           },
         },
         tooltip: {
@@ -132,10 +226,10 @@ export class AnimeStatsGraphicsComponent implements OnInit {
         yAxis: {
           visible: false,
           max: this._allData[type].length,
-          endOnTick: false
+          endOnTick: false,
         },
         legend: false,
-        series
+        series,
       }
     );
   }

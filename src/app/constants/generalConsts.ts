@@ -1,4 +1,5 @@
 import { ANIME_TYPE } from '../models/dataModels';
+import { isDevMode } from '@angular/core';
 
 export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
   manga: 5000,
@@ -8,7 +9,7 @@ export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
 export const MAX_ANIME_HISTORY_REQUEST = 2;
 
 export const BASE_ANIME_URL = 'https://shikimori.me';
-export const BASE_BACKEND_URL = 'https://backend-ojji.onrender.com'; //http://localhost:3000 CHANGE ME
+export const BASE_BACKEND_URL = isDevMode() ? 'http://localhost:3000' : 'https://backend-ojji.onrender.com';
 
 export enum MAIN_ANIME_STATUSES {
   PLANNED = 'planned',
@@ -28,3 +29,19 @@ export const GENERAL_PARAMETERS_NAME_MAP = {
     total: 'TOTAL_READ_MANGA',
   },
 };
+
+export const MAIN_ANIME_GENRES_MAP = {
+  'Action': 1,
+  'Adventure': 2,
+  'Comedy': 4,
+  'Drama': 8,
+  'Slice of Life': 36,
+  'Fantasy': 10,
+  'Supernatural': 37,
+  'Horror': 14,
+  'Mystery': 7,
+  'Suspense': 41,
+  'Romance': 22,
+  'Sci-Fi': 24,
+  'Ecchi': 9
+}
