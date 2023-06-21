@@ -6,6 +6,15 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
         <td mat-cell *matCellDef="let i = index"> {{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}} </td>
       </ng-container>
+
+      <!-- Thumbnail Column -->
+      <ng-container matColumnDef="thumbnail">
+        <th mat-header-cell *matHeaderCellDef> {{'Thumbnail' | translate}} </th>
+        <td mat-cell *matCellDef="let row">
+          <img
+          [src]="row.thumbnail"/>
+        </td>
+      </ng-container>
   
       <!-- Name Column -->
       <ng-container matColumnDef="name">
