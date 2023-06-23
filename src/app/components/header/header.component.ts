@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.active = this.headerRoutes.findIndex(
-          (routeObj) => val.url === routeObj.route
+          (routeObj) => val.url?.includes(routeObj.route)
         );
       }
     });

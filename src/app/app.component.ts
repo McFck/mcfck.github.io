@@ -26,6 +26,7 @@ export class AppComponent {
   
   ngOnInit() {
     this.translationService.localeChange.pipe(startWith()).subscribe(()=>{
+      console.info("LOCALIZATION CHANGED, TITLE UPDATED")
       this.titleService.setTitle(this.translationPipe.transform("TITLE"));
 
       const queryParams = this.router.parseUrl(this.router.url).queryParams;

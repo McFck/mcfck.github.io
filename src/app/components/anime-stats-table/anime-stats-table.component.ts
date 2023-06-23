@@ -100,7 +100,6 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.cdr.detectChanges();
-    console.log("DATA", this.tableData)
   }
 
   updateHistoryFieldName(): void {

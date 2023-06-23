@@ -44,7 +44,7 @@ export class AnimeStatsListsComponent {
           episodes: entry.anime?.episodes,
           chaptersRead: entry.chapters,
           chapters: entry.manga?.chapters,
-          thumbnail: BASE_ANIME_URL + '/' + entry.anime?.image?.x48 || entry.manga?.image?.x48,
+          thumbnail: BASE_ANIME_URL + '/' + (entry.anime?.image?.x48 || entry.manga?.image?.x48),
           url: `${BASE_ANIME_URL}/${entry.anime?.url || entry.manga?.url}`
         };
       });

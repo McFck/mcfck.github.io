@@ -1,0 +1,6 @@
+- [ ] Landing page
+- [ ] Authorization
+- [ ] Anime/Manage in-place management
+- [ ] Colors fix
+- [ ] Gaming section (React)
+- [ ] Combination of UI
