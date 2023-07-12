@@ -1,6 +1,16 @@
 - [ ] Landing page
-- [ ] Authorization
-- [ ] Anime/Manage in-place management
+- [ ] Graph/Nodes with recommendations
+  - [+] Rewrite DB to contain even unwatched anime/manga for recommendations keeping
+  - [+] Rewrite requests to pull only needed anime/manga from extended lists
+  - [ ] Backend should pull data daily top (10) relations for each entry
+  - [ ] Store mentioned data in the DB with the weight of the node
+  - [ ] Make end-point for FE to conviniently pull data from (to make it easier all titles would have original namings in english only)
+  - [ ] Cluster data only by nodes weights, if no connections found, then clusters are not related. (if looks weird then I'll think of another alghorithm for this one)
 - [ ] Colors fix
 - [ ] Gaming section (React)
 - [ ] Combination of UI
+- [ ] Backend redeploy scripts
+- [ ] Backend auto clear cached data
+- [ ] Achievements
+- [ ] Suggestions
+- [ ] Authentication https://discordjs.guide/oauth2/#implicit-grant-flow

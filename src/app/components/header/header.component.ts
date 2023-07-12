@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   headerRoutes = [
     { route: '/anime', title: 'Anime' },
-    { route: '/movies', title: 'Movies' },
+    { route: '/games', title: 'Games' },
   ];
 
   constructor(

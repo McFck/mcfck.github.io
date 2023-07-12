@@ -7,7 +7,7 @@ import { MoviesComponent } from './components/movies/movies.component';
 
 const routes: Routes = [
   { path: 'anime', component: AnimeComponent },
-  { path: 'movies', component: MoviesComponent },
+  { path: 'games', component: MoviesComponent },
   { path: 'misc', component: MiscComponent },
   { path: '', component: LandingComponent },
 ]

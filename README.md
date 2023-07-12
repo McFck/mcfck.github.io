@@ -1,5 +1,5 @@
 # Personal site pet-project
-This is small project to keep track of recently watched anime/manga/movies(WIP), created using **Angular** and some UI libraries (like **Angular Material**, **NgBootstrap** and **HighCharts**). Basic stuff like localization, time calculation and other are done with selfwritten logic, to minimize external dependecies.
+This is small project to keep track of recently watched anime/manga or played games(WIP), created using **Angular** and some UI libraries (like **Angular Material**, **NgBootstrap** and **HighCharts**). Basic stuff like localization, time calculation and other are done with selfwritten logic, to minimize external dependecies.
 
 There is also a small backend part to gain access to wide variety of data, that would be hard to get with only front-end. Backend is written in Nest.js with PostgreSQL for DB. Basically backend just pulls data periodically from Shikimori and then cross checks it and extends it from MyAnimeList, and in the end I have enough data for all possible calculations.
 
