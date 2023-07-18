@@ -41,7 +41,7 @@ import { StreamsSwiperComponent } from './components/streams-swiper/streams-swip
 export function setupTranslateServiceFactory(
   service: TranslateService
 ): Function {
-  return () => service.use('en');
+  return () => localStorage.getItem("locale") ? service.use(localStorage.getItem("locale")) : service.use('en');
 }
 
 @NgModule({

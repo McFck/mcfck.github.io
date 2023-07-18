@@ -17,7 +17,6 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private translationService: TranslateService,
     private translationPipe: TranslatePipe,
     private titleService: Title
@@ -25,42 +24,16 @@ export class AppComponent {
     register();
   }
 
-  restoreContext(): void {
-    const queryParams = (new URL(location.href)).searchParams;
-    this.router.navigate([location.pathname], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        lang:
-          queryParams.get("lang") === DEFAULT_LANGUAGE
-            ? null
-            : queryParams.get("lang")
-      },
-      queryParamsHandling: 'merge'
-    });
-
+  ngOnInit() {
     setTimeout(() => {
       this.titleService.setTitle(this.translationPipe.transform('TITLE'));
     });
-  }
-
-  ngOnInit() {
-    this.restoreContext();
 
     this.translationService.localeChange.pipe(skip(1)).subscribe(() => {
       setTimeout(() => {
         this.titleService.setTitle(this.translationPipe.transform('TITLE'));
       });
-
-      this.router.navigate([location.pathname], {
-        relativeTo: this.activatedRoute,
-        queryParams: {
-          lang:
-            this.translationService.getLanguage() === DEFAULT_LANGUAGE
-              ? null
-              : this.translationService.getLanguage(),
-        },
-        queryParamsHandling: 'merge'
-      });
+      localStorage.setItem("locale", this.translationService.getLanguage());
     });
 
     this.router.events
@@ -70,13 +43,7 @@ export class AppComponent {
           this.titleService.setTitle(this.translationPipe.transform('TITLE'));
         });
 
-        const queryParams = this.router.parseUrl(event.url).queryParams;
-        if (
-          queryParams['lang'] &&
-          queryParams['lang'] !== this.translationService.getLanguage()
-        ) {
-          this.translationService.use(queryParams['lang']);
-        }
+        localStorage.getItem("locale") && this.translationService.use(localStorage.getItem("locale"));
       });
   }
 }
