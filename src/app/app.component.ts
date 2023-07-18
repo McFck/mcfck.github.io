@@ -44,6 +44,14 @@ export class AppComponent {
         });
 
         localStorage.getItem("locale") && this.translationService.use(localStorage.getItem("locale"));
+
+        const queryParams = this.router.parseUrl(event.url).queryParams;
+        if (
+          queryParams['lang'] &&
+          queryParams['lang'] !== this.translationService.getLanguage()
+        ) {
+          this.translationService.use(queryParams['lang']);
+        }
       });
   }
 }
