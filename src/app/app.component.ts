@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, startWith } from 'rxjs/operators';
+import { filter, skip, startWith } from 'rxjs/operators';
 import { TranslateService } from './services/translate.service';
 import { Title } from '@angular/platform-browser';
 import { TranslatePipe } from './pipes/translate.pipe';
@@ -25,12 +25,33 @@ export class AppComponent {
     register();
   }
 
+  restoreContext(): void {
+    const queryParams = (new URL(location.href)).searchParams;
+    this.router.navigate([location.pathname], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        lang:
+          queryParams.get("lang") === DEFAULT_LANGUAGE
+            ? null
+            : queryParams.get("lang")
+      },
+      queryParamsHandling: 'merge'
+    });
+
+    setTimeout(() => {
+      this.titleService.setTitle(this.translationPipe.transform('TITLE'));
+    });
+  }
+
   ngOnInit() {
-    this.translationService.localeChange.pipe(startWith()).subscribe(() => {
+    this.restoreContext();
+
+    this.translationService.localeChange.pipe(skip(1)).subscribe(() => {
       setTimeout(() => {
         this.titleService.setTitle(this.translationPipe.transform('TITLE'));
       });
-      this.router.navigate([], {
+
+      this.router.navigate([location.pathname], {
         relativeTo: this.activatedRoute,
         queryParams: {
           lang:
@@ -38,7 +59,7 @@ export class AppComponent {
               ? null
               : this.translationService.getLanguage(),
         },
-        queryParamsHandling: 'merge',
+        queryParamsHandling: 'merge'
       });
     });
 
