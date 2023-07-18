@@ -1,8 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-
-const DEFAULT_LANGUAGE = 'en';
+import { DEFAULT_LANGUAGE } from '../constants/generalConsts';
 
 @Injectable({ providedIn: 'root' })
 export class TranslateService {

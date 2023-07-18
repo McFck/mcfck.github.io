@@ -1,6 +1,8 @@
 import { ANIME_TYPE } from '../models/dataModels';
 import { environment } from 'src/environments/environment';
 
+export const DEFAULT_LANGUAGE = 'en';
+
 export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
   manga: 5000,
   anime: 5000,

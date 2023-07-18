@@ -97,9 +97,11 @@ a {
 .blurred-effect {
   content: '';
   backdrop-filter: blur(5px);
-  // @media (max-width:900px) {
-  //   backdrop-filter: unset;
-  // }
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-transform: translateZ(0);
+  transform: translate3d(0,0,0);
+  transform: translateZ(0);
+  
   position: absolute;
   top: 0;
   left: 0;
