@@ -4,10 +4,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChildren,
   HostListener,
   Input,
   OnInit,
+  QueryList,
+  TemplateRef,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -16,6 +20,8 @@ import { TranslatePipe } from 'src/app/pipes/translate.pipe';
 import { TranslateService } from 'src/app/services/translate.service';
 import { TableData } from '../anime-stats-lists/anime-stats-lists.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BADGES_MAP } from 'src/app/constants/generalConsts';
+import { NgTemplateNameDirective } from 'src/app/directives/TemplateNameDirective';
 
 @Component({
   selector: 'app-anime-stats-table',
@@ -26,6 +32,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChildren(NgTemplateNameDirective) private _templates: QueryList<NgTemplateNameDirective>;
 
   @Input()
   tableData: TableData[];
@@ -47,7 +54,7 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
     'name',
     'score',
     'episodes',
-    'kind',
+    'kind'
   ];
 
   mobileColumns: string[] = ['orderNumber', 'name', 'score'];
@@ -55,6 +62,8 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [...this.defaultColumns];
 
   historyFieldName = 'name';
+
+  isSimplifiedView = false;
 
   constructor(
     private translationService: TranslateService,
@@ -86,6 +95,7 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
     this.breakpointObserver
       .observe([Breakpoints.Handset])
       .subscribe((result) => {
+        this.isSimplifiedView = result.matches;
         if (result.matches) {
           this.displayedColumns = this.mobileColumns;
         } else {
@@ -95,11 +105,32 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.tableData.forEach(el=>{
+      el["badge"] = [];
+      el.text?.split(", ").forEach(keyWord=>{
+        let shouldDisplay = BADGES_MAP[keyWord];
+        if (shouldDisplay) {
+          let badgeObject = BADGES_MAP[keyWord];
+          badgeObject["name"] = keyWord;
+          if(badgeObject) {
+            if (badgeObject.template) {
+              badgeObject["templateRef"] = this.getTemplateRefByName(badgeObject.icon);
+            }
+            el["badge"].push(badgeObject);
+          }
+        }
+      })
+    });
     this.dataSource = new MatTableDataSource(this.tableData);
     this.translatePaginator(this.paginator);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.cdr.detectChanges();
+  }
+
+  getTemplateRefByName(name: string): TemplateRef<any> {
+    const dir = this._templates.find(dir => dir.name === name);
+    return dir ? dir.template : null
   }
 
   updateHistoryFieldName(): void {
@@ -133,7 +164,7 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
           return this.translatePipe.transform('OUT_OF', {
             first: 0,
             second: length,
-          }); //`0 van ${length}`;
+          });
         }
 
         length = Math.max(length, 0);
@@ -150,7 +181,7 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
           first: startIndex + 1,
           second: endIndex,
           third: length,
-        }); //`${startIndex + 1} - ${endIndex} van ${length}`;
+        });
       };
       paginator._intl.changes.next();
     }

@@ -6,6 +6,13 @@ export enum ANIME_TYPE {
   ANIME = 'anime'
 }
 
+export interface BadgeMap {
+  [key: string]: {
+    icon: string;
+    template: boolean;
+  }
+}
+
 export interface AnimeHistory {
   created_at: Date,
   description: string,

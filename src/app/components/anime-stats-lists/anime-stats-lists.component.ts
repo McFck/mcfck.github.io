@@ -14,6 +14,7 @@ export interface TableData {
   status: string;
   myStatus: string;
   episodesWatched: number;
+  text: string;
   episodes: number;
   chapters: number,
   chaptersRead: number,
@@ -40,6 +41,7 @@ export class AnimeStatsListsComponent {
           kind: entry.anime?.kind || entry.manga?.kind,
           status: entry.anime?.status || entry.manga?.status,
           myStatus: entry.status,
+          text: entry.text,
           episodesWatched: entry.episodes,
           episodes: entry.anime?.episodes,
           chaptersRead: entry.chapters,

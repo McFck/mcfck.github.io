@@ -6,14 +6,36 @@
   
     &__ongoing {
       color: #0a4f0a;
-      margin-left: 5px;
+      // margin-left: 5px;
       font-size: 10px;
     }
   
-    &__name-row {
+    &__emoji {
+      font-size: 15px;
+      display: flex;
+      height: 100%;
+      margin-right: 3px;
+      height: fit-content;
+      cursor: pointer;
+
+      &-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
+    &__name {
+      margin-right: 5px;
+      &-row {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      }
+      &-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 300px;
+      }
     }
   
     &__gold {

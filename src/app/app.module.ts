@@ -37,6 +37,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SwiperDirective } from './directives/SwiperDirective';
 import { StreamsSwiperComponent } from './components/streams-swiper/streams-swiper.component';
+import { NgTemplateNameDirective } from './directives/TemplateNameDirective';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -62,6 +63,7 @@ export function setupTranslateServiceFactory(
     AnimeStatsTableComponent,
     ResponsiveTemplateDirective,
     SwiperDirective,
+    NgTemplateNameDirective,
     StreamsSwiperComponent
   ],
   imports: [

@@ -1,7 +1,8 @@
-import { ANIME_TYPE } from '../models/dataModels';
+import { ANIME_TYPE, BadgeMap } from '../models/dataModels';
 import { environment } from 'src/environments/environment';
 
 export const DEFAULT_LANGUAGE = 'en';
+export const SUPPORTED_LANGUAGES = ['en', 'ru'];
 
 export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
   manga: 5000,
@@ -46,4 +47,15 @@ export const MAIN_ANIME_GENRES_MAP = {
   'Romance': 22,
   'Sci-Fi': 24,
   'Ecchi': 9
+}
+
+export const BADGES_MAP: BadgeMap = {
+  "Hidden gem": {
+    icon: "💎",
+    template: false
+  },
+  "Watched in original": {
+    icon: "japan",
+    template: true
+  }
 }

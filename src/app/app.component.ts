@@ -5,7 +5,7 @@ import { TranslateService } from './services/translate.service';
 import { Title } from '@angular/platform-browser';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { register } from 'swiper/element/bundle';
-import { DEFAULT_LANGUAGE } from './constants/generalConsts';
+import { SUPPORTED_LANGUAGES } from './constants/generalConsts';
 
 @Component({
   selector: 'app-root',
@@ -43,14 +43,11 @@ export class AppComponent {
           this.titleService.setTitle(this.translationPipe.transform('TITLE'));
         });
 
-        localStorage.getItem("locale") && this.translationService.use(localStorage.getItem("locale"));
-
-        const queryParams = this.router.parseUrl(event.url).queryParams;
-        if (
-          queryParams['lang'] &&
-          queryParams['lang'] !== this.translationService.getLanguage()
-        ) {
-          this.translationService.use(queryParams['lang']);
+        if (localStorage.getItem("locale")) {
+          this.translationService.use(localStorage.getItem("locale"));
+        } else {
+          const userLanguage = navigator.language.slice(0,2);
+          SUPPORTED_LANGUAGES.includes(userLanguage) && this.translationService.use(userLanguage) && localStorage.setItem("locale", userLanguage);
         }
       });
   }

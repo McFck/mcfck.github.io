@@ -8,9 +8,11 @@
   - [ ] Cluster data only by nodes weights, if no connections found, then clusters are not related. (if looks weird then I'll think of another alghorithm for this one)
 - [ ] Colors fix
 - [ ] Gaming section (React)
-- [ ] Combination of UI
-- [ ] Backend redeploy scripts
-- [ ] Backend auto clear cached data
-- [ ] Achievements
-- [ ] Suggestions
-- [ ] Authentication https://discordjs.guide/oauth2/#implicit-grant-flow
+- [ ] Decomposition of UI to micro-front ends
+- [ ] ? Backend redeploy scripts
+- [ ] ? Backend auto clear cached data
+- [ ] ~ Achievements
+- [ ] ~ Suggestions
+- [ ] ~ Authentication https://discordjs.guide/oauth2/#implicit-grant-flow
+- [+] Badges
+- [ ] EN Localization of history: https://github.com/shikimori/shikimori/commit/d3b066d7cc3cb51782d325d6a036448fafeb392e#commitcomment-114290796
