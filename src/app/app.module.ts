@@ -38,6 +38,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SwiperDirective } from './directives/SwiperDirective';
 import { StreamsSwiperComponent } from './components/streams-swiper/streams-swiper.component';
 import { NgTemplateNameDirective } from './directives/TemplateNameDirective';
+import { LanguageContentPipe } from './pipes/languageContent.pipe';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -55,6 +56,7 @@ export function setupTranslateServiceFactory(
     LandingComponent,
     TranslatePipe,
     DateAgoPipe,
+    LanguageContentPipe,
     AnimeHistoryComponent,
     AnimeTimeComponent,
     TopAnimeComponent,
@@ -96,7 +98,8 @@ export function setupTranslateServiceFactory(
       deps: [TranslateService],
       multi: true,
     },
-    TranslatePipe
+    TranslatePipe,
+    LanguageContentPipe
   ],
   bootstrap: [AppComponent],
 })

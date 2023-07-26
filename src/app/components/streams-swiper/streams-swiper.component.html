@@ -1,7 +1,7 @@
 <swiper-container fmSwiper [config]="config" init="false">
     <swiper-slide *ngFor="let data of _topArr" #switch>
         <fm-stream-item>
-            <a class="swiper-display-link" href="{{ imageDataPath + (data.anime?.url || data.manga?.url) }}">
+            <a class="swiper-display-link" href="{{ imageDataPath + (data.anime?.url || data.manga?.url) | languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}">
                 <div class="swiper-display-item">
                     <div class="swiper-display-thumbnail-container">
                         <img class="swiper-display-item-img" src="{{ imageDataPath + (data.anime?.image?.original || data.manga?.image?.original) }}">

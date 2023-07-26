@@ -11,8 +11,9 @@
 - [ ] Decomposition of UI to micro-front ends
 - [ ] ? Backend redeploy scripts
 - [ ] ? Backend auto clear cached data
-- [ ] ~ Achievements
+- [+] ~~ Achievements ~~
 - [ ] ~ Suggestions
 - [ ] ~ Authentication https://discordjs.guide/oauth2/#implicit-grant-flow
 - [+] Badges
+- [ ] Correct English namings
 - [ ] EN Localization of history: https://github.com/shikimori/shikimori/commit/d3b066d7cc3cb51782d325d6a036448fafeb392e#commitcomment-114290796

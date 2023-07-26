@@ -22,7 +22,7 @@
         <td mat-cell *matCellDef="let row"> 
           <div class="anime-stats-table__name-row">
             <span class="anime-stats-table__name-wrapper">
-              <a class="anime-stats-table__name" href="{{row.url}}">
+              <a class="anime-stats-table__name" href="{{row.url | languageContent: 'ru': row.malUrl}}">
                 {{row[historyFieldName]}} 
               </a>
               <div *ngIf="row.status === 'ongoing'" class="anime-stats-table__ongoing">

@@ -47,7 +47,8 @@ export class AnimeStatsListsComponent {
           chaptersRead: entry.chapters,
           chapters: entry.manga?.chapters,
           thumbnail: BASE_ANIME_URL + '/' + (entry.anime?.image?.x48 || entry.manga?.image?.x48),
-          url: `${BASE_ANIME_URL}/${entry.anime?.url || entry.manga?.url}`
+          url: `${BASE_ANIME_URL}/${entry.anime?.url || entry.manga?.url}`,
+          malUrl: entry.anime?.malUrl || entry.manga?.malUrl
         };
       });
 

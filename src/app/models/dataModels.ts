@@ -27,6 +27,7 @@ interface AnimeHistoryTarget {
   image: Image,
   kind: ANIME_TYPE,
   name: string,
+  malUrl?:string,
   released_on: string,
   russian: string,
   score: string,
@@ -65,6 +66,7 @@ interface Anime {
   image?: Image;
   kind?: string;
   name?: string;
+  malUrl?: string;
   released_on?: string;
   russian?: string;
   score?: string;

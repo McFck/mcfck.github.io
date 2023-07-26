@@ -6,14 +6,13 @@
         <div class="anime-history__item" *ngFor="let historyItem of history; index as i">
             <div class="anime-history__item">
                 <div class="anime-history__item-image">
-                    <span class="anime-history__selectable" (click)="goToHistory(imageDataPath + historyItem.target.url)">
+                    <span class="anime-history__selectable" (click)="goToHistory(imageDataPath + historyItem.target.url, historyItem.target.malUrl)">
                         <img class="anime-history__thumbnail" src="{{ imageDataPath + historyItem.target.image.x96 }}">
                         <div class="anime-history__item-block">
-                            <a class="anime-history__item-title" href="{{imageDataPath + historyItem.target.url}}">{{ historyItem.target[historyFieldName] }}</a>
+                            <a class="anime-history__item-title" href="{{(imageDataPath + historyItem.target.url)| languageContent: 'ru': historyItem.target.malUrl}}">{{ historyItem.target[historyFieldName] }}</a>
                             <span class="anime-history__bottom" innerHTML="{{ historyItem.description }}"></span>
                             <span class="anime-history__bottom">{{ historyItem.created_at | dateAgo }}</span>
                         </div>
-                        
                     </span>
                     
                     <div class="anime-history__arrows" *ngIf="i !== history?.length - 1">

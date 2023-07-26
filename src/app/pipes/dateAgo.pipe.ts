@@ -4,8 +4,7 @@ import { TranslateService } from '../services/translate.service';
 import { TranslatePipe } from './translate.pipe';
 
 @Pipe({
-    name: 'dateAgo',
-    pure: false
+    name: 'dateAgo'
 })
 export class DateAgoPipe implements PipeTransform {
 
