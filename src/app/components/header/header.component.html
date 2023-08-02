@@ -8,7 +8,7 @@
         
         <span class="header__list">
             <li *ngFor="let routeObj of headerRoutes; index as i" [class.active]="active===i" [ngbNavItem]="i" [destroyOnHide]="true">
-                <a ngbNavLink [routerLink]="routeObj.route" target="_blank" rel="noopener noreferrer">{{routeObj.title | translate}}</a>
+                <a ngbNavLink [routerLink]="routeObj.route">{{routeObj.title | translate}}</a>
             </li>
         </span>
         <div class="header__socials-mobile">
