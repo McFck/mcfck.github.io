@@ -61,14 +61,16 @@ export class AnimeStatsGraphicsComponent implements OnInit {
   };
 
   animeStatusesColorsArr: string[] = [
-    '#c3c3c3',
-    '#2db039',
-    '#26448f',
-    '#f9d457',
-    '#a12f31',
+    '#89769b',//'#c3c3c3',
+    '#57e38f',//'#2db039',
+    '#5768e3',//'#26448f',
+    '#fffcd1',//'#f9d457',
+    '#e35784'//'#a12f31',
   ];
 
   genresStatistics = {};
+
+  curUrl: string;
 
   constructor(
     private translationPipe: TranslatePipe,
@@ -78,15 +80,20 @@ export class AnimeStatsGraphicsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.curUrl = location.href;
+
     this.animeService.getGeneralGenresStats().subscribe((data) => {
       this.genresStatistics = data;
       this.drawRadarGraph();
     });
+
     this.translationService.localeChange.subscribe(() => {
-      for (let type of Object.keys(this._allData)) {
-        this.drawGeneralStatistics(type as ANIME_TYPE);
+      if (this.curUrl === location.href) {
+        for (let type of Object.keys(this._allData)) {
+          this.drawGeneralStatistics(type as ANIME_TYPE);
+        }
+        this.drawRadarGraph();
       }
-      this.drawRadarGraph();
     });
   }
 

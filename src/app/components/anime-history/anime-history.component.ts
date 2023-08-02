@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { BASE_ANIME_URL } from 'src/app/constants/generalConsts';
 import { ANIME_TYPE, AnimeHistory } from 'src/app/models/dataModels';
 import { LanguageContentPipe } from 'src/app/pipes/languageContent.pipe';
@@ -44,6 +44,7 @@ export class AnimeHistoryComponent implements OnInit {
     this.animeService
       .getUserHistory()
       .pipe(
+        catchError(()=>of([])),
         tap(() => {
           this.isHistoryLoading = false;
         })

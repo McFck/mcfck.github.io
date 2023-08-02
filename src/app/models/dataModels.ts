@@ -125,3 +125,21 @@ export interface DataSourceTransfer {
     episodes: number
   }
 }
+
+export interface GithubCommitData {
+  author: {
+    avatar_url: string;
+    login: string;
+    html_url: string;
+  }
+  commit: {
+    author: {
+      date: string;
+      email: string;
+      name: string;
+    }
+    url: string;
+    message: string;
+  }
+  html_url: string;
+}

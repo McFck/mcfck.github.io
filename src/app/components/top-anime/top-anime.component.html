@@ -7,7 +7,7 @@
                 <img class="top-anime-item-img" src="{{ imageDataPath + (data.anime?.image?.original || data.manga?.image?.original) }}">
             </div>
             <div class="top-anime-item-name">
-                <a href="{{ (imageDataPath + (data.anime?.url || data.manga?.url))| languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}" class="top-anime-item-name__text">
+                <a href="{{ (imageDataPath + (data.anime?.url || data.manga?.url))| languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}" class="top-anime-item-name__text" target="_blank" rel="noopener noreferrer">
                     {{data.anime?.[fieldName] || data.manga?.[fieldName]}}
                 </a>
                 <span>{{data.score}} ❤️</span>

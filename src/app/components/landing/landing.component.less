@@ -1,41 +1,164 @@
-.parallax {
-  /* The image used */
-  background-image: url("https://wallpaperaccess.com/full/1579893.jpg");
+@import "../../../variables.less";
 
-  /* Set a specific height */
-  min-height: 500px; 
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.landing {
+  &__background {
+    background: linear-gradient(47deg, #f54d7d, #0aaeff);
+    height: calc(100% - @header-height);
+    width: 100%;
+    position: absolute;
+  }
 }
 
-.parallax1 {
-  /* The image used */
-  background-image: url("https://cdn.wallpapersafari.com/89/24/iP0rJE.jpg");
-
-  /* Set a specific height */
-  min-height: 500px; 
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+a {
+  color: unset;
 }
 
-.parallax2 {
-  /* The image used */
-  background-color: #133d60;
+a:hover {
+  text-decoration: none;
+}
 
-  /* Set a specific height */
-  min-height: 500px; 
+.commit {
+  &:hover {
+    background-color: #7c7c7c;
+  }
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  transition-property: color,background-color,border-color,text-decoration-color,fill,stroke;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .35s;
+
+  border: 1px solid;
+  border-radius: 15px;
+
+  &-title {
+    font-weight: 450;
+    margin-bottom: 5px;
+  }
+
+  &-margin {
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+  }
+
+  &-image {
+    height: 30px;
+    border-radius: 99px;
+  }
+
+  &-date {
+    font-style: italic;
+    color: #3e3e3e;
+    margin-bottom: 5px;
+  }
+
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &-author, &-author-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    
+    &-name {
+      color:black;
+      font-weight: 500;
+    }
+    
+    &-link:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.footer {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.fork {
+  transition-property: color,background-color,border-color,text-decoration-color,fill,stroke;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .35s;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-width: 1px;
+  border-radius: 9999px;
+  gap: 0.25rem;
+  align-items: center;
+  display: flex;
+  color: inherit;
+  text-decoration: inherit;
+
+  background-color: #4171db;
+  border-color: black;
+  border: 1px solid;
+  box-sizing: border-box;
+  font-weight: 450;
+
+  &:hover {
+    background-color: #1d5be5;
+  }
+}
+
+.p-data {
+  line-height: 1.75rem;
+  font-size: 1rem;
+  letter-spacing: -.025em;
+  font-weight: 350;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.description {
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: inherit;
+  text-wrap: balance;
+  max-width: 703px;
+}
+
+.main-header {
+  padding-top: 5rem;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  width: 100%;
+}
+
+.main-text {
+  font-size: 3.75rem;
+  line-height: 1;
+  letter-spacing: -.025em;
+  font-weight: 800;
+}
+
+.title {
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: inherit;
+  text-wrap: balance;
+  max-width: 858.5px;
 }

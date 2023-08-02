@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { DEFAULT_LANGUAGE } from 'src/app/constants/generalConsts';
 import { TranslateService } from 'src/app/services/translate.service';
 
 @Component({
@@ -16,6 +17,8 @@ export class HeaderComponent implements OnInit {
     { route: '/games', title: 'Games' },
   ];
 
+  selectedLanguage = DEFAULT_LANGUAGE;
+
   constructor(
     private router: Router,
     private translateService: TranslateService,
@@ -30,6 +33,10 @@ export class HeaderComponent implements OnInit {
         );
       }
     });
+
+    this.translateService.localeChange.subscribe(()=>{
+      this.selectedLanguage = this.translateService.getLanguage();
+    })
   }
 
   localize(language: string): void {

@@ -1,15 +1,19 @@
 <div class="anime-history__container">
     <span class="anime-history__header">{{'ANIME_HISTORY' | translate}}</span>
 
-    <mat-spinner *ngIf="isHistoryLoading"></mat-spinner>
-    <div class="anime-history__item-image-wrapper" *ngIf="!isHistoryLoading">
+    <mat-spinner *ngIf="isHistoryLoading else historyTemplate"></mat-spinner>
+    
+</div>
+
+<ng-template #historyTemplate>
+    <div class="anime-history__item-image-wrapper" *ngIf="history?.length > 0 else emptyTemplate">
         <div class="anime-history__item" *ngFor="let historyItem of history; index as i">
             <div class="anime-history__item">
                 <div class="anime-history__item-image">
                     <span class="anime-history__selectable" (click)="goToHistory(imageDataPath + historyItem.target.url, historyItem.target.malUrl)">
                         <img class="anime-history__thumbnail" src="{{ imageDataPath + historyItem.target.image.x96 }}">
                         <div class="anime-history__item-block">
-                            <a class="anime-history__item-title" href="{{(imageDataPath + historyItem.target.url)| languageContent: 'ru': historyItem.target.malUrl}}">{{ historyItem.target[historyFieldName] }}</a>
+                            <a class="anime-history__item-title" href="{{(imageDataPath + historyItem.target.url)| languageContent: 'ru': historyItem.target.malUrl}}" target="_blank" rel="noopener noreferrer">{{ historyItem.target[historyFieldName] }}</a>
                             <span class="anime-history__bottom" innerHTML="{{ historyItem.description }}"></span>
                             <span class="anime-history__bottom">{{ historyItem.created_at | dateAgo }}</span>
                         </div>
@@ -24,5 +28,8 @@
             </div>
         </div>
     </div>
-    
-</div>
+</ng-template>
+
+<ng-template #emptyTemplate>
+    <span class="anime-history__no-data">{{'LANDING_NO_DATA' | translate}}</span>
+</ng-template>
