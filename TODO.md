@@ -16,6 +16,6 @@
 - [ ] ~ Suggestions
 - [ ] ~ Authentication https://discordjs.guide/oauth2/#implicit-grant-flow
 - [+] Badges
-- [ ] Restyle landing
+- [+] Restyle landing
 - [ ] Correct English namings
 - [ ] EN Localization of history: https://github.com/shikimori/shikimori/commit/d3b066d7cc3cb51782d325d6a036448fafeb392e#commitcomment-114290796
