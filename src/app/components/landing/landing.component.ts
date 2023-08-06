@@ -19,6 +19,16 @@ export class LandingComponent implements OnInit {
     this.http.get("https://api.github.com/repos/mcfck/mcfck.github.io/commits/main").pipe(catchError(err=>of(null))).subscribe(data =>{
       this.lastCommitData = data;
     })
+
+    this.effectLogic();
   }
 
+  effectLogic(): void {
+    var slideBox = document.getElementById('sparkles');
+
+    // setTimeout(function(){
+    //   slideBox.style.display = 'none';
+    //   slideBox.style.animation = 'none';
+    // }, 3000); 
+  }
 }
