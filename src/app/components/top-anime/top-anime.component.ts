@@ -22,6 +22,15 @@ const MINIMUM_MANGA_VALUE = 8;
 })
 export class TopAnimeComponent implements OnInit, AfterContentInit {
   @Input() set allData(data: Record<ANIME_TYPE, any[]>) {
+    
+    for (let type of Object.keys(data)) {
+      data[type].forEach((entry:any)=> {
+        entry[type].thumbnail = entry?.["__typename"] ? 
+        (entry.anime?.poster?.previewAlt2xUrl || entry.manga?.poster?.previewAlt2xUrl) :
+        BASE_ANIME_URL + '/' + (entry.anime?.image?.original || entry.manga?.image?.original);
+      });
+    }
+
     this.topArr = [
       ...this.maxValues(data.anime, MINIMUM_ANIME_VALUE),
       ...this.maxValues(data.manga, MINIMUM_MANGA_VALUE),

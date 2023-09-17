@@ -10,10 +10,10 @@ import {
   ANIME_TYPE
 } from 'src/app/models/dataModels';
 import { AnimeService } from 'src/app/services/anime.service';
-import { TranslatePipe } from 'src/app/pipes/translate.pipe';
-import { TranslateService } from 'src/app/services/translate.service';
 import { AnimeHelper } from 'src/app/helpers/anime.helper';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
+import { GeneralHelper } from 'src/app/helpers/general.helper';
 
 @Component({
   selector: 'app-anime',
@@ -23,9 +23,7 @@ import { combineLatest, Observable } from 'rxjs';
 export class AnimeComponent implements OnInit, AfterViewInit {
   constructor(
     private animeService: AnimeService,
-    private cdr: ChangeDetectorRef,
-    private translationPipe: TranslatePipe,
-    private translationService: TranslateService
+    private cdr: ChangeDetectorRef
   ) {}
 
   allData: Record<ANIME_TYPE, any[]> = {} as any;
@@ -38,14 +36,12 @@ export class AnimeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    // this.translationService.localeChange.subscribe(() => {
-    // });
   }
 
   ngAfterViewInit(): void {
     combineLatest([
-      this.animeService.getAllAnimeList(),
-      this.animeService.getAllMangaList()
+      this.animeService.getDataTypeListGraphQL(ANIME_TYPE.ANIME).pipe(catchError(()=>this.animeService.getAllAnimeList())),
+      this.animeService.getDataTypeListGraphQL(ANIME_TYPE.MANGA).pipe(catchError(()=>this.animeService.getAllMangaList()))
     ]).subscribe(([animeData, mangaData]: [AnimeData[], AnimeData[]]) => {
       this.isLoading = false;
       this.cdr.detectChanges();
@@ -55,6 +51,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
 
       for (let type of Object.keys(this.allData)) {
         this.allData[type].forEach((entry:any)=>{
+          entry[type].name = entry?.["__typename"] ? GeneralHelper.selectValidLocaleName(entry.anime || entry.manga) : (entry.anime?.name || entry.manga?.name);
           entry[type].malUrl = `https://myanimelist.net/${type}/${entry[type].id}`;
         });
       }

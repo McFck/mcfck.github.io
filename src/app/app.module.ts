@@ -39,6 +39,10 @@ import { SwiperDirective } from './directives/SwiperDirective';
 import { StreamsSwiperComponent } from './components/streams-swiper/streams-swiper.component';
 import { NgTemplateNameDirective } from './directives/TemplateNameDirective';
 import { LanguageContentPipe } from './pipes/languageContent.pipe';
+import { GraphQLModule } from './graphql.module';
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -87,10 +91,33 @@ export function setupTranslateServiceFactory(
     MatListModule,
     MatToolbarModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    GraphQLModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory(httpLink: HttpLink) {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'https://shikimori.me/api/graphql',
+          }),
+          defaultOptions: {
+            watchQuery: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all',
+            },
+            query: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all',
+            },
+          }
+        };
+      },
+      deps: [HttpLink],
+    },
     TranslateService,
     {
       provide: APP_INITIALIZER,

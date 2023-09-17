@@ -5,8 +5,10 @@ export const DEFAULT_LANGUAGE = 'en';
 export const SUPPORTED_LANGUAGES = ['en', 'ru'];
 
 export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
-  manga: 5000,
-  anime: 5000,
+  manga: 50,
+  anime: 50
+  // manga: 5000,
+  // anime: 5000,
 };
 
 export const MAX_ANIME_HISTORY_REQUEST = 2;

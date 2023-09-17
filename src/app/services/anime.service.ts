@@ -1,16 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, of } from 'rxjs';
-import { expand, reduce, switchMap, takeWhile } from 'rxjs/operators';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
+import { delay, expand, map, reduce, switchMap, takeWhile } from 'rxjs/operators';
 import { BASE_ANIME_URL, BASE_BACKEND_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
 import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 import { TranslateService } from './translate.service';
+import { Apollo } from 'apollo-angular';
+import { GeneralHelper } from '../helpers/general.helper';
+import { getUserRatesAnime, getUserRatesManga } from './graphQL/user-rates.graphql';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnimeService {
-  constructor(private http: HttpClient, private translateService: TranslateService) {}
+  constructor(private http: HttpClient, private translateService: TranslateService, private apollo: Apollo) {}
   userId = "1121790";
 
   getGeneralGenresStats(): Observable<any> {
@@ -44,6 +47,24 @@ export class AnimeService {
     return this.http.get<AnimeData[]>(`${BASE_ANIME_URL}/api/users/${this.userId}/manga_rates?limit=${MAX_VALUES_REQUEST[ANIME_TYPE.MANGA]}&page=${page}`);
   }
 
+  getUserRates(page: number, targetType: string, limit?: number): Observable<AnimeData[]> {
+    return this.apollo.query({
+        query: targetType === "Anime" ? getUserRatesAnime : getUserRatesManga,
+        variables: {
+            userId: this.userId,
+            limit,
+            targetType,
+            page
+        }
+    }).pipe(map((result: any)=>result?.data?.userRates), delay(100))
+  }
+
+  getDataTypeListGraphQL(type: ANIME_TYPE): Observable<AnimeData[]> {
+    // const error: any = new Error(`This is a test value`);
+    // return throwError(error);
+    return this.fetchPaginatedData(this.getUserRates, GeneralHelper.capitalizeFirstLetter(type));
+  }
+
   getAllAnimeList(): Observable<AnimeData[]> {
     return this.fetchPaginatedData(this.getAnimeList, ANIME_TYPE.ANIME);
   }
@@ -53,27 +74,27 @@ export class AnimeService {
   }
 
   fetchPaginatedData<AnimeData>(
-    inputMethod: (page: number) => Observable<AnimeData[]>,
-    type: ANIME_TYPE, 
+    inputMethod: (page: number, type: string) => Observable<AnimeData[]>,
+    type: ANIME_TYPE,//ANIME_TYPE, 
     customMaxValue?: number
   ): Observable<AnimeData[]> {
     let isFetching = true;
     let curPage = 1;
     return inputMethod
       .bind(this)
-      .call(this, curPage)
+      .call(this, curPage, type)
       .pipe(
       expand((_)=>{
         if (isFetching) {
           return inputMethod
           .bind(this)
-          .call(this, curPage);
+          .call(this, curPage, type);
         }
         return EMPTY;
       }),
       takeWhile((fetchedData: AnimeData[]) => {
         if (isFetching) {
-          if (fetchedData.length < (customMaxValue ?? MAX_VALUES_REQUEST[type])) {
+          if (fetchedData.length < (50)) {//customMaxValue ?? MAX_VALUES_REQUEST[type]
             isFetching = false;
           } else {
             curPage++;

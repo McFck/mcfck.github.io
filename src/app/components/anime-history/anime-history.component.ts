@@ -53,7 +53,7 @@ export class AnimeHistoryComponent implements OnInit {
         this.history = fetchedHistory;
 
         this.history?.forEach((entry:any)=>{
-          const fullEntry = this.data?.anime?.find(el => el.anime.id === entry.target.id) || this.data?.manga?.find(el => el.manga.id === entry.target.id)
+          const fullEntry = this.data?.anime?.find(el => el.anime.id == entry.target.id) || this.data?.manga?.find(el => el.manga.id == entry.target.id)
           entry.target.malUrl = `https://myanimelist.net/${fullEntry.anime ? "anime" : "manga"}/${entry.target.id}`;
         });
       });

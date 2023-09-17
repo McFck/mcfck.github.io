@@ -1,5 +1,6 @@
 import * as Highcharts from 'highcharts';
 import { TranslatePipe } from '../pipes/translate.pipe';
+import { Anime } from '../models/dataModels';
 
 export class GeneralHelper {
   public static getPluralForm(value: number, curLanguage: string): number {
@@ -33,5 +34,18 @@ export class GeneralHelper {
     }
 
     return array;
+  }
+
+  public static capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  public static selectValidLocaleName(data: Anime): string {
+    if (data?.english) return data?.english;
+    if (data?.synonyms) {
+      const englishSynonym = data.synonyms.find(synonym=>/^[~`\s!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-]+$/.test(synonym));
+      if (englishSynonym) return englishSynonym;
+    }
+    return data.name;
   }
 }

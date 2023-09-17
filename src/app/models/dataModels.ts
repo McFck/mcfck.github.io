@@ -58,14 +58,18 @@ export interface AnimeData {
   volumes?: number;
 }
 
-interface Anime {
+export interface Anime {
   aired_on?: Date;
   episodes?: number;
+  thumbnail?: string;
   episodes_aired?: number;
   id?: number;
   image?: Image;
+  poster?: Poster;
   kind?: string;
   name?: string;
+  english?: string;
+  synonyms?: [];
   malUrl?: string;
   released_on?: string;
   russian?: string;
@@ -80,6 +84,23 @@ interface Image {
   x48?: string;
   x96?: string;
 }
+
+interface Poster {
+  id: string
+  main2xUrl: string
+  mainAlt2xUrl: string
+  mainAltUrl: string
+  mainUrl: string
+  mini2xUrl: string
+  miniAlt2xUrl: string
+  miniAltUrl: string
+  miniUrl: string
+  originalUrl: string
+  preview2xUrl: string
+  previewAlt2xUrl: string
+  previewAltUrl: string
+  previewUrl: string
+  }
 
 interface UserImage extends Image {
   x16?: string;

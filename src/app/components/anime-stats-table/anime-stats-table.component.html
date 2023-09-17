@@ -11,7 +11,8 @@
       <ng-container matColumnDef="thumbnail">
         <th mat-header-cell *matHeaderCellDef> {{'Thumbnail' | translate}} </th>
         <td mat-cell *matCellDef="let row">
-          <img
+          <img 
+          class="anime-stats-table__image"
           [src]="row.thumbnail"/>
         </td>
       </ng-container>
