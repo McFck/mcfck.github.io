@@ -1,0 +1,7 @@
+<div *ngIf="type else noData">
+    <div class="empty-typed-data__text">{{type + '_' + 'EMPTY_USER_DATA' | translate }}</div>
+</div>
+
+<ng-template #noData>
+    <div class="empty-typed-data__text">{{'EMPTY_FETCHED_DATA' | translate }}</div>
+</ng-template>

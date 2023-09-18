@@ -6,6 +6,11 @@ query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTarget
       anime {
         episodes,
         id,
+        duration,
+        genres {
+          id,
+          name
+        }
         poster {
           originalUrl,
           previewAlt2xUrl,
@@ -39,6 +44,10 @@ query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTarget
     manga {
       chapters,
       id,
+      genres {
+        id,
+        name
+      }
       poster {
         originalUrl,
         previewAlt2xUrl,

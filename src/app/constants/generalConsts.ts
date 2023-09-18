@@ -16,12 +16,15 @@ export const MAX_ANIME_HISTORY_REQUEST = 2;
 export const BASE_ANIME_URL = 'https://shikimori.me';
 export const BASE_BACKEND_URL = environment.production ? 'https://babunov-personal.ru' : 'http://localhost:3000';
 
+export const SHIKI_DEFAULT_ID = "1121790";
+
 export enum MAIN_ANIME_STATUSES {
+  REWATCHING = 'rewatching',
   PLANNED = 'planned',
   WATCHING = 'watching',
   COMPLETED = 'completed',
   ON_HOLD = 'on_hold',
-  DROPPED = 'dropped',
+  DROPPED = 'dropped'
 }
 
 export const GENERAL_PARAMETERS_NAME_MAP = {

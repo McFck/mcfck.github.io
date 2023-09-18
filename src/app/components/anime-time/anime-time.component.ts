@@ -18,17 +18,19 @@ export class AnimeTimeComponent {
   @Input() set allData(value: Record<ANIME_TYPE, any[]>) {
     this._allData = value;
     if (value.anime?.length > 0) {
-      this.animeService
-        .getTotalTimeSpentAnime()
-        .subscribe((totalTime) => {
-          this.animeDays = totalTime / 60 / 24;
-          this.totalAnimeDays = this.animeDays.toFixed(2);
-          this.totalDaysSpent = (this.mangaDays + this.animeDays).toFixed(0);
-        });
+      this.calculateAnimeTime();
+      // this.animeService
+      //   .getTotalTimeSpentAnime()
+      //   .subscribe((totalTime) => {
+          // this.animeDays = totalTime / 60 / 24;
+          // this.totalAnimeDays = this.animeDays.toFixed(2);
+          // this.totalDaysSpent = (this.mangaDays + this.animeDays).toFixed(0);
+      //   });
     }
     if (value.manga?.length > 0) {
-      this.calculateMangaHours();
+      this.calculateMangaTime();
     }
+    this.totalDaysSpent = (this.mangaDays + this.animeDays).toFixed(0);
   }
   _allData: Record<ANIME_TYPE, any[]> = {} as any;
 
@@ -39,7 +41,17 @@ export class AnimeTimeComponent {
   totalAnimeDays:string = "?";
   totalDaysSpent: string = "?";
 
-  calculateMangaHours(): void {
+  calculateAnimeTime(): void {
+    let totalTime = 0;
+    this._allData.anime?.forEach(entry=>{
+      totalTime += (entry.anime.duration * entry.episodes * (entry.rewatches === 0 ? 1 : entry.rewatches + 1))
+    });
+
+    this.animeDays = totalTime / 60 / 24;
+    this.totalAnimeDays = this.animeDays.toFixed(2);
+  }
+
+  calculateMangaTime(): void {
     let volumeDuration = 0;
     let chapterDuration = 0;
 

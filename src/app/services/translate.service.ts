@@ -24,8 +24,9 @@ export class TranslateService {
         (response) => {
           this.data = response || {};
           resolve(this.data);
+          const previous = this.selectedLanguage;
           this.selectedLanguage = lang;
-          this.localeChange.next();
+          previous !== this.selectedLanguage && this.localeChange.next();
         },
         (err) => {
           if (lang == DEFAULT_LANGUAGE) {

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { delay, expand, map, reduce, switchMap, takeWhile } from 'rxjs/operators';
-import { BASE_ANIME_URL, BASE_BACKEND_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST } from '../constants/generalConsts';
+import { BASE_ANIME_URL, BASE_BACKEND_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST, SHIKI_DEFAULT_ID } from '../constants/generalConsts';
 import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 import { TranslateService } from './translate.service';
 import { Apollo } from 'apollo-angular';
@@ -14,12 +14,31 @@ import { getUserRatesAnime, getUserRatesManga } from './graphQL/user-rates.graph
 })
 export class AnimeService {
   constructor(private http: HttpClient, private translateService: TranslateService, private apollo: Apollo) {}
-  userId = "1121790";
+  userId = SHIKI_DEFAULT_ID;
+
+  setUserId(username: string): Observable<any> {
+    username = encodeURI(username);
+      return this.getUserId(username).pipe(map((data: any)=>{
+        // if(data?.id) 
+        this.userId = data?.id;
+        return data;
+      })
+    );
+  }
+
+  useDefaultId(): void {
+    this.userId = SHIKI_DEFAULT_ID;
+  }
+
+  getUserId(username: string): Observable<any> {
+    return this.http.get(`${BASE_ANIME_URL}/api/users/${username}`);
+  }
 
   getGeneralGenresStats(): Observable<any> {
     return this.http.get(`${BASE_BACKEND_URL}/main/genres-stats`);
   }
 
+  /* DEPRECATED */
   getTotalTimeSpentAnime(): Observable<number> {
     return this.http.get<number>(`${BASE_BACKEND_URL}/main/total-time`);
   }

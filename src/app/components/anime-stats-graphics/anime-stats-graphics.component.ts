@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -31,18 +32,28 @@ NoDataToDisplay(Highcharts);
   selector: 'app-anime-stats-graphics',
   templateUrl: './anime-stats-graphics.component.html',
   styleUrls: ['./anime-stats-graphics.component.less'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AnimeStatsGraphicsComponent implements OnInit {
+export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
   @Input() set allData(value: any) {
-    this._allData = value;
+    this._allData = {...value};
 
     if (
       Object.keys(this._allData).length !== 0 &&
       this._allData.constructor === Object
     ) {
+      this.ready = true;
+      this.cdr.detectChanges();
       for (let type of Object.keys(this._allData)) {
         this.drawGeneralStatistics(type as ANIME_TYPE);
+        this._allData[type].map(entry=>{
+          entry[type].genres?.map(genre=>genre.id)?.forEach(id=>(id in this.genresStatistics) ? this.genresStatistics[id]++ : this.genresStatistics[id] = 0);
+        })
       }
+      this.drawRadarGraph();
+    } else {
+      this.ready = false;
+      this.cdr.detectChanges();
     }
   }
 
@@ -51,6 +62,8 @@ export class AnimeStatsGraphicsComponent implements OnInit {
 
   _allData: Record<ANIME_TYPE, any[]> = {} as any;
   _legendMap: Record<ANIME_TYPE, any[]> = {} as any;
+
+  ready = false;
 
   generalTypes: string[] = ['anime', 'manga'];
   generalParametersNames = GENERAL_PARAMETERS_NAME_MAP;
@@ -61,11 +74,12 @@ export class AnimeStatsGraphicsComponent implements OnInit {
   };
 
   animeStatusesColorsArr: string[] = [
-    '#89769b',//'#c3c3c3',
-    '#57e38f',//'#2db039',
-    '#5768e3',//'#26448f',
-    '#fffcd1',//'#f9d457',
-    '#e35784'//'#a12f31',
+    '#fcd581',
+    '#C6ECAE',//PLANNED
+    '#94C9A9',//WATCHING
+    '#777DA7',//WATCHED
+    '#885053',//HOLD
+    '#FE5F55'//DROPPED
   ];
 
   genresStatistics = {};
@@ -82,11 +96,13 @@ export class AnimeStatsGraphicsComponent implements OnInit {
   ngOnInit(): void {
     this.curUrl = location.href;
 
-    this.animeService.getGeneralGenresStats().subscribe((data) => {
-      this.genresStatistics = data;
-      this.drawRadarGraph();
-    });
+    // this.animeService.getGeneralGenresStats().subscribe((data) => {
+    //   this.genresStatistics = data;
+    //   this.drawRadarGraph();
+    // });
+  }
 
+  ngAfterViewInit(): void {
     this.translationService.localeChange.subscribe(() => {
       if (this.curUrl === location.href) {
         for (let type of Object.keys(this._allData)) {
@@ -108,7 +124,7 @@ export class AnimeStatsGraphicsComponent implements OnInit {
     ];
 
     if (Object.keys(this.genresStatistics).length !== 0) {
-      Object.values(MAIN_ANIME_GENRES_MAP).forEach((categoryId) => series[0].data.push(this.genresStatistics[categoryId]));
+      Object.values(MAIN_ANIME_GENRES_MAP).forEach((categoryId) => series[0].data.push(this.genresStatistics[categoryId] || 0));
     }
 
     const chartHeight = window.innerWidth < 900 ? 'auto' : '50%';
@@ -159,6 +175,7 @@ export class AnimeStatsGraphicsComponent implements OnInit {
   }
 
   drawGeneralStatistics(type: string): void {
+    if (!this._allData[type]?.length) return;
     this._legendMap[type] = [];
     this.episodesCounters[type] = 0;
     const series: { name: any; color: string; data: number[] }[] = []; //, grouping: boolean
@@ -239,8 +256,10 @@ export class AnimeStatsGraphicsComponent implements OnInit {
   }
 
   drawTypeGroupGraphics(type: ANIME_TYPE): void {
-    this.drawStatusPie(type);
-    this.drawScoreBar(type);
+    if (this._allData[type]?.length > 0) {
+      this.drawStatusPie(type);
+      this.drawScoreBar(type);
+    }
   }
 
   drawScoreBar(type: ANIME_TYPE): void {

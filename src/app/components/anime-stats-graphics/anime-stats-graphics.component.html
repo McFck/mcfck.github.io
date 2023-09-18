@@ -1,31 +1,43 @@
-<div class="anime-stats-graphics__statistics-container">
-    <div class="anime-stats-graphics__statistics-container" *ngFor="let type of generalTypes">
-        <div [id]="type" class="anime-stats-graphics__bar-container"></div>
-        <div id="legend" class="anime-stats-graphics__legend">
-            <div class="anime-stats-graphics__item-wrap">
-                <div class="anime-stats-graphics__item" *ngFor="let item of _legendMap[type]">
-                    <div class="anime-stats-graphics__symbol" [ngStyle]="{'background-color': item.color}"></div>
-                    <div class="anime-stats-graphics__big-gap">
-                        <div class="anime-stats-graphics__seriesName">{{item.name}}</div>
-                        <div class="anime-stats-graphics__seriesName">{{item.number}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="anime-stats-graphics__statistics-block">
-                <div class="anime-stats-graphics__item">
-                    <span class="anime-stats-graphics__header-medium">{{'TOTAL_GENERAL_COUNTER' | translate}}</span>
-                    <span class="anime-stats-graphics__header-data">{{statistics[type]?.totalAmount}}</span>
-                </div>
-                <div class="anime-stats-graphics__item">
-                    <span class="anime-stats-graphics__header-medium">{{'MEDIUM_RATING' | translate}}</span>
-                    <span class="anime-stats-graphics__header-data">{{statistics[type]?.mediumScore | number:'1.0-1'}}</span>
-                </div>
-                <div class="anime-stats-graphics__item">
-                    <span class="anime-stats-graphics__header-medium">{{generalParametersNames[type]['episodes'] | translate}}</span>
-                    <span class="anime-stats-graphics__header-data">{{episodesCounters[type]}}</span>
+<div class="anime-stats-graphics__statistics-container" *ngIf="ready">
+    <ng-container *ngIf="_allData?.anime?.length > 0 || _allData?.manga?.length > 0 else noData" >
+        <div class="anime-stats-graphics__statistics-container" *ngFor="let type of generalTypes">
+            <ng-container class="" *ngTemplateOutlet="_allData[type]?.length > 0 ? data : noData; context: { $implicit: type }">
+                <!-- *ngIf="_allData[type]?.length > 0 else noData" -->
+            </ng-container>
+        </div>
+    </ng-container>
+</div>
+<div id="radar"></div>
+
+<ng-template #noData let-type>
+    <app-empty-typed-data [type]="type"></app-empty-typed-data>
+</ng-template>
+
+<ng-template #data let-type>
+    <div [id]="type" class="anime-stats-graphics__bar-container"></div>
+    <div id="legend" class="anime-stats-graphics__legend">
+        <div class="anime-stats-graphics__item-wrap">
+            <div class="anime-stats-graphics__item" *ngFor="let item of _legendMap[type]">
+                <div class="anime-stats-graphics__symbol" [ngStyle]="{'background-color': item.color}"></div>
+                <div class="anime-stats-graphics__big-gap">
+                    <div class="anime-stats-graphics__seriesName">{{item.name}}</div>
+                    <div class="anime-stats-graphics__seriesName">{{item.number}}</div>
                 </div>
             </div>
         </div>
+        <div class="anime-stats-graphics__statistics-block">
+            <div class="anime-stats-graphics__item">
+                <span class="anime-stats-graphics__header-medium">{{'TOTAL_GENERAL_COUNTER' | translate}}</span>
+                <span class="anime-stats-graphics__header-data">{{statistics[type]?.totalAmount}}</span>
+            </div>
+            <div class="anime-stats-graphics__item">
+                <span class="anime-stats-graphics__header-medium">{{'MEDIUM_RATING' | translate}}</span>
+                <span class="anime-stats-graphics__header-data">{{statistics[type]?.mediumScore | number:'1.0-1'}}</span>
+            </div>
+            <div class="anime-stats-graphics__item">
+                <span class="anime-stats-graphics__header-medium">{{generalParametersNames[type]['episodes'] | translate}}</span>
+                <span class="anime-stats-graphics__header-data">{{episodesCounters[type]}}</span>
+            </div>
+        </div>
     </div>
-</div>
-<div id="radar"></div>
+</ng-template>

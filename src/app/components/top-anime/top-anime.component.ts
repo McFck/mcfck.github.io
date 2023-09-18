@@ -28,6 +28,7 @@ export class TopAnimeComponent implements OnInit, AfterContentInit {
         entry[type].thumbnail = entry?.["__typename"] ? 
         (entry.anime?.poster?.previewAlt2xUrl || entry.manga?.poster?.previewAlt2xUrl) :
         BASE_ANIME_URL + '/' + (entry.anime?.image?.original || entry.manga?.image?.original);
+        entry[type].url = entry?.["__typename"] ? (entry.anime?.url || entry.manga?.url) : `${BASE_ANIME_URL}/${entry.anime?.url || entry.manga?.url}`;
       });
     }
 

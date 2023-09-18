@@ -1,6 +1,7 @@
-<body class="bg">
-    <div class="anime blurred-effect container">
+<div class="bg" [ngStyle]="!currentUser && { 'height': '100%' }">
+    <div class="anime blurred-effect container" [ngStyle]="!currentUser && { 'height': '100%' }">
         <div class="anime__wrapper" *ngIf="!isLoading">
+            <a class="anime__customname" *ngIf="username" [href]="currentUser?.url">{{'FROM_PERSPECTIVE' | translate}} {{username}}</a>
             <span class="anime__header">{{'STATS' | translate}}</span>
             <div class="anime__credits">
                 <span class="anime__header-medium">{{'DATA_PROVIDER' | translate}}</span>
@@ -33,40 +34,48 @@
                 </a>
             </div>
             
-            <app-top-anime *ngIf="(allData | json) != '{}'" [allData]="allData"></app-top-anime>
+            <app-custom-id-field></app-custom-id-field>
 
-            <app-anime-time *ngIf="(allData | json) != '{}'" [allData]="allData"></app-anime-time>
+            <ng-container *ngIf="currentUser else noUser">
+                <app-top-anime *ngIf="(allData | json) != '{}'" [allData]="allData"></app-top-anime>
 
-            <div>
-                <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="anime__nav">
-                    <li [routerLinkActive]="['active']" [ngbNavItem]="1" [destroyOnHide]="false" class="anime__nav-item">
-                        <a ngbNavLink>{{'GENERAL_STATS' | translate}}</a>
-                        <ng-template ngbNavContent>
-                            <app-anime-stats-graphics [allData]="allData" [statistics]="statistics"></app-anime-stats-graphics>
-                        </ng-template>
-                    </li>
-                    <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="anime__nav-item">
-                        <a ngbNavLink>{{'ANIME_LIST' | translate}}</a>
-                        <ng-template ngbNavContent>
-                            <app-anime-stats-lists [data]="allData.anime"></app-anime-stats-lists>
-                        </ng-template>
-                    </li>
-                    <li [routerLinkActive]="['active']" [ngbNavItem]="3" class="anime__nav-item">
-                        <a ngbNavLink>{{'MANGA_LIST' | translate}}</a>
-                        <ng-template ngbNavContent let-active>
-                            <app-anime-stats-lists [data]="allData.manga"></app-anime-stats-lists>
-                        </ng-template>
-                    </li>
-                </ul>
-                
-                <div [ngbNavOutlet]="nav" class="mt-2"></div>
-            </div>
-            <div>
-                <app-anime-history [data]="allData"></app-anime-history>
-            </div>
+                <app-anime-time *ngIf="(allData | json) != '{}'" [allData]="allData"></app-anime-time>
+
+                <div>
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="anime__nav">
+                        <li [routerLinkActive]="['active']" [ngbNavItem]="1" [destroyOnHide]="false" class="anime__nav-item">
+                            <a ngbNavLink>{{'GENERAL_STATS' | translate}}</a>
+                            <ng-template ngbNavContent>
+                                <app-anime-stats-graphics [allData]="allData" [statistics]="statistics"></app-anime-stats-graphics>
+                            </ng-template>
+                        </li>
+                        <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="anime__nav-item" [disabled]="!allData.anime?.length">
+                            <a ngbNavLink>{{'ANIME_LIST' | translate}}</a>
+                            <ng-template ngbNavContent>
+                                <app-anime-stats-lists [data]="allData.anime"></app-anime-stats-lists>
+                            </ng-template>
+                        </li>
+                        <li [routerLinkActive]="['active']" [ngbNavItem]="3" class="anime__nav-item" [disabled]="!allData.manga?.length">
+                            <a ngbNavLink>{{'MANGA_LIST' | translate}}</a>
+                            <ng-template ngbNavContent let-active>
+                                <app-anime-stats-lists [data]="allData.manga"></app-anime-stats-lists>
+                            </ng-template>
+                        </li>
+                    </ul>
+
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                </div>
+                <div>
+                    <app-anime-history [data]="allData"></app-anime-history>
+                </div>
+            </ng-container>
         </div> 
     </div>
     <div *ngIf="isLoading">
+        <div class="anime__chika-background"></div>
         <img class="anime__chika" src="/assets/chika-loading.gif" alt="{{'LOADING' | translate}}"  width="250" />
     </div>
-</body>
+    <ng-template #noUser> 
+        <div class="anime__no-user">{{'USER_NOT_FOUND' | translate}}</div>
+    </ng-template>
+</div>

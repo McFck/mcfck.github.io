@@ -58,6 +58,12 @@ export interface AnimeData {
   volumes?: number;
 }
 
+export interface LoadedShikiUser {
+  url?: string;
+  id?: string;
+  avatar?: string;
+}
+
 export interface Anime {
   aired_on?: Date;
   episodes?: number;

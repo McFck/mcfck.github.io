@@ -43,6 +43,9 @@ import { GraphQLModule } from './graphql.module';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
+import { CustomIdFieldComponent } from './components/custom-id-field/custom-id-field.component';
+import { FormsModule } from '@angular/forms';
+import { EmptyTypedDataComponent } from './components/empty-typed-data/empty-typed-data.component';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -70,7 +73,9 @@ export function setupTranslateServiceFactory(
     ResponsiveTemplateDirective,
     SwiperDirective,
     NgTemplateNameDirective,
-    StreamsSwiperComponent
+    StreamsSwiperComponent,
+    CustomIdFieldComponent,
+    EmptyTypedDataComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +97,8 @@ export function setupTranslateServiceFactory(
     MatToolbarModule,
     MatButtonModule,
     FlexLayoutModule,
-    GraphQLModule
+    GraphQLModule,
+    FormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

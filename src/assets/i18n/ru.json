@@ -90,6 +90,9 @@
   "tv": "Сериал",
   "movie": "Фильм",
   "manga": "Манга",
+  "manhwa": "Манхва",
+  "manhua": "Маньхуа",
+  "anime": "Аниме",
   "ranobe": "Ранобэ",
   "NOTHING FOUND": "По фильтру ничего не найдено",
   "Filter": "Фильтр",
@@ -127,5 +130,14 @@
   "Thumbnail": "Превью",
 
   "Hidden gem": "Скрытый гем",
-  "Watched in original": "Смотрел в оригинале"
+  "Watched in original": "Смотрел в оригинале",
+
+  "CUSTOM_NICK_NAME_BTN": "Попробовать со своими данными",
+  "CUSTOM_NICK_NAME":"Введите свой ник (shikimori)",
+  "CUSTOM_NICK_NAME_EXAMPLE": "McFck",
+  "FROM_PERSPECTIVE": "От лица ",
+  "manga_EMPTY_USER_DATA": "Данные о манге отсутствуют",
+  "anime_EMPTY_USER_DATA": "Данные об аниме отсутствуют",
+  "EMPTY_FETCHED_DATA": "У пользователя нету заполненых списков",
+  "USER_NOT_FOUND": "Пользователь не найден"
 }
