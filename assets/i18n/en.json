@@ -92,6 +92,8 @@
   "tv": "TV Series",
   "movie": "Movie",
   "manga": "Manga",
+  "manhwa": "Manhwa",
+  "manhua": "Manhua",
   "ranobe": "Ranobe",
   "NOTHING FOUND": "Nothing found",
   "Filter": "Filter",
@@ -113,5 +115,14 @@
   "SUMMARY_TABLE_CHAPTERS": "Chapters: {{episodes}}",
   "SUMMARY_TABLE_ENTRIES": "Total: {{entries}}",
   "GENRES_TITLE": "Genres preferences",
-  "NO_DATA_CHART": "No data is available in the chart"
+  "NO_DATA_CHART": "No data is available in the chart",
+
+  "CUSTOM_NICK_NAME_BTN": "Try with your data",
+  "CUSTOM_NICK_NAME":"Enter your nickname (shikimori)",
+  "CUSTOM_NICK_NAME_EXAMPLE": "McFck",
+  "FROM_PERSPECTIVE": "From perspective of",
+  "manga_EMPTY_USER_DATA": "No manga data available",
+  "anime_EMPTY_USER_DATA": "No anime data available",
+  "EMPTY_FETCHED_DATA": "User doesn't have any tracked data",
+  "USER_NOT_FOUND": "User not found"
 }
