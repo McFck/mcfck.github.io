@@ -1,7 +1,12 @@
 import {
   Component,
-  Input
+  ElementRef,
+  Input,
+  QueryList,
+  ViewChildren
 } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { BASE_ANIME_URL, MAIN_ANIME_STATUSES } from 'src/app/constants/generalConsts';
 import { AnimeData, DataSourceTransfer } from 'src/app/models/dataModels';
 import { TranslateService } from 'src/app/services/translate.service';
@@ -27,9 +32,16 @@ export interface TableData {
   styleUrls: ['./anime-stats-lists.component.less']
 })
 export class AnimeStatsListsComponent {
+  @ViewChildren("extensionPanels") 
+  extensionPanels: QueryList<MatExpansionPanel>;
+
   dataSources: DataSourceTransfer[] = [];
   isAnime = false;
   filterValue: Event;
+  expansionObj = {
+    isAllExpanded: true,
+    expandedKeys: []
+  }
 
   @Input() set data(value: AnimeData[]) {
     if (value?.length > 0) {
@@ -64,6 +76,7 @@ export class AnimeStatsListsComponent {
           this.dataSources.push({key: status, data: filteredValues, summary: {
             episodes: totalEpisodes
           }})
+          this.expansionObj.expandedKeys = this.dataSources.map(source=>source.key);
         }
       }
       this.isAnime = value.findIndex((entry)=>entry.anime?.episodes > 0) !== -1;
@@ -72,7 +85,25 @@ export class AnimeStatsListsComponent {
 
   constructor(private translationService: TranslateService) {}
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     this.filterValue = event;
+  }
+
+  updateExpansionValue(value: boolean, source): void {
+    const index = this.expansionObj.expandedKeys.indexOf(source.key);
+    if (value && index === -1) {
+      this.expansionObj.expandedKeys.push(source.key);
+    } else if(!value) {
+      this.expansionObj.expandedKeys = this.expansionObj.expandedKeys.filter(key=>key!==source.key);
+    }
+    this.expansionObj.isAllExpanded = this.expansionObj.expandedKeys.length === this.dataSources.length;
+  }
+
+  updateExpansionPanels(value: MatCheckboxChange): void {
+    if (value.checked) {
+      this.extensionPanels.forEach(panel=>panel.open());
+    } else {
+      this.extensionPanels.forEach(panel=>panel.close());
+    }
   }
 }

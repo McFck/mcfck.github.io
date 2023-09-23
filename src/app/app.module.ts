@@ -46,6 +46,9 @@ import { InMemoryCache } from '@apollo/client/core';
 import { CustomIdFieldComponent } from './components/custom-id-field/custom-id-field.component';
 import { FormsModule } from '@angular/forms';
 import { EmptyTypedDataComponent } from './components/empty-typed-data/empty-typed-data.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { RedirectBlockComponent } from './components/redirect-block/redirect-block.component';
+import { CompareComponent } from './components/compare/compare.component';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -75,7 +78,9 @@ export function setupTranslateServiceFactory(
     NgTemplateNameDirective,
     StreamsSwiperComponent,
     CustomIdFieldComponent,
-    EmptyTypedDataComponent
+    EmptyTypedDataComponent,
+    RedirectBlockComponent,
+    CompareComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,7 @@ export function setupTranslateServiceFactory(
     MatIconModule,
     MatMenuModule,
     MatTableModule,
+    MatCheckboxModule,
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,

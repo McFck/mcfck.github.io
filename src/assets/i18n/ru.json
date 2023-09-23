@@ -139,5 +139,11 @@
   "manga_EMPTY_USER_DATA": "Данные о манге отсутствуют",
   "anime_EMPTY_USER_DATA": "Данные об аниме отсутствуют",
   "EMPTY_FETCHED_DATA": "У пользователя нету заполненых списков",
-  "USER_NOT_FOUND": "Пользователь не найден"
+  "USER_NOT_FOUND": "Пользователь не найден",
+  "NEED_MORE_DATA": "Требуется больше данных",
+  "SHOW_ALL_TABLES": "Развернуть все таблицы",
+  "NAV_TO_COMPARATOR": "Сравнить пользователей",
+  "NAV_TO_RECOMMENDATIONS": "Получить рекомендации",
+  "Comparator": "Cовместимость",
+  "Recommendations": "Рекомендации"
 }

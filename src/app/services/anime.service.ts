@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { delay, expand, map, reduce, switchMap, takeWhile } from 'rxjs/operators';
+import { catchError, delay, expand, map, reduce, switchMap, takeWhile } from 'rxjs/operators';
 import { BASE_ANIME_URL, BASE_BACKEND_URL, MAX_ANIME_HISTORY_REQUEST, MAX_VALUES_REQUEST, SHIKI_DEFAULT_ID } from '../constants/generalConsts';
 import { AnimeData, AnimeHistory, ANIME_TYPE } from '../models/dataModels';
 import { TranslateService } from './translate.service';
@@ -85,11 +85,11 @@ export class AnimeService {
   }
 
   getAllAnimeList(): Observable<AnimeData[]> {
-    return this.fetchPaginatedData(this.getAnimeList, ANIME_TYPE.ANIME);
+    return this.fetchPaginatedData(this.getAnimeList, ANIME_TYPE.ANIME).pipe(catchError(()=>of(null)));
   }
 
   getAllMangaList(): Observable<AnimeData[]> {
-    return this.fetchPaginatedData(this.getMangaList, ANIME_TYPE.MANGA);
+    return this.fetchPaginatedData(this.getMangaList, ANIME_TYPE.MANGA).pipe(catchError(()=>of(null)));
   }
 
   fetchPaginatedData<AnimeData>(

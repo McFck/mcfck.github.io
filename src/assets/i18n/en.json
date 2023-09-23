@@ -124,5 +124,9 @@
   "manga_EMPTY_USER_DATA": "No manga data available",
   "anime_EMPTY_USER_DATA": "No anime data available",
   "EMPTY_FETCHED_DATA": "User doesn't have any tracked data",
-  "USER_NOT_FOUND": "User not found"
+  "USER_NOT_FOUND": "User not found",
+  "NEED_MORE_DATA": "Need more data",
+  "SHOW_ALL_TABLES": "Expand all tables",
+  "NAV_TO_COMPARATOR": "Compare users",
+  "NAV_TO_RECOMMENDATIONS": "Get recommendations"
 }

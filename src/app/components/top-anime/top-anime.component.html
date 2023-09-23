@@ -1,19 +1,27 @@
 <div class="top-anime__container">
     <span class="top-anime__header-text">{{'Favourite_anime' | translate}}</span>
+    <ng-container *ngIf="topArr?.length > 0 else notEnoughData">
 
-    <div *ngIf='getScreenWidth >= 1000' class="top-anime__wrapper">
-        <div *ngFor="let data of topArr" class="top-anime-item">
-            <div class="top-anime-thumbnail-container">
-                <img class="top-anime-item-img" src="{{ (data.anime?.thumbnail || data.manga?.thumbnail) }}">
-            </div>
-            <div class="top-anime-item-name">
-                <a href="{{ (data.anime?.url || data.manga?.url) | languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}" class="top-anime-item-name__text" target="_blank" rel="noopener noreferrer">
-                    {{data.anime?.[fieldName] || data.manga?.[fieldName]}}
-                </a>
-                <span>{{data.score}} ❤️</span>
+        <div *ngIf='getScreenWidth >= 1000' class="top-anime__wrapper">
+            <div *ngFor="let data of topArr" class="top-anime-item">
+                <div class="top-anime-thumbnail-container">
+                    <img class="top-anime-item-img" src="{{ (data.anime?.thumbnail || data.manga?.thumbnail) }}">
+                </div>
+                <div class="top-anime-item-name">
+                    <a href="{{ (data.anime?.url || data.manga?.url) | languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}" class="top-anime-item-name__text" target="_blank" rel="noopener noreferrer">
+                        {{data.anime?.[fieldName] || data.manga?.[fieldName]}}
+                    </a>
+                    <span>{{data.score}} ❤️</span>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>
 
-<fm-streams-swiper *ngIf='getScreenWidth < 1000' [topArr]="topArr" [fieldName]="fieldName"></fm-streams-swiper>
+<fm-streams-swiper *ngIf='topArr?.length > 0 && getScreenWidth < 1000' [topArr]="topArr" [fieldName]="fieldName"></fm-streams-swiper>
+
+<ng-template #notEnoughData>
+    <div>
+        {{'NEED_MORE_DATA' | translate}}
+    </div>
+</ng-template>

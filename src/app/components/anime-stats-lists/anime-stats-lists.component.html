@@ -2,8 +2,14 @@
   <mat-label>{{'Filter' | translate}}</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="{{'EXAMPLE SEARCH' | translate}}" #input>
 </mat-form-field>
+<mat-checkbox color="accent" [checked]="expansionObj.isAllExpanded" (change)="updateExpansionPanels($event)">{{'SHOW_ALL_TABLES' | translate}}</mat-checkbox>
 <div *ngFor="let source of dataSources">
-  <mat-expansion-panel class="anime-stat-lists__extension" expanded="true">
+  <mat-expansion-panel 
+    #extensionPanels 
+    (closed)="updateExpansionValue(false, source)" 
+    (opened)="updateExpansionValue(true, source)" 
+    class="anime-stat-lists__extension" 
+    expanded="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="anime-stat-lists__list-title">{{isAnime ? ((source.key + "_anime") | translate) : ((source.key + "_manga") | translate)}}</div>
