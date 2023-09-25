@@ -1,5 +1,7 @@
 import * as Highcharts from 'highcharts';
+import rounded from 'highcharts-rounded-corners';
 import { Tooltip } from '../models/dataModels';
+rounded(Highcharts)
 
 export class ChartsHelper {
     public static prepareChartData(

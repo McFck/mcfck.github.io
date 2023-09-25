@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -18,9 +17,8 @@ import { ChartsHelper } from 'src/app/helpers/charts.helper';
 import {
   AnimeMangaStatistics,
   ANIME_TYPE,
-  AnimeData,
 } from 'src/app/models/dataModels';
-import { TranslatePipe } from 'src/app/pipes/translate.pipe';
+import { TranslatePipe } from 'src/app/components/shared/pipes/translate.pipe';
 import { AnimeService } from 'src/app/services/anime.service';
 import { TranslateService } from 'src/app/services/translate.service';
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
@@ -147,11 +145,12 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
           backgroundColor: null,
           height: chartHeight,
           spacingLeft: 45,
-          spacingRight: 45,
+          spacingRight: 45
         },
         xAxis: {
           categories,
           tickmarkPlacement: 'on',
+          lineColor: '#ffffff'
         },
         yAxis: {
           gridLineInterpolation: 'polygon',
@@ -178,7 +177,7 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
     if (!this._allData[type]?.length) return;
     this._legendMap[type] = [];
     this.episodesCounters[type] = 0;
-    const series: { name: any; color: string; data: number[] }[] = []; //, grouping: boolean
+    let series: { name: any; color: string; data: number[] }[] = []; //, grouping: boolean
     Object.keys(MAIN_ANIME_STATUSES).forEach((status, index) => {
       series.push({
         name: status.toLowerCase(),
@@ -197,6 +196,14 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
     series.forEach((s) => {
       s.name = this.translationPipe.transform(`${s.name}_${type}`);
     });
+
+    series = series.filter(s=>s.data[0] > 0);
+
+    // Sloppy WA for border-radius issue in bar chart of HighCharts library
+    series[0]["borderRadiusTopRight"] = 20;
+    series[0]["borderRadiusTopLeft"] = 20;
+    series[series.length - 1]["borderRadiusBottomRight"] = 20;
+    series[series.length - 1]["borderRadiusBottomLeft"] = 20;
 
     ChartsHelper.drawChart(
       type,
@@ -233,10 +240,9 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
         },
         plotOptions: {
           series: {
-            borderRadius: 3,
-            borderWidth: 0,
-            stacking: 'normal',
-          },
+            borderColor: '#ffffff00',
+            stacking: 'normal'
+          }
         },
         tooltip: {
           enabled: false,
@@ -250,7 +256,7 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
           endOnTick: false,
         },
         legend: false,
-        series,
+        series
       }
     );
   }
