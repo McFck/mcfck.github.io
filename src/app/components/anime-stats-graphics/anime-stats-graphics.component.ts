@@ -45,7 +45,9 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
       for (let type of Object.keys(this._allData)) {
         this.drawGeneralStatistics(type as ANIME_TYPE);
         this._allData[type].map(entry=>{
-          entry[type].genres?.map(genre=>genre.id)?.forEach(id=>(id in this.genresStatistics) ? this.genresStatistics[id]++ : this.genresStatistics[id] = 0);
+          entry[type].genres?.map(genre=>genre.name)?.forEach(name=>{
+            (name in this.genresStatistics) ? this.genresStatistics[name]++ : this.genresStatistics[name] = 0
+          });
         })
       }
       this.drawRadarGraph();
@@ -122,7 +124,7 @@ export class AnimeStatsGraphicsComponent implements OnInit, AfterViewInit {
     ];
 
     if (Object.keys(this.genresStatistics).length !== 0) {
-      Object.values(MAIN_ANIME_GENRES_MAP).forEach((categoryId) => series[0].data.push(this.genresStatistics[categoryId] || 0));
+      Object.keys(MAIN_ANIME_GENRES_MAP).forEach((categoryName) => series[0].data.push(this.genresStatistics[categoryName] || 0));
     }
 
     const chartHeight = window.innerWidth < 900 ? 'auto' : '50%';

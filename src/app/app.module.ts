@@ -123,7 +123,7 @@ export function setupTranslateServiceFactory(
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            uri: 'https://shikimori.me/api/graphql',
+            uri: 'https://shikimori.one/api/graphql',
           }),
           defaultOptions: {
             watchQuery: {

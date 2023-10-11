@@ -15,7 +15,7 @@ export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
 
 export const MAX_ANIME_HISTORY_REQUEST = 2;
 
-export const BASE_ANIME_URL = 'https://shikimori.me';
+export const BASE_ANIME_URL = 'https://shikimori.one';
 export const BASE_BACKEND_URL = environment.production ? 'https://babunov-personal.ru' : 'http://localhost:3000';
 
 export const SHIKI_DEFAULT_ID = "1121790";
@@ -50,7 +50,7 @@ export const MAIN_ANIME_GENRES_MAP = {
   'Supernatural': 37,
   'Horror': 14,
   'Mystery': 7,
-  'Suspense': 41,
+  'Thriller': 41,
   'Romance': 22,
   'Sci-Fi': 24,
   'Ecchi': 9
