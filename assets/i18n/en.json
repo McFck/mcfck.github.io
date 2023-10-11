@@ -137,5 +137,8 @@
   "CMP_PLANNED": "Plan",
   "USER_N": "User №{{n}}",
   "MEDIUM_SCORE_TOOLTIP": "Excluding dropped scores",
-  "GENERAL_INFO_CARD": "General info"
+  "GENERAL_INFO_CARD": "General info",
+  "USER_UNDEFINED": "No user",
+  "DATA_LOADING_ERROR": "Data loading error",
+  "USER_LOADING_ERROR": "User loading error"
 }

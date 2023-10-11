@@ -154,5 +154,8 @@
   "CMP_PLANNED": "В планах",
   "USER_N": "Пользователь №{{n}}",
   "MEDIUM_SCORE_TOOLTIP": "Без учета статуса бросил",
-  "GENERAL_INFO_CARD": "Общая информация"
+  "GENERAL_INFO_CARD": "Общая информация",
+  "USER_UNDEFINED": "Пользователь отсутствует",
+  "DATA_LOADING_ERROR": "Ошибка загрузки данных",
+  "USER_LOADING_ERROR": "Ошибка загрузки пользователя"
 }
