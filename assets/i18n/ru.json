@@ -145,5 +145,14 @@
   "NAV_TO_COMPARATOR": "Сравнить пользователей",
   "NAV_TO_RECOMMENDATIONS": "Получить рекомендации",
   "Comparator": "Cовместимость",
-  "Recommendations": "Рекомендации"
+  "Recommendations": "Рекомендации",
+  "ONLY_IN_LIST": "Только у {{nickname}} в списке",
+  "IN_BOTH_LISTS": "В обоих списках",
+  "Score Diff": "Разница",
+  "SCORE_MEAN": "Среднее",
+  "CMP_DROP": "Брошено",
+  "CMP_PLANNED": "В планах",
+  "USER_N": "Пользователь №{{n}}",
+  "MEDIUM_SCORE_TOOLTIP": "Без учета статуса бросил",
+  "GENERAL_INFO_CARD": "Общая информация"
 }
