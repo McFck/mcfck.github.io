@@ -1,0 +1,123 @@
+<!-- <div *ngIf="dataSource"> -->
+    <table mat-table [dataSource]="dataSource" matSort class="compare-table" [matSortActive]="sortKey" matSortDirection="desc">
+      
+        <!-- ID Column -->
+        <ng-container matColumnDef="orderNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+          <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+          <td mat-footer-cell *matFooterCellDef> {{'SCORE_MEAN' | translate}} </td>
+        </ng-container>
+    
+        <!-- Thumbnail Column -->
+        <ng-container matColumnDef="thumbnail">
+          <th mat-header-cell *matHeaderCellDef> {{'Thumbnail' | translate}} </th>
+          <td mat-cell *matCellDef="let row">
+            <img 
+            class="anime-stats-table__image"
+            [src]="row.thumbnail"/>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+    
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Name' | translate}} </th>
+          <td mat-cell *matCellDef="let row"> 
+            <div class="anime-stats-table__name-row">
+              <span class="anime-stats-table__name-wrapper">
+                <a class="anime-stats-table__name" href="{{row.url | languageContent: 'ru': row.malUrl}}" target="_blank" rel="noopener noreferrer">
+                  {{row[titleFieldName]}} 
+                </a>
+              </span>
+            </div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+    
+        <!-- Left Score Column -->
+        <ng-container matColumnDef="scoreLeft">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{userNames[0]}} </th>
+          <td mat-cell *matCellDef="let row">
+            <ng-container [ngTemplateOutlet]="score" [ngTemplateOutletContext]="{status: row.statusLeft, score: row.scoreLeft || '—'}"></ng-container>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> {{calculatedMeans['scoreLeft']}} </td>
+        </ng-container>
+
+        <!-- Right Score Column -->
+        <ng-container matColumnDef="scoreRight">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{userNames[1]}} </th>
+            <td mat-cell *matCellDef="let row">
+              <ng-container [ngTemplateOutlet]="score" [ngTemplateOutletContext]="{status: row.statusRight, score: row.scoreRight || '—'}"></ng-container>
+            </td>
+            <td mat-footer-cell *matFooterCellDef> {{calculatedMeans['scoreRight']}} </td>
+        </ng-container>
+
+          <!-- Diff score Column -->
+        <ng-container matColumnDef="diff">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Score Diff' | translate}} </th>
+            <td mat-cell *matCellDef="let row"> {{row.diff ?? '—'}} </td>
+            <td mat-footer-cell *matFooterCellDef> {{calculatedMeans['diff']}} </td>
+        </ng-container>
+    
+        <!-- TR Block -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="{'backgroundColor': row.color}"></tr>
+        <ng-container *ngIf="userKey === 'both'">
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true" class="compare-table-footer"></tr>
+        </ng-container>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell anime-stats-table__nothing-found" colspan="6">{{'NOTHING FOUND' | translate}}</td>
+        </tr>
+    </table>
+<!-- </div> -->
+
+<!-- Templates -->
+<ng-template #plannedIcon>
+  <span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-plus" viewBox="0 0 16 16">
+      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+      <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8z"/>
+    </svg>
+  </span>
+</ng-template>
+
+<ng-template #droppedIcon>
+  <span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+    </svg>
+  </span>
+</ng-template>
+
+
+<ng-template #chips let-text="text" let-score="score" let-template="template">
+  <div class="compare-table__template-chip" *ngIf="!isSimplifiedView">
+    <span>{{text | translate}}</span>
+    <span *ngIf="score > 0">({{score}})</span>
+  </div>
+  <div class="compare-table__template-chip" *ngIf="isSimplifiedView">
+    <app-tool-tip-text [templateMain]="template" [textTooltip]="text | translate"></app-tool-tip-text>
+    <span *ngIf="score > 0">({{score}})</span>
+  </div>
+</ng-template>
+
+<ng-template #score let-score="score" let-status="status">
+  <ng-container [ngSwitch]="status">
+    <span *ngSwitchCase="'dropped'">
+      <ng-container 
+        [ngTemplateOutlet]="chips" 
+        [ngTemplateOutletContext]="{text:'CMP_DROP', score: score, template: droppedIcon}">
+      </ng-container>
+    </span>
+    <span *ngSwitchCase="'planned'">
+      <ng-container 
+        [ngTemplateOutlet]="chips" 
+        [ngTemplateOutletContext]="{text:'CMP_PLANNED', score: score, template: plannedIcon}">
+      </ng-container>
+    </span>
+    <span *ngSwitchDefault>{{score}}</span>
+  </ng-container>
+</ng-template>

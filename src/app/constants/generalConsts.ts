@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 export const DEFAULT_LANGUAGE = 'en';
 export const SUPPORTED_LANGUAGES = ['en', 'ru'];
 
+export const MAX_VALUES_ANY_REQUEST = 50;
+
 export const MAX_VALUES_REQUEST: Record<ANIME_TYPE, number> = {
   manga: 50,
   anime: 50

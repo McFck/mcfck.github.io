@@ -1,7 +1,9 @@
-<div class="bg" [ngStyle]="!currentUser && { 'height': '100%' }">
+<div class="bg"></div>
+<!-- class="bg" -->
+<div [ngStyle]="!currentUser && { 'height': '100%' }">
     <div class="anime blurred-effect container" [ngStyle]="!currentUser && { 'height': '100%' }">
         <div class="anime__wrapper" *ngIf="!isLoading">
-            <a class="anime__customname" *ngIf="username" [href]="currentUser?.url">{{'FROM_PERSPECTIVE' | translate}} {{username}}</a>
+            <a class="anime__customname" *ngIf="username" [href]="currentUser?.url">{{'FROM_PERSPECTIVE' | translate}} <span class="anime__customname-nick">{{username}}</span></a>
             <span class="anime__header">{{'STATS' | translate}}</span>
             <div class="anime__credits">
                 <span class="anime__header-medium">{{'DATA_PROVIDER' | translate}}</span>
@@ -34,15 +36,15 @@
                 </a>
             </div>
             
-            <app-custom-id-field></app-custom-id-field>
+            <app-custom-id-field [user]="currentUser"></app-custom-id-field>
 
             <ng-container *ngIf="currentUser else noUser">
-                <app-top-anime *ngIf="(allData | json) != '{}'" [allData]="allData"></app-top-anime>
+                <app-top-anime *ngIf="isAnyDataFetched" [allData]="allData"></app-top-anime>
 
-                <app-anime-time *ngIf="(allData | json) != '{}'" [allData]="allData"></app-anime-time>
+                <app-anime-time *ngIf="isAnyDataFetched" [allData]="allData"></app-anime-time>
 
                 <div>
-                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="anime__nav">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="anime__nav" (navChange)="tabStatus[$event.nextId] = true">
                         <li [routerLinkActive]="['active']" [ngbNavItem]="1" [destroyOnHide]="false" class="anime__nav-item">
                             <a ngbNavLink>{{'GENERAL_STATS' | translate}}</a>
                             <ng-template ngbNavContent>
@@ -52,13 +54,13 @@
                         <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="anime__nav-item" [disabled]="!allData.anime?.length">
                             <a ngbNavLink>{{'ANIME_LIST' | translate}}</a>
                             <ng-template ngbNavContent>
-                                <app-anime-stats-lists [data]="allData.anime"></app-anime-stats-lists>
+                                <app-anime-stats-lists *ngIf="tabStatus[2] === true" [data]="allData.anime"></app-anime-stats-lists>
                             </ng-template>
                         </li>
                         <li [routerLinkActive]="['active']" [ngbNavItem]="3" class="anime__nav-item" [disabled]="!allData.manga?.length">
                             <a ngbNavLink>{{'MANGA_LIST' | translate}}</a>
                             <ng-template ngbNavContent let-active>
-                                <app-anime-stats-lists [data]="allData.manga"></app-anime-stats-lists>
+                                <app-anime-stats-lists *ngIf="tabStatus[3] === true" [data]="allData.manga"></app-anime-stats-lists>
                             </ng-template>
                         </li>
                     </ul>
@@ -72,10 +74,15 @@
         </div> 
     </div>
     <div *ngIf="isLoading">
-        <div class="anime__chika-background"></div>
-        <img class="anime__chika" src="/assets/chika-loading.gif" alt="{{'LOADING' | translate}}"  width="250" />
+        <ng-container *ngTemplateOutlet="loading"></ng-container>
     </div>
-    <ng-template #noUser> 
-        <div class="anime__no-user">{{'USER_NOT_FOUND' | translate}}</div>
-    </ng-template>
 </div>
+
+<ng-template #noUser> 
+    <div class="anime__no-user">{{'USER_NOT_FOUND' | translate}}</div>
+</ng-template>
+
+<ng-template #loading>
+    <div class="anime__chika-background"></div>
+    <img class="anime__chika" src="/assets/chika-loading.gif" alt="{{'LOADING' | translate}}"  width="250" />
+</ng-template>

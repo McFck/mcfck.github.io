@@ -1,0 +1,17 @@
+<div class="tooltip-control">
+    <div>
+        <div class="tooltip-control__text">
+            <div *ngIf="templateMain" [ngbTooltip]="tooltip" [triggers]="selectedEvents" [placement]="placement">
+                <ng-container [ngTemplateOutlet]="templateMain"></ng-container>
+            </div>
+            <span *ngIf="textMain" [ngbTooltip]="tooltip" [triggers]="selectedEvents" [placement]="placement">{{textMain}}</span>
+        </div>
+    </div>
+</div>
+
+<ng-template #tooltip>
+    <div class="d-flex flex-column">
+        <ng-container *ngIf="templateTooltip" [ngTemplateOutlet]="templateTooltip"></ng-container>
+        <span *ngIf="textTooltip">{{textTooltip}}</span>
+    </div>
+</ng-template>

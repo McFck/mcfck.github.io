@@ -1,15 +1,13 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
-  ElementRef,
   Input,
-  QueryList,
-  ViewChildren
+  ViewEncapsulation,
 } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatExpansionPanel } from '@angular/material/expansion';
 import { BASE_ANIME_URL, MAIN_ANIME_STATUSES } from 'src/app/constants/generalConsts';
-import { AnimeData, DataSourceTransfer } from 'src/app/models/dataModels';
-import { TranslateService } from 'src/app/services/translate.service';
+import { AnimeData } from 'src/app/models/dataModels';
+import { TableListComponent } from '../shared/table-list/table-list.component';
 
 export interface TableData {
   name: string;
@@ -29,19 +27,12 @@ export interface TableData {
 @Component({
   selector: 'app-anime-stats-lists',
   templateUrl: './anime-stats-lists.component.html',
-  styleUrls: ['./anime-stats-lists.component.less']
+  styleUrls: ['./anime-stats-lists.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
-export class AnimeStatsListsComponent {
-  @ViewChildren("extensionPanels") 
-  extensionPanels: QueryList<MatExpansionPanel>;
+export class AnimeStatsListsComponent extends TableListComponent<TableData> implements AfterViewInit {
 
-  dataSources: DataSourceTransfer[] = [];
   isAnime = false;
-  filterValue: Event;
-  expansionObj = {
-    isAllExpanded: true,
-    expandedKeys: []
-  }
 
   @Input() set data(value: AnimeData[]) {
     if (value?.length > 0) {
@@ -59,7 +50,7 @@ export class AnimeStatsListsComponent {
           chaptersRead: entry.chapters,
           chapters: entry.manga?.chapters,
           thumbnail: entry?.["__typename"] ? (
-            entry.anime?.poster?.miniAltUrl || entry.manga?.poster?.miniAltUrl) :
+            entry.anime?.poster?.miniUrl || entry.manga?.poster?.miniUrl) :
             BASE_ANIME_URL + '/' + (entry.anime?.image?.x48 || entry.manga?.image?.x48),
           url: entry?.["__typename"] ? (entry.anime?.url || entry.manga?.url) : `${BASE_ANIME_URL}/${entry.anime?.url || entry.manga?.url}`,
           malUrl: entry.anime?.malUrl || entry.manga?.malUrl
@@ -74,36 +65,28 @@ export class AnimeStatsListsComponent {
         filteredValues.forEach((entry)=>totalEpisodes += entry.chaptersRead || entry.episodesWatched);
         if (filteredValues.length > 0) {
           this.dataSources.push({key: status, data: filteredValues, summary: {
-            episodes: totalEpisodes
+            episodes: totalEpisodes,
+            filtered: null
           }})
-          this.expansionObj.expandedKeys = this.dataSources.map(source=>source.key);
         }
       }
       this.isAnime = value.findIndex((entry)=>entry.anime?.episodes > 0) !== -1;
     }
   }
 
-  constructor(private translationService: TranslateService) {}
-
-  applyFilter(event: Event): void {
-    this.filterValue = event;
+  constructor(cdr: ChangeDetectorRef) {
+    super(cdr)
   }
 
-  updateExpansionValue(value: boolean, source): void {
-    const index = this.expansionObj.expandedKeys.indexOf(source.key);
-    if (value && index === -1) {
-      this.expansionObj.expandedKeys.push(source.key);
-    } else if(!value) {
-      this.expansionObj.expandedKeys = this.expansionObj.expandedKeys.filter(key=>key!==source.key);
-    }
-    this.expansionObj.isAllExpanded = this.expansionObj.expandedKeys.length === this.dataSources.length;
+  ngAfterViewInit(): void {
+    this.afterViewInitRoutine();
   }
 
-  updateExpansionPanels(value: MatCheckboxChange): void {
-    if (value.checked) {
-      this.extensionPanels.forEach(panel=>panel.open());
-    } else {
-      this.extensionPanels.forEach(panel=>panel.close());
-    }
+  updateFilteredData(filteredData: TableData[], sourceKey: string): void {
+    let episodes = 0;
+    filteredData.forEach((entry)=>episodes += entry.chaptersRead || entry.episodesWatched);
+    this.dataSources.find(source=>source.key === sourceKey).summary.filtered = episodes;
+    this.dataSources = [...this.dataSources];
+    this.updateTableVisibility(filteredData.length === 0, sourceKey);
   }
 }

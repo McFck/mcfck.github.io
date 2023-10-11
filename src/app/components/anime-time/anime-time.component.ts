@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   CHAPTER_DURATION,
   MANGA_TIME_CALCULATION_STATUSES,
   VOLUME_DURATION,
 } from 'src/app/constants/mangaConsts';
 import { AnimeData, ANIME_TYPE } from 'src/app/models/dataModels';
-import { AnimeService } from 'src/app/services/anime.service';
+import { TranslatePipe } from '../shared/pipes/translate.pipe';
+import { TranslateService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'app-anime-time',
@@ -13,7 +14,7 @@ import { AnimeService } from 'src/app/services/anime.service';
   styleUrls: ['./anime-time.component.less'],
 })
 export class AnimeTimeComponent {
-  constructor(private animeService: AnimeService) {}
+  constructor(private translatePipe: TranslatePipe, private translateService: TranslateService) {}
 
   @Input() set allData(value: Record<ANIME_TYPE, any[]>) {
     this._allData = value;
@@ -34,7 +35,10 @@ export class AnimeTimeComponent {
     if(this.mangaDays || this.animeDays) {
       this.totalDaysSpent = (this.mangaDays + this.animeDays).toFixed(0);
     }
+  
+    this.displayTimeString = `${this.totalDaysSpent} ${this.translatePipe.transform('DAYS_SHORT')}`
   }
+
   _allData: Record<ANIME_TYPE, any[]> = {} as any;
 
   mangaDays = 0;
@@ -43,6 +47,14 @@ export class AnimeTimeComponent {
   totalMangaDays:string = "?";
   totalAnimeDays:string = "?";
   totalDaysSpent: string = "?";
+
+  displayTimeString: string = "?";
+
+  ngOnInit(): void {
+    this.translateService.localeChange.subscribe(()=>{
+      this.displayTimeString = `${this.totalDaysSpent} ${this.translatePipe.transform('DAYS_SHORT')}`
+    });
+  }
 
   calculateAnimeTime(): void {
     let totalTime = 0;

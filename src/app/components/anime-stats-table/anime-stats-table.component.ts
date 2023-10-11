@@ -1,27 +1,24 @@
 import {
-  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChildren,
-  HostListener,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   QueryList,
   TemplateRef,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TranslatePipe } from 'src/app/pipes/translate.pipe';
+import { TranslatePipe } from 'src/app/components/shared/pipes/translate.pipe';
 import { TranslateService } from 'src/app/services/translate.service';
 import { TableData } from '../anime-stats-lists/anime-stats-lists.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { BADGES_MAP } from 'src/app/constants/generalConsts';
 import { NgTemplateNameDirective } from 'src/app/directives/TemplateNameDirective';
+import { BaseTableComponent } from '../shared/base-table/base-table.component';
 
 @Component({
   selector: 'app-anime-stats-table',
@@ -29,9 +26,7 @@ import { NgTemplateNameDirective } from 'src/app/directives/TemplateNameDirectiv
   styleUrls: ['./anime-stats-table.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+export class AnimeStatsTableComponent extends BaseTableComponent<TableData> implements OnInit, AfterViewInit {
   @ViewChildren(NgTemplateNameDirective) private _templates: QueryList<NgTemplateNameDirective>;
 
   @Input()
@@ -40,11 +35,8 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
   @Input()
   isAnime: boolean;
 
-  @Input() set filter(value: Event) {
-    if (value) {
-      this.applyFilter(value);
-    }
-  }
+  @Output()
+  onFilterChanges: EventEmitter<TableData[]> = new EventEmitter();
 
   dataSource: MatTableDataSource<TableData>;
 
@@ -57,20 +49,26 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
     'kind'
   ];
 
-  mobileColumns: string[] = ['orderNumber', 'name', 'score'];
+  mobileColumns: string[] = [
+    'orderNumber', 
+    'name', 
+    'score'
+  ];
 
   displayedColumns: string[] = [...this.defaultColumns];
 
-  historyFieldName = 'name';
+  titleFieldName = 'name';
 
   isSimplifiedView = false;
 
   constructor(
-    private translationService: TranslateService,
-    private cdr: ChangeDetectorRef,
-    private translatePipe: TranslatePipe,
-    private breakpointObserver: BreakpointObserver
-  ) {}
+    translationService: TranslateService,
+    cdr: ChangeDetectorRef,
+    translatePipe: TranslatePipe,
+    breakpointObserver: BreakpointObserver
+  ) {
+    super(cdr, translatePipe, translationService, breakpointObserver);
+  }
 
   ngOnInit() {
     if (!this.isAnime) {
@@ -86,22 +84,7 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
       this.displayedColumns = [...this.defaultColumns];
     }
 
-    this.translationService.localeChange.subscribe(() => {
-      this.updateHistoryFieldName();
-      this.translatePaginator(this.paginator);
-      this.cdr.detectChanges();
-    });
-
-    this.breakpointObserver
-      .observe([Breakpoints.Handset])
-      .subscribe((result) => {
-        this.isSimplifiedView = result.matches;
-        if (result.matches) {
-          this.displayedColumns = this.mobileColumns;
-        } else {
-          this.displayedColumns = this.defaultColumns;
-        }
-      });
+    this.onInitRoutine();
   }
 
   ngAfterViewInit(): void {
@@ -122,9 +105,7 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
       })
     });
     this.dataSource = new MatTableDataSource(this.tableData);
-    this.translatePaginator(this.paginator);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.afterViewInitRoutine();
     this.cdr.detectChanges();
   }
 
@@ -133,57 +114,8 @@ export class AnimeStatsTableComponent implements OnInit, AfterViewInit {
     return dir ? dir.template : null
   }
 
-  updateHistoryFieldName(): void {
-    this.historyFieldName =
+  updateTitleFieldName(): void {
+    this.titleFieldName =
       this.translationService.getLanguage() === 'ru' ? 'russian' : 'name';
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-    this.cdr.detectChanges();
-  }
-
-  translatePaginator(paginator: MatPaginator): void {
-    if (paginator?._intl) {
-      paginator._intl.itemsPerPageLabel =
-        this.translatePipe.transform('ItemsPerPage');
-      paginator._intl.nextPageLabel = this.translatePipe.transform('NextPage');
-      paginator._intl.previousPageLabel =
-        this.translatePipe.transform('PreviousPage');
-      paginator._intl.getRangeLabel = (
-        page: number,
-        pageSize: number,
-        length: number
-      ) => {
-        if (length == 0 || pageSize == 0) {
-          return this.translatePipe.transform('OUT_OF', {
-            first: 0,
-            second: length,
-          });
-        }
-
-        length = Math.max(length, 0);
-
-        const startIndex = page * pageSize;
-
-        // If the start index exceeds the list length, do not try and fix the end index to the end.
-        const endIndex =
-          startIndex < length
-            ? Math.min(startIndex + pageSize, length)
-            : startIndex + pageSize;
-
-        return this.translatePipe.transform('N_OUT_OF', {
-          first: startIndex + 1,
-          second: endIndex,
-          third: length,
-        });
-      };
-      paginator._intl.changes.next();
-    }
   }
 }

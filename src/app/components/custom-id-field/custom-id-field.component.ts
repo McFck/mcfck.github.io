@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 
@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./custom-id-field.component.less']
 })
 export class CustomIdFieldComponent implements OnInit {
+
+  @Input()
+  public user;
 
   enabledField = false;
 

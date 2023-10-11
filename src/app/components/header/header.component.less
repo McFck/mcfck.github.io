@@ -5,6 +5,14 @@
         }
     }
 
+    &__utility-text {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        font-weight: 700;
+        font-size: large;
+    }
+
     &__flags {
         &-icon {
             width: 25px;
@@ -116,6 +124,8 @@ li {
 ul.header__nav.nav {
     // margin-bottom: 5px;
     display: flex;
+    position: relative;
+    z-index: 1000;
 }
 
 li.nav-item {

@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, skip, startWith } from 'rxjs/operators';
 import { TranslateService } from './services/translate.service';
 import { Title } from '@angular/platform-browser';
-import { TranslatePipe } from './pipes/translate.pipe';
+import { TranslatePipe } from './components/shared/pipes/translate.pipe';
 import { register } from 'swiper/element/bundle';
 import { SUPPORTED_LANGUAGES } from './constants/generalConsts';
 

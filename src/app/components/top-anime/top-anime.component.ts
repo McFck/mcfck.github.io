@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   Component,
   HostListener,
   Input,
@@ -26,7 +25,7 @@ export class TopAnimeComponent implements OnInit, AfterContentInit {
     for (let type of Object.keys(data)) {
       data[type].forEach((entry:any)=> {
         entry[type].thumbnail = entry?.["__typename"] ? 
-        (entry.anime?.poster?.previewAlt2xUrl || entry.manga?.poster?.previewAlt2xUrl) :
+        (entry.anime?.poster?.preview2xUrl || entry.manga?.poster?.preview2xUrl) :
         BASE_ANIME_URL + '/' + (entry.anime?.image?.original || entry.manga?.image?.original);
         entry[type].url = entry?.["__typename"] ? (entry.anime?.url || entry.manga?.url) : `${BASE_ANIME_URL}/${entry.anime?.url || entry.manga?.url}`;
       });

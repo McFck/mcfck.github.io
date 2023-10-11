@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, skip, tap } from 'rxjs/operators';
 import { BASE_ANIME_URL } from 'src/app/constants/generalConsts';
 import { ANIME_TYPE, AnimeHistory } from 'src/app/models/dataModels';
-import { LanguageContentPipe } from 'src/app/pipes/languageContent.pipe';
-import { TranslatePipe } from 'src/app/pipes/translate.pipe';
+import { LanguageContentPipe } from 'src/app/components/shared/pipes/languageContent.pipe';
+import { TranslatePipe } from 'src/app/components/shared/pipes/translate.pipe';
 import { AnimeService } from 'src/app/services/anime.service';
 import { TranslateService } from 'src/app/services/translate.service';
 
@@ -32,7 +32,6 @@ export class AnimeHistoryComponent implements OnInit {
   imageDataPath = BASE_ANIME_URL;
 
   ngOnInit(): void {
-    this.getHistory();
     this.translationService.localeChange.subscribe(() => {
       this.updateHistoryFieldName();
       this.getHistory();

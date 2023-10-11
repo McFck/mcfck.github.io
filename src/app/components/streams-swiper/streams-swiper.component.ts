@@ -1,4 +1,4 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA, Input, ViewEncapsulation} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import { BASE_ANIME_URL } from 'src/app/constants/generalConsts';
 import { AnimeData } from 'src/app/models/dataModels';
 import {A11y, Mousewheel, Navigation, Pagination, SwiperOptions, EffectCoverflow, Autoplay} from 'swiper';

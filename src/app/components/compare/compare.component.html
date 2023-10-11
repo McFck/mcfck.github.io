@@ -1,0 +1,123 @@
+<div class="bg"></div>
+<div class="compare__container">
+    <ng-container *ngIf="isLoading">
+        <div class="compare__porco-background"></div>
+        <img class="compare__porco" src="/assets/porco-rosso-loading.gif" alt="{{'LOADING' | translate}}" width="250" />
+    </ng-container>
+    <!-- Mobile -->
+    <ng-container *appResponsiveTemplate="[false, true]">
+        <mat-tab-group class="ml-2 mr-2" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="0ms">
+            <mat-tab label="Первый">
+                <cmp-user-card 
+                    class="d-flex flex-column mt-2" 
+                    [label]="'USER_N' | translate : {n: 1}" 
+                    (isLoading)="isLoading = $event" 
+                    (userFetchEvent)="userFetchProcess($event, 'left')" 
+                    [user]="users.left">
+                </cmp-user-card>
+            </mat-tab>
+            <mat-tab label="Второй">
+                <cmp-user-card 
+                    class="d-flex flex-column mt-2" 
+                    [label]="'USER_N' | translate : {n: 2}" 
+                    (isLoading)="isLoading = $event" 
+                    (userFetchEvent)="userFetchProcess($event, 'right')" 
+                    [user]="users.right">
+                </cmp-user-card>
+            </mat-tab>
+        </mat-tab-group> 
+        <ng-container *ngFor="let key of objectKeys(connectionRefsConfig)">
+            <ng-container *ngIf="connectionRefsConfig[key]">
+                <div class="compare__button" (click)="fetchCompareData(key)">
+                    <ng-container [ngTemplateOutlet]="this[key]"></ng-container>
+                    <span class="compare__error">{{errorMessage}}</span>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <!-- Desktop -->
+    <ng-container *appResponsiveTemplate="[true, false]">
+        <div class="compare__user-inputs">
+            <cmp-user-card 
+                class="d-flex flex-column mt-2" 
+                [label]="'USER_N' | translate : {n: 1}" 
+                (isLoading)="isLoading = $event" 
+                (userFetchEvent)="userFetchProcess($event, 'left')" 
+                [user]="users?.left">
+            </cmp-user-card>
+            <ng-container *ngFor="let key of objectKeys(connectionRefsConfig)">
+                <ng-container *ngIf="connectionRefsConfig[key]">
+                    <div class="compare__button" (click)="fetchCompareData(key)">
+                        <ng-container [ngTemplateOutlet]="this[key]"></ng-container>
+                        <span class="compare__error">{{errorMessage}}</span>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <cmp-user-card 
+                class="d-flex flex-column mt-2" 
+                [label]="'USER_N' | translate : {n: 2}" 
+                (isLoading)="isLoading = $event" 
+                (userFetchEvent)="userFetchProcess($event, 'right')" 
+                [user]="users?.right">
+            </cmp-user-card>
+        </div>
+    </ng-container>
+
+    <div *ngIf="isProcessed">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="compare__nav" (navChange)="tabStatus[$event.nextId] = true">
+            <li [routerLinkActive]="['active']" [ngbNavItem]="1" [destroyOnHide]="false" class="compare__nav-item">
+                <a ngbNavLink>{{'ANIME' | translate}}</a>
+                <ng-template ngbNavContent>
+                    <compare-lists [data]="someData"></compare-lists>
+                </ng-template>
+            </li>
+            <!-- [disabled]="!allData.anime?.length" -->
+            <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="compare__nav-item">
+                <a ngbNavLink>{{'MANGA' | translate}}</a>
+                <ng-template ngbNavContent>
+                    <compare-lists *ngIf="tabStatus[2] === true" [data]="someData" [type]="'manga'"></compare-lists>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+</div>
+
+
+
+<!-- Connection btns -->
+
+<ng-template #errorConnection>
+    <div class="compare__connection-error">
+        <svg class="compare__father-icon compare__icon" viewBox="0 0 32 32">
+              <rect width="64" height="64" />
+        </svg>
+        <svg class="compare__mother-icon compare__icon" viewBox="32 0 32 32">
+              <rect width="64" height="64" />
+        </svg>
+    </div>
+</ng-template>
+
+<ng-template #progressConnection>
+    <div class="compare__connection-connecting">
+        <svg class="compare__father-icon compare__icon" viewBox="0 0 32 32">
+              <rect width="64" height="64" />
+        </svg>
+    
+        <svg class="compare__mother-icon compare__icon" viewBox="32 0 32 32">
+              <rect width="64" height="64" />
+        </svg>
+    </div>
+</ng-template>
+
+<ng-template #establishedConnection>
+    <div class="compare__connection-connected">
+        <svg class="compare__father-icon compare__icon" viewBox="0 0 32 32">
+              <rect width="64" height="64" />
+        </svg>
+    
+        <svg class="compare__mother-icon compare__icon" viewBox="32 0 32 32">
+              <rect width="64" height="64" />
+        </svg>
+    </div>
+</ng-template>

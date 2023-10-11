@@ -17,6 +17,7 @@ import { combineLatest, of } from 'rxjs';
 import { catchError, switchMap, take } from 'rxjs/operators';
 import { GeneralHelper } from 'src/app/helpers/general.helper';
 import { ActivatedRoute } from '@angular/router';
+import { SHIKI_DEFAULT_ID } from 'src/app/constants/generalConsts';
 
 @Component({
   selector: 'app-anime',
@@ -31,6 +32,8 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   ) {}
 
   allData: Record<ANIME_TYPE, any[]> = {} as any;
+  isAnyDataFetched = false;
+  tabStatus = {};
   
   statistics: Record<ANIME_TYPE, AnimeMangaStatistics> = {} as any;
   
@@ -46,7 +49,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     this.username = this.route.snapshot.queryParams?.["username"];
     if (this.username) {
-      this.animeService.setUserId(this.username).pipe(catchError(()=>of(null))).subscribe((result)=>{
+      this.animeService.setUserId(this.username).pipe(catchError(()=>of(null))).subscribe((result: LoadedShikiUser)=>{
         if (!result) {
           this.currentUser = null;
           this.isLoading = false;
@@ -57,20 +60,32 @@ export class AnimeComponent implements OnInit, AfterViewInit {
         }
       });
     } else {
-      this.animeService.useDefaultId();
-      setTimeout(()=>{
-        this.dataStatusEmitter.emit();
-      })
+      this.animeService.getUserData(SHIKI_DEFAULT_ID).pipe(catchError(()=>of(null))).subscribe((result)=>{
+        if (!result) {
+          this.currentUser = null;
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        } else {
+          this.currentUser = result;
+          this.animeService.useDefaultId();
+          this.dataStatusEmitter.emit();
+        }
+      });
     }
   }
 
   ngAfterViewInit(): void {
     this.dataStatusEmitter.pipe(take(1), switchMap(()=>{
+      const totalAnime = AnimeHelper.calculateTotalEntries(this.currentUser.stats.full_statuses.anime);
+      const totalManga = AnimeHelper.calculateTotalEntries(this.currentUser.stats.full_statuses.manga);
       return combineLatest([
-        this.animeService.getDataTypeListGraphQL(ANIME_TYPE.ANIME).pipe(catchError(()=>this.animeService.getAllAnimeList())),
-        this.animeService.getDataTypeListGraphQL(ANIME_TYPE.MANGA).pipe(catchError(()=>this.animeService.getAllMangaList()))
+        // this.animeService.getDataTypeListGraphQL(ANIME_TYPE.ANIME).pipe(catchError(()=>this.animeService.getAllAnimeList())),
+        // this.animeService.getDataTypeListGraphQL(ANIME_TYPE.MANGA).pipe(catchError(()=>this.animeService.getAllMangaList()))
+        this.animeService.getDataTypeListGraphQLParallel(ANIME_TYPE.ANIME, totalAnime).pipe(catchError(()=>this.animeService.getAllAnimeList())),
+        this.animeService.getDataTypeListGraphQLParallel(ANIME_TYPE.MANGA, totalManga).pipe(catchError(()=>this.animeService.getAllMangaList()))
       ])
     })).subscribe(([animeData, mangaData]: [AnimeData[], AnimeData[]]) => {
+      console.debug("DONE?", {animeData, mangaData})
       this.isLoading = false;
       this.cdr.detectChanges();
       
@@ -88,6 +103,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
         }
   
         this.allData = {...this.allData};
+        this.isAnyDataFetched = !!(this.allData?.anime || this.allData?.manga);
   
         this.statistics[ANIME_TYPE.ANIME] = {
           mediumScore: AnimeHelper.calculateMediumScoreStatistics(animeData).toFixed(2),

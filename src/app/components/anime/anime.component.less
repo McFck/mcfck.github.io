@@ -13,6 +13,14 @@
     display: flex;
     justify-content: center;
     font-weight: 800;
+    &-nick {
+      margin-left: 10px;
+      color: #655bff;
+      text-decoration: underline;
+      &:hover {
+        color: #2213ff;
+      }
+    }
   }
 
   &__nav {
@@ -80,6 +88,63 @@
     }
   }
 
+  &__porco {
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    overflow: hidden;
+    width: auto;
+    height: 35%;
+    margin: -100px 0 0 -60px;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: porco-flying 2.5s infinite ease-out, porco-soaring 2.5s infinite ease-out;
+    @media (max-width: 900px) {
+      left: 20%;
+      top: 35%;
+      width: 90%;
+      height: 35%;
+    }
+    &-background {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(66deg, #baccff, #5884ff);
+      position: fixed;
+    }
+  }
+
+  @-webkit-keyframes porco-flying {
+    50% {
+      -webkit-transform: translateX(5px);
+      -moz-transform: translateX(5px);
+      transform: translateX(5px);
+    }
+  }
+
+  @keyframes porco-flying {
+    50% {
+      -webkit-transform: translateX(5px);
+      -moz-transform: translateX(5px);
+      transform: translateX(5px);
+    }
+  }
+
+  @-webkit-keyframes porco-soaring {
+    50% {
+      -webkit-transform: translateY(60px);
+      -moz-transform: translateY(60px);
+      transform: translateY(60px);
+    }
+  }
+
+  @keyframes porco-soaring {
+    50% {
+      -webkit-transform: translateY(60px);
+      -moz-transform: translateY(60px);
+      transform: translateY(60px);
+    }
+  }
+
   @-webkit-keyframes pulse {
     0% {
       -webkit-transform: scale(1.1);
@@ -138,14 +203,24 @@ a {
   min-height: 100%;
 }
 
-.bg { 
-  // @media (max-width:900px) {
-  //   background-image: none;
-  // }
-  background-image: url("../../../assets/anime_bg_1.jpg");
-  min-height: 100%;
-  background-position: center;
+// .bg { 
+  // background-image: url("../../../assets/anime_bg_1.jpg");
+  // min-height: 100%;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // background-position: center; TODO: Test this layout on mobile
+  // background-attachment: fixed;
+// }
+
+.bg {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-image: url("../../../assets/anime_bg_1.jpg");
+  @media (max-width:900px) {
+    background: #d2d0ed;
+  }
 }

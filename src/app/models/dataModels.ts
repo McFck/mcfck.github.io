@@ -58,10 +58,65 @@ export interface AnimeData {
   volumes?: number;
 }
 
+export interface ParsedGeneralProfileStats {
+  anime: {
+    total: number,
+    medium: number
+  },
+  manga: {
+    total: number,
+    medium: number
+  },
+  general?: {
+    medium?: string
+  }
+}
+
+export interface CompareUsers {
+  left?: LoadedShikiUser;
+  right?: LoadedShikiUser;
+}
+
+export interface CompareEntries {
+  left?: AnimeData[];
+  right?: AnimeData[];
+  common?: {
+    left: AnimeData[],
+    right: AnimeData[],
+    obj: Anime[]
+  };
+}
+
 export interface LoadedShikiUser {
   url?: string;
   id?: string;
   avatar?: string;
+  image?: ImageAvatar;
+  nickname?: string;
+  stats?: {
+    full_statuses?: {
+      anime?: FullStatuses[];
+      manga?: FullStatuses[];
+    }
+    scores?: {
+      anime?: Scores[],
+      manga?: Scores[]
+    }
+  };
+  userData?: Record<ANIME_TYPE, any[]>
+}
+
+interface Scores {
+  name: string;
+  value: number;
+}
+
+export interface FullStatuses {
+  id: number;
+  grouped_id: string;
+  name: string;
+  size: number;
+  type: string;
 }
 
 export interface Anime {
@@ -82,6 +137,13 @@ export interface Anime {
   score?: string;
   status?: string;
   url?: string;
+}
+
+interface ImageAvatar extends Image {
+  x16?: string;
+  x32?: string;
+  x48?: string;
+  x64?: string;
 }
 
 interface Image {
@@ -149,7 +211,8 @@ export interface DataSourceTransfer {
   key: MAIN_ANIME_STATUSES, 
   data: TableData[], 
   summary: {
-    episodes: number
+    episodes: number;
+    filtered: number;
   }
 }
 

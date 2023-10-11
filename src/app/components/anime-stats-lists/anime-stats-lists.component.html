@@ -2,12 +2,12 @@
   <mat-label>{{'Filter' | translate}}</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="{{'EXAMPLE SEARCH' | translate}}" #input>
 </mat-form-field>
-<mat-checkbox color="accent" [checked]="expansionObj.isAllExpanded" (change)="updateExpansionPanels($event)">{{'SHOW_ALL_TABLES' | translate}}</mat-checkbox>
+<mat-checkbox color="accent" [checked]="extensionPanelsMap.isAllExpanded" (change)="updateTableVisibility($event.checked)">{{'SHOW_ALL_TABLES' | translate}}</mat-checkbox>
 <div *ngFor="let source of dataSources">
   <mat-expansion-panel 
-    #extensionPanels 
-    (closed)="updateExpansionValue(false, source)" 
-    (opened)="updateExpansionValue(true, source)" 
+    #extensionPanels
+    (closed)="updateAllValuesCheckbox()" 
+    (opened)="updateAllValuesCheckbox()" 
     class="anime-stat-lists__extension" 
     expanded="true">
     <mat-expansion-panel-header>
@@ -16,12 +16,18 @@
       </mat-panel-title>
       <mat-panel-description>
         <span *ngIf="source.summary?.episodes" class="anime-stat-lists__summary">
-          {{ (isAnime ? 'SUMMARY_TABLE_EPISODES' : 'SUMMARY_TABLE_CHAPTERS') | translate: {episodes: source.summary?.episodes} }} 
+          {{ (isAnime ? 'SUMMARY_TABLE_EPISODES' : 'SUMMARY_TABLE_CHAPTERS') | translate: {episodes: source.summary?.filtered ?? source.summary?.episodes} }} 
         </span>
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="anime-stat-lists__table">
-      <app-anime-stats-table *ngIf="source.data" [tableData]="source.data" [isAnime]="isAnime" [filter]="filterValue"></app-anime-stats-table>
+      <app-anime-stats-table 
+        *ngIf="source.data" 
+        [tableData]="source.data" 
+        [isAnime]="isAnime" 
+        [filter]="filterValue"
+        (onFilterChanges)="updateFilteredData($event, source.key)">
+      </app-anime-stats-table>
     </div>
   </mat-expansion-panel>
 </div>

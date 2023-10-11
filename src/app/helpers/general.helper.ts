@@ -1,6 +1,7 @@
 import * as Highcharts from 'highcharts';
-import { TranslatePipe } from '../pipes/translate.pipe';
+import { TranslatePipe } from '../components/shared/pipes/translate.pipe';
 import { Anime } from '../models/dataModels';
+import { MatPaginator } from '@angular/material/paginator';
 
 export class GeneralHelper {
   public static getPluralForm(value: number, curLanguage: string): number {
@@ -47,5 +48,54 @@ export class GeneralHelper {
       if (englishSynonym) return englishSynonym;
     }
     return data.name;
+  }
+
+  public static flatten(arr: any[]): any[] {
+    return arr.reduce(function (flat, toFlatten) {
+      return flat.concat(Array.isArray(toFlatten) ? GeneralHelper.flatten(toFlatten) : toFlatten);
+    }, []);
+  }
+
+  public static translatePaginator(paginator: MatPaginator, translatePipe: TranslatePipe): void {
+    if (paginator?._intl) {
+      paginator._intl.itemsPerPageLabel =
+        translatePipe.transform('ItemsPerPage');
+      paginator._intl.nextPageLabel = translatePipe.transform('NextPage');
+      paginator._intl.previousPageLabel =
+        translatePipe.transform('PreviousPage');
+      paginator._intl.getRangeLabel = (
+        page: number,
+        pageSize: number,
+        length: number
+      ) => {
+        if (length == 0 || pageSize == 0) {
+          return translatePipe.transform('OUT_OF', {
+            first: 0,
+            second: length,
+          });
+        }
+
+        length = Math.max(length, 0);
+
+        const startIndex = page * pageSize;
+
+        // If the start index exceeds the list length, do not try and fix the end index to the end.
+        const endIndex =
+          startIndex < length
+            ? Math.min(startIndex + pageSize, length)
+            : startIndex + pageSize;
+
+        return translatePipe.transform('N_OUT_OF', {
+          first: startIndex + 1,
+          second: endIndex,
+          third: length,
+        });
+      };
+      paginator._intl.changes.next();
+    }
+  }
+
+  public static isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
   }
 }

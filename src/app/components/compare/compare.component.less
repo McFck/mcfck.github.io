@@ -1,0 +1,273 @@
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.bg {
+    background: url(../../../assets/anime_bg_2.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background-attachment: fixed;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+}
+
+.compare {
+    &__nav {
+        display: flex;
+        justify-content: center;
+        &-item {
+            font-weight: 500;
+            &:hover,
+            & .active {
+              color: #77ffff;
+              text-shadow: -1px -1px 0 #00000085, 1px -1px 0 #00000085, -1px 1px 0 #00000085, 1px 1px 0 #00000085;
+            }
+        }
+    }
+
+    &__user-inputs {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 30px;
+        // align-items: center;
+        align-items: flex-start;
+    }
+
+    &__container {
+        clear: both;
+        margin: 0 auto;
+        padding: 15px 10px 0;
+        position: relative;
+        z-index: 1;
+        background: #a4bbd5;
+        width: 90%;
+        min-height: 100%;
+        overflow: hidden;
+        @media (max-width: 900px) {
+            width: 100%;
+            overflow: hidden;
+            padding: 0;
+        }
+    }
+
+    &__error {
+        color: red;
+        font-weight: 800;
+    }
+
+    &__button {
+        margin-top: auto;
+        display: flex;
+        margin-bottom: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+    }
+
+    &__porco {
+        position: absolute;
+        z-index: 101;
+        top: 35%;
+        left: 35%;
+        overflow: hidden;
+        width: auto;
+        height: 35%;
+        margin: -100px 0 0 -60px;
+        -webkit-animation: spin 4s linear infinite;
+        -moz-animation: spin 4s linear infinite;
+        animation: porco-flying 2.5s infinite ease-out, porco-soaring 2.5s infinite ease-out;
+
+        @media (max-width: 900px) {
+            left: 25%;
+            top: 35%;
+            height: 35%;
+        }
+
+        &-background {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(66deg, #baccff, #5884ff);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+    }
+
+    &__icon {
+        width: 32px;
+        height: 32px;
+        fill: #4e1e9b;
+        position: relative;
+        left: 0px;
+    }
+    
+    &__mother-icon rect {
+        clip-path: path(
+            'm 41,8 12,7 0,2 6,0 c 0,1.239583 0,2.760417 0,4 l -6,0 0,2 -12,7 -4,0 0,-3 2,0 0,-4 -2,0 c 0,-2.666667 0,-5.333333 0,-8 l 2,0 0,-4 -2,0 0,-3 z'
+        );
+    }
+    
+    &__father-icon rect {
+        clip-path: path(
+            'm 23,8 -12,7 0,2 -6,0 c 0,1.239583 0,2.760417 0,4 l 6,0 0,2 12,7 4,0 0,-3 5,0 0,-4 -5,0 c 0,-2.666667 0,-5.333333 0,-8 l 5,0 0,-4 -5,0 0,-3 z'
+        );
+    }
+    
+    &__connection-connecting {
+        &:hover {
+            cursor: pointer;
+            &>.compare__mother-icon {
+                animation: mother-connecting 1s;
+                -moz-animation: mother-connecting 1s infinite;
+                -webkit-animation: mother-connecting 1s infinite;
+                fill: #a670ff;
+            }
+            &>.compare__father-icon {
+                animation: father-connecting 1s;
+                -moz-animation: father-connecting 1s infinite;
+                -webkit-animation: father-connecting 1s infinite;
+                fill: #a670ff;
+            }
+        }
+    }
+    
+    &__connection-connected {
+        & .compare__icon {
+            fill: green;
+        }
+        
+        &.compare__mother-icon {
+            left: -6px;
+        }
+        
+        &.compare__father-icon {
+            left: 6px;
+        }
+    }
+    
+    &__connection-error .compare__icon {
+        fill: red;
+    }
+}
+
+@-webkit-keyframes porco-flying {
+    50% {
+        -webkit-transform: translateX(5px);
+        -moz-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+}
+
+@keyframes porco-flying {
+    50% {
+        -webkit-transform: translateX(5px);
+        -moz-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+}
+
+@-webkit-keyframes porco-soaring {
+    50% {
+        -webkit-transform: translateY(60px);
+        -moz-transform: translateY(60px);
+        transform: translateY(60px);
+    }
+}
+
+@keyframes porco-soaring {
+    50% {
+        -webkit-transform: translateY(60px);
+        -moz-transform: translateY(60px);
+        transform: translateY(60px);
+    }
+}
+
+@keyframes mother-connecting {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: -6px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@-moz-keyframes mother-connecting {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: -6px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@-webkit-keyframes mother-connecting {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: -6px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@keyframes father-connecting {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: 6px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@-moz-keyframes father-connecting {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: 6px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@-webkit-keyframes father-connecting {
+    0% {
+        left: 0px;
+    }
+
+    50% {
+        left: 6px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}

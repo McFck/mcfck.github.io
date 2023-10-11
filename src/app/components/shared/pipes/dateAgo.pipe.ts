@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import { GeneralHelper } from '../helpers/general.helper';
-import { TranslateService } from '../services/translate.service';
+import { GeneralHelper } from '../../../helpers/general.helper';
+import { TranslateService } from '../../../services/translate.service';
 import { TranslatePipe } from './translate.pipe';
 
 @Pipe({

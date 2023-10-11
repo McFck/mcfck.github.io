@@ -128,5 +128,17 @@
   "NEED_MORE_DATA": "Need more data",
   "SHOW_ALL_TABLES": "Expand all tables",
   "NAV_TO_COMPARATOR": "Compare users",
-  "NAV_TO_RECOMMENDATIONS": "Get recommendations"
+  "NAV_TO_RECOMMENDATIONS": "Get recommendations",
+  "ONLY_IN_LIST": "Only in {{nickname}}'s list",
+  "IN_BOTH_LISTS": "In both lists",
+  "Score Diff": "Diff",
+  "SCORE_MEAN": "Mean",
+  "CMP_DROP": "Drop",
+  "CMP_PLANNED": "Plan",
+  "USER_N": "User №{{n}}",
+  "MEDIUM_SCORE_TOOLTIP": "Excluding dropped scores",
+  "GENERAL_INFO_CARD": "General info",
+  "USER_UNDEFINED": "No user",
+  "DATA_LOADING_ERROR": "Data loading error",
+  "USER_LOADING_ERROR": "User loading error"
 }

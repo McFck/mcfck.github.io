@@ -1,0 +1,42 @@
+.compare-lists {
+    &-expansion {
+        overflow: unset !important;
+        background: transparent;
+        box-shadow: unset !important;
+        margin-bottom: 20px !important;
+    }
+    &-header {
+        font-weight: 800;
+        display: flex;
+        flex: 1 1 60%;
+    }
+    &-description {
+        display: flex;
+        flex: 1;
+    }
+    
+    &__filter {
+        width: 100%;
+        @media (max-width:900px) {
+            width: unset;
+            margin: 0 5px 0 5px;
+        }
+    }
+
+    &__checkbox {
+        @media (max-width:900px) {
+            margin: 0 5px 0 5px;
+        }
+    }
+}
+
+.mat-expansion-panel {
+    overflow: unset !important;
+}
+
+.mat-expansion-panel-body {
+    @media (max-width:900px) {
+        padding: 0 !important;
+        overflow-x: auto !important;
+    }
+}

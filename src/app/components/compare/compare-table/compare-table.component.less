@@ -1,0 +1,26 @@
+.compare-table {
+    width: 100%;
+    background-color: #ffffff1f;
+    &-footer {
+        background-color: #cac4ff;
+    }
+
+    &__template-chip {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.mat-cell, .mat-header-cell { 
+    overflow: hidden; 
+    // text-overflow: ellipsis; 
+    // word-break: break-word; 
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding-right: 15px;
+}
+
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+    padding-right: unset !important;
+}

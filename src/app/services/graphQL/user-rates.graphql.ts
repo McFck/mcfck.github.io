@@ -14,7 +14,9 @@ query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTarget
         poster {
           originalUrl,
           previewAlt2xUrl,
-          miniAltUrl
+          miniAltUrl,
+          miniUrl
+          preview2xUrl
         }
         kind,
         english,
@@ -51,7 +53,9 @@ query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTarget
       poster {
         originalUrl,
         previewAlt2xUrl,
-        miniAltUrl
+        miniAltUrl,
+        miniUrl,
+        preview2xUrl
       }
       kind,
       english,

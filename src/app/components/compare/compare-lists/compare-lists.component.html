@@ -1,0 +1,39 @@
+<div class="d-flex flex-column mt-2">
+    <mat-form-field class="compare-lists__filter">
+        <mat-label>{{'Filter' | translate}}</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="{{'EXAMPLE SEARCH' | translate}}" #input>
+    </mat-form-field>
+    <mat-checkbox 
+        class="compare-lists__checkbox"
+        color="accent" 
+        [checked]="extensionPanelsMap.isAllExpanded" 
+        (change)="updateTableVisibility($event.checked)">{{'SHOW_ALL_TABLES' | translate}}</mat-checkbox>
+</div>
+<div *ngFor="let key of keysArr">
+    <mat-expansion-panel 
+        #extensionPanels
+        (closed)="updateAllValuesCheckbox()" 
+        (opened)="updateAllValuesCheckbox()" 
+        class="compare-lists-expansion"
+        expanded="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title class="compare-lists-header">
+          <div>{{ key === 'both' ? ('IN_BOTH_LISTS' | translate) : ('ONLY_IN_LIST' | translate: {nickname: listsConfiguration[key].title}) }}</div>
+        </mat-panel-title>
+        <mat-panel-description class="compare-lists-description">
+            <span>{{'AMOUNT' | translate}}: {{listsConfiguration[key]?.data?.length}}</span>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+        <compare-table 
+            [data]="data" 
+            [type]="type"
+            [filter]="filterValue"
+            [sortKey]="listsConfiguration[key].sortKey"
+            [userKey]="key"
+            [userNames]="listsConfiguration.userNames"
+            [defaultColumns]="listsConfiguration[key].fields.desktop" 
+            [mobileColumns]="listsConfiguration[key].fields.mobile" 
+            (onFilterChanges)="updateFilteredData($event, key)">
+        </compare-table>
+    </mat-expansion-panel>
+</div>

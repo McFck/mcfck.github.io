@@ -10,9 +10,14 @@
         <div class="anime-time__text">
             {{'TIME_SPENT_ANIME_SUM' | translate}}
         </div>
-        <div class="anime-time__amount" [ngbTooltip]="tooltip">
+        <app-tool-tip-text 
+            class="anime-time__amount" 
+            [textMain]="displayTimeString" 
+            [templateTooltip]="tooltip">
+        </app-tool-tip-text>
+        <!-- <div class="anime-time__amount" [ngbTooltip]="tooltip">
             {{ totalDaysSpent }} {{'DAYS_SHORT' | translate}}
-        </div>
+        </div> -->
     </div>
 </div>
 

@@ -24,7 +24,7 @@
           <div class="anime-stats-table__name-row">
             <span class="anime-stats-table__name-wrapper">
               <a class="anime-stats-table__name" href="{{row.url | languageContent: 'ru': row.malUrl}}" target="_blank" rel="noopener noreferrer">
-                {{row[historyFieldName]}} 
+                {{row[titleFieldName]}} 
               </a>
               <div *ngIf="row.status === 'ongoing'" class="anime-stats-table__ongoing">
                 {{'ONGOING' | translate}}

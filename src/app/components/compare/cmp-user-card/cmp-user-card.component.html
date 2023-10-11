@@ -1,0 +1,31 @@
+<div class="cmp-user-card">
+    <app-confirm-input 
+        class="cmp-user-card__input"
+        [label]="label" 
+        [placeholder]="'Никнейм'" 
+        [(val)]="nickname" 
+        (submitEvent)="updateUser()">
+    </app-confirm-input>
+
+    <div class="cmp-user-card__general d-flex flex-column">
+        <span class="cmp-user-card__top-text d-flex flex-row justify-content-center">{{'GENERAL_INFO_CARD' | translate}}</span>
+        <div class="d-flex flex-row" *ngIf="userObj else noUser">
+            <a [href]="userObj.url"><img class="cmp-user-card__avatar mr-2" [src]="userObj.avatar"> </a>
+            <div class="d-flex flex-column justify-content-center">
+                <span>{{'TOTAL_WATCHED_ANIME' | translate}} {{parsedStats.anime.total}}</span>
+                <span>{{'TOTAL_READ_MANGA' | translate}} {{parsedStats.manga.total}}</span>
+                <app-tool-tip-text [textMain]="('MEDIUM_RATING' | translate) + ': ' + parsedStats.general.medium" [textTooltip]="'MEDIUM_SCORE_TOOLTIP' | translate" [placement]="'top'"></app-tool-tip-text>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #noUser>
+    <div class="d-flex flex-row">
+        <img class="cmp-user-card__avatar mr-2" src="../../../../assets/empty-user.png"> 
+        <div class="d-flex flex-column justify-content-center">
+            <span class="d-flex justify-content-center">{{'USER_UNDEFINED' | translate}}</span>
+        </div>
+    </div>
+</ng-template>
