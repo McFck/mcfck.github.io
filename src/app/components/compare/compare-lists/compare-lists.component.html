@@ -17,12 +17,14 @@
         class="compare-lists-expansion"
         expanded="true">
     <mat-expansion-panel-header>
-        <mat-panel-title class="compare-lists-header">
-          <div>{{ key === 'both' ? ('IN_BOTH_LISTS' | translate) : ('ONLY_IN_LIST' | translate: {nickname: listsConfiguration[key].title}) }}</div>
-        </mat-panel-title>
-        <mat-panel-description class="compare-lists-description">
-            <span>{{'AMOUNT' | translate}}: {{listsConfiguration[key]?.data?.length}}</span>
-        </mat-panel-description>
+        <div>
+            <mat-panel-title class="compare-lists-header">
+                <div>{{ key === 'both' ? ('IN_BOTH_LISTS' | translate) : ('ONLY_IN_LIST' | translate: {nickname: listsConfiguration[key].title}) }}</div>
+              </mat-panel-title>
+              <mat-panel-description class="compare-lists-description">
+                  <span>{{'AMOUNT' | translate}}: {{listsConfiguration[key]?.data?.length}}</span>
+              </mat-panel-description>
+        </div>
     </mat-expansion-panel-header>
         <compare-table 
             [data]="data" 

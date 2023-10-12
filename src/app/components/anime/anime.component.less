@@ -13,10 +13,15 @@
     display: flex;
     justify-content: center;
     font-weight: 800;
+    flex-wrap: wrap;
+    text-align: center;
     &-nick {
       margin-left: 10px;
       color: #655bff;
       text-decoration: underline;
+      width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
       &:hover {
         color: #2213ff;
       }
