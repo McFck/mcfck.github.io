@@ -29,6 +29,28 @@ a {
         }
     }
 
+    &__hint {
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-weight: 800;
+        &-expansion {
+            background-color: transparent;
+        }
+        
+        &-description {
+            display: flex;
+            flex-direction: column;
+        }
+        &-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
     &__user-inputs {
         display: flex;
         justify-content: space-evenly;
@@ -46,10 +68,9 @@ a {
         background: #a4bbd5;
         width: 90%;
         min-height: 100%;
-        overflow: hidden;
+        overflow: clip;
         @media (max-width: 900px) {
             width: 100%;
-            overflow: hidden;
             padding: 0;
         }
     }
