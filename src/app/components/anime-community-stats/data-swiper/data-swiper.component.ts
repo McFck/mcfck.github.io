@@ -26,7 +26,8 @@ export class DataSwiperComponent implements OnInit {
     centerInsufficientSlides: true,
     grabCursor: true,
     slidesPerView: 'auto',
-    watchOverflow: true
+    watchOverflow: true,
+    freeMode: true
   }
 
 }
