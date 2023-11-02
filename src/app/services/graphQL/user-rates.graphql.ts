@@ -4,6 +4,7 @@ export const getUserRatesAnime = gql`
 query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTargetTypeEnum!) {
     userRates(page: $page, userId: $userId, limit: $limit, targetType:$targetType){
       anime {
+        score,
         episodes,
         id,
         duration,
@@ -46,6 +47,7 @@ query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTarget
     manga {
       chapters,
       id,
+      score,
       genres {
         id,
         name
@@ -66,15 +68,15 @@ query($page: Int = 1, $limit: Int = 50, $userId: ID, $targetType: UserRateTarget
       url
     }
     chapters,
-      createdAt,
-      episodes,
-      id,
-      rewatches,
-      score,
-      status,
-      text,
-      updatedAt,
-      volumes
+    createdAt,
+    episodes,
+    id,
+    rewatches,
+    score,
+    status,
+    text,
+    updatedAt,
+    volumes
   }
 }
 `
