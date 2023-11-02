@@ -1,5 +1,5 @@
     <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort class="anime-stats-table__table" matSortActive="score" matSortDirection="desc">
+    <table mat-table [dataSource]="dataSource" matSort class="anime-stats-table__table" [matSortActive]="defaultSort" matSortDirection="desc" (matSortChange)="sortReset($event)">
   
       <!-- ID Column -->
       <ng-container matColumnDef="orderNumber">
@@ -68,6 +68,12 @@
       <ng-container matColumnDef="kind">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Kind' | translate}} </th>
         <td mat-cell *matCellDef="let row"> {{row.kind | translate}} </td>
+      </ng-container>
+
+      <!-- Date updated Column [Hidden] -->
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let row"> {{row.updatedAt}} </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

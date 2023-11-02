@@ -8,7 +8,7 @@
     #extensionPanels
     (closed)="updateAllValuesCheckbox()" 
     (opened)="updateAllValuesCheckbox()" 
-    class="anime-stat-lists__extension" 
+    class="anime-stat-lists__extension"
     expanded="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -26,6 +26,7 @@
         [tableData]="source.data" 
         [isAnime]="isAnime" 
         [filter]="filterValue"
+        [defaultSort]="source?.defaultSort"
         (onFilterChanges)="updateFilteredData($event, source.key)">
       </app-anime-stats-table>
     </div>

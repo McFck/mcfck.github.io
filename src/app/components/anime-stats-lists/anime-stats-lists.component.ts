@@ -48,6 +48,7 @@ export class AnimeStatsListsComponent extends TableListComponent<TableData> impl
           episodesWatched: entry.episodes,
           episodes: entry.anime?.episodes,
           chaptersRead: entry.chapters,
+          updatedAt: entry?.updatedAt,
           chapters: entry.manga?.chapters,
           thumbnail: entry?.["__typename"] ? (
             entry.anime?.poster?.miniUrl || entry.manga?.poster?.miniUrl) :
@@ -64,13 +65,19 @@ export class AnimeStatsListsComponent extends TableListComponent<TableData> impl
         filteredValues = mappedValues.filter((value: TableData)=>value.myStatus === status);
         filteredValues.forEach((entry)=>totalEpisodes += entry.chaptersRead || entry.episodesWatched);
         if (filteredValues.length > 0) {
-          this.dataSources.push({key: status, data: filteredValues, summary: {
-            episodes: totalEpisodes,
-            filtered: null
-          }})
+          this.dataSources.push({
+            key: status, 
+            data: filteredValues,
+            defaultSort: 'score',
+            summary: {
+              episodes: totalEpisodes,
+              filtered: null
+            }
+          })
         }
       }
       this.isAnime = value.findIndex((entry)=>entry.anime?.episodes > 0) !== -1;
+      this.dataSources.find(entry=>entry.key === MAIN_ANIME_STATUSES.PLANNED).defaultSort = "updatedAt";
     }
   }
 

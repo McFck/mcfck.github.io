@@ -19,6 +19,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { BADGES_MAP } from 'src/app/constants/generalConsts';
 import { NgTemplateNameDirective } from 'src/app/directives/TemplateNameDirective';
 import { BaseTableComponent } from '../shared/base-table/base-table.component';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-anime-stats-table',
@@ -34,6 +35,9 @@ export class AnimeStatsTableComponent extends BaseTableComponent<TableData> impl
 
   @Input()
   isAnime: boolean;
+
+  @Input()
+  defaultSort: string = 'score';
 
   @Output()
   onFilterChanges: EventEmitter<TableData[]> = new EventEmitter();
@@ -117,5 +121,12 @@ export class AnimeStatsTableComponent extends BaseTableComponent<TableData> impl
   updateTitleFieldName(): void {
     this.titleFieldName =
       this.translationService.getLanguage() === 'ru' ? 'russian' : 'name';
+  }
+  
+  sortReset(sortChangeEvent: Sort): void {
+    if(!sortChangeEvent.direction && sortChangeEvent.active !== this.defaultSort) {
+      this.sort.active = this.defaultSort;
+      this.sort.direction = 'desc';
+    }
   }
 }
