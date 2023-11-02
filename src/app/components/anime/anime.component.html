@@ -51,18 +51,25 @@
                                 <app-anime-stats-graphics [allData]="allData" [statistics]="statistics"></app-anime-stats-graphics>
                             </ng-template>
                         </li>
-                        <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="anime__nav-item" [disabled]="!allData.anime?.length">
+                        <li [routerLinkActive]="['active']" [ngbNavItem]="2" class="anime__nav-item" [disabled]="!allData.anime?.length && !allData.manga?.length">
+                            <a ngbNavLink>{{'ME_VS_COMMUNITY' | translate}}</a>
+                            <ng-template ngbNavContent let-active>
+                                <anime-community-stats *ngIf="tabStatus[2] === true" [data]="allData"></anime-community-stats>
+                            </ng-template>
+                        </li>
+                        <li [routerLinkActive]="['active']" [ngbNavItem]="3" class="anime__nav-item" [disabled]="!allData.anime?.length">
                             <a ngbNavLink>{{'ANIME_LIST' | translate}}</a>
                             <ng-template ngbNavContent>
-                                <app-anime-stats-lists *ngIf="tabStatus[2] === true" [data]="allData.anime"></app-anime-stats-lists>
+                                <app-anime-stats-lists *ngIf="tabStatus[3] === true" [data]="allData.anime"></app-anime-stats-lists>
                             </ng-template>
                         </li>
-                        <li [routerLinkActive]="['active']" [ngbNavItem]="3" class="anime__nav-item" [disabled]="!allData.manga?.length">
+                        <li [routerLinkActive]="['active']" [ngbNavItem]="4" class="anime__nav-item" [disabled]="!allData.manga?.length">
                             <a ngbNavLink>{{'MANGA_LIST' | translate}}</a>
                             <ng-template ngbNavContent let-active>
-                                <app-anime-stats-lists *ngIf="tabStatus[3] === true" [data]="allData.manga"></app-anime-stats-lists>
+                                <app-anime-stats-lists *ngIf="tabStatus[4] === true" [data]="allData.manga"></app-anime-stats-lists>
                             </ng-template>
                         </li>
+                        
                     </ul>
 
                     <div [ngbNavOutlet]="nav" class="mt-2"></div>

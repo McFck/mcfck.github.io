@@ -54,6 +54,11 @@ import { CmpUserCardComponent } from './components/compare/cmp-user-card/cmp-use
 import {MatTabsModule} from '@angular/material/tabs';
 import { CompareTableComponent } from './components/compare/compare-table/compare-table.component';
 import { CompareListsComponent } from './components/compare/compare-lists/compare-lists.component';
+import { AnimeCommunityStatsComponent } from './components/anime-community-stats/anime-community-stats.component';
+import { AnimeCommunityBlockComponent } from './components/anime-community-stats/anime-community-block/anime-community-block.component';
+import { DataSwiperComponent } from './components/anime-community-stats/data-swiper/data-swiper.component';
+import { ImageLoadComponent } from './components/image-load/image-load.component';
+import { LoadImageDirective } from './directives/LoadImageDirective';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -85,7 +90,12 @@ export function setupTranslateServiceFactory(
     CompareComponent,
     CmpUserCardComponent,
     CompareTableComponent,
-    CompareListsComponent
+    CompareListsComponent,
+    AnimeCommunityStatsComponent,
+    AnimeCommunityBlockComponent,
+    DataSwiperComponent,
+    ImageLoadComponent,
+    LoadImageDirective
   ],
   imports: [
     BrowserModule,

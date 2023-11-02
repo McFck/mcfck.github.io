@@ -6,6 +6,9 @@
     justify-content: space-between;
     margin-left: 15px;
     margin-right: 15px;
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
   }
   &__seriesName {
     float: left;
@@ -15,7 +18,7 @@
   &__symbol {
     width: 20px;
     height: 20px;
-    margin-right: 10px;
+    margin-right: 2px;
     float: left;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -35,7 +38,8 @@
       flex-direction: column;
       width: 25%;
       @media (max-width: 900px) {
-        width: 50%;
+        width: 100%;
+        margin-bottom: 30px;
       }
     }
   }
@@ -60,13 +64,17 @@
       display: flex;
 
       justify-content: center;
+      
+      @media (max-width: 900px) {
+        margin-bottom: 19px;
+      }
     }
     &-block {
       display: flex;
       flex-direction: column;
       width: 25%;
       @media (max-width: 900px) {
-        width: 40%;
+        width: 100%;
       }
     }
   }
