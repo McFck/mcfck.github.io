@@ -1,0 +1,37 @@
+@mask-dark: #dddddd;
+@mask-light: #e6e6e6;
+@mask-width: 400px;
+@mask-left-start: (@mask-width / -2);
+@mask-right-end: (@mask-width / 2);
+@pulse-time: .5;
+@pulse-interval: 5;
+
+.image-load {
+    background: @mask-dark;
+    background: linear-gradient(
+      to right,
+      @mask-dark 0%,
+      @mask-light 5%,
+      @mask-light 15%,
+      @mask-dark 20%,
+      @mask-dark 100%
+    );
+    background-size: @mask-width 30px;
+    background-position: @mask-left-start 0;
+    animation: pulseBG 1s linear infinite;
+    display: block;
+}
+
+@keyframes pulseBG {
+    0% {
+      background-position: @mask-left-start 0;
+    }
+  
+    50% {
+      background-position: @mask-right-end 0;
+    }
+  
+    100% {
+      background-position: @mask-right-end 0;
+    }
+}
