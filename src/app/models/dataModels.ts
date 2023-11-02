@@ -2,8 +2,8 @@ import { TableData } from "../components/anime-stats-lists/anime-stats-lists.com
 import { MAIN_ANIME_STATUSES } from "../constants/generalConsts";
 
 export enum ANIME_TYPE {
-  MANGA = 'manga',
-  ANIME = 'anime'
+  ANIME = 'anime',
+  MANGA = 'manga'
 }
 
 export interface BadgeMap {
@@ -56,6 +56,9 @@ export interface AnimeData {
   updated_at?: Date;
   user?: User;
   volumes?: number;
+  updatedAt?: Date;
+  diffMe?: number;
+  diffThem?: number
 }
 
 export interface ParsedGeneralProfileStats {
@@ -213,7 +216,8 @@ export interface DataSourceTransfer {
   summary: {
     episodes: number;
     filtered: number;
-  }
+  },
+  defaultSort?: string;
 }
 
 export interface GithubCommitData {

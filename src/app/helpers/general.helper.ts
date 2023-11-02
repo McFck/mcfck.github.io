@@ -2,6 +2,7 @@ import * as Highcharts from 'highcharts';
 import { TranslatePipe } from '../components/shared/pipes/translate.pipe';
 import { Anime } from '../models/dataModels';
 import { MatPaginator } from '@angular/material/paginator';
+import { PriorityQueue } from './classes/priorityQueue';
 
 export class GeneralHelper {
   public static getPluralForm(value: number, curLanguage: string): number {
@@ -97,5 +98,42 @@ export class GeneralHelper {
 
   public static isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  /* Get top N values with indexes */
+  public static getTopNi(n: number, arr: any[], field?: string): {index, val}[] {
+    const priorityQueue = new PriorityQueue((a,b)=>a.val < b.val);
+    for(let i = 0; i < n; i++) {
+      priorityQueue.push({index: 0, val: -Infinity});
+    }
+    for(let i = 0; i < arr.length; i++) {
+      const val = GeneralHelper.getPropertyByPath(arr[i], field);
+      const top = priorityQueue.peek()?.val || -Infinity;
+      if (val > top) {
+        priorityQueue.push({index: i, val})
+        priorityQueue.pop();
+      }
+    }
+    const result = [];
+    for(let i = 0; i < n; i++) {
+      result.push(priorityQueue.pop());
+    }
+    return result;
+  }
+
+  public static getPropertyByPath(o, s): any {
+    if (!s || !o) return o;
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+    return o;
   }
 }

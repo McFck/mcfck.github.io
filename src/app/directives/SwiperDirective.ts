@@ -1,5 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
-import {SwiperOptions} from "swiper";
+import Swiper, {SwiperOptions} from "swiper";
 
 @Directive({
   selector: '[fmSwiper]'
@@ -17,7 +17,6 @@ export class SwiperDirective implements AfterViewInit {
 
   ngAfterViewInit() {
     Object.assign(this.el.nativeElement, this.config);
-    
     // @ts-ignore
     this.el.nativeElement.initialize();
   }

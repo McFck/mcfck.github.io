@@ -1,0 +1,5 @@
+<div class="community-stats">
+    <ng-container *ngFor="let type of types">
+        <anime-community-block [type]="type" [liked]="liked[type]" [disliked]="disliked[type]"></anime-community-block>
+    </ng-container>
+</div>

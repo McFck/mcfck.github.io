@@ -1,0 +1,49 @@
+@image-width-default: 200px;
+@image-width-mobile: 150px;
+.anime-community-data-swiper {
+    &-img {
+        width: @image-width-default;
+        border-radius: 4px;
+        @media (max-width: 900px) {
+            width: @image-width-mobile;
+        }
+        &__container {
+            position: relative;
+        }
+    }
+
+    &-name {
+        word-break: break-word;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        bottom: 0;
+        position: absolute;
+        padding: 1rem;
+        color: #fff;
+        background: linear-gradient(to top, #000000, #0000) bottom/100% 100%
+          no-repeat;
+        border-radius: 5px;
+        transition: 1s ease;
+    }
+
+    &-bold {
+        font-weight: 800;
+    }
+
+    &-container {
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    &-slide {
+        width: @image-width-default;
+        margin-right: 15px;
+        @media (max-width: 900px) {
+            width: @image-width-mobile;
+        }
+    }
+}

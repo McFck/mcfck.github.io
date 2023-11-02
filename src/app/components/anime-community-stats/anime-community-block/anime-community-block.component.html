@@ -1,0 +1,17 @@
+<div class="community-block-wrapper">
+    <span class="community-block-title community-block-large">{{type | translate}}</span>
+    <div *ngIf="liked.length > 2 || disliked.length > 2 else notEnoughData">
+        <div class="community-block-full-width">
+            <span class="community-block-title ml-3">{{'PERSONALLY_LIKED' | translate}}</span>
+            <anime-community-data-swiper [data]="liked" [isUserScoreHigher]="true" *ngIf="liked.length > 2 else notEnoughData"></anime-community-data-swiper>
+        </div>
+        <div class="community-block-full-width">
+            <span class="community-block-title ml-3">{{'PERSONALLY_DISLIKED' | translate}}</span>
+            <anime-community-data-swiper [data]="disliked" *ngIf="disliked.length > 2 else notEnoughData"></anime-community-data-swiper>
+        </div>
+    </div>
+</div>
+
+<ng-template #notEnoughData>
+    <span class="community-block-more-data">{{'NEED_MORE_DATA' | translate}}</span>
+</ng-template>
