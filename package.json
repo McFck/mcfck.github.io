@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "serve": "NODE_OPTIONS=--openssl-legacy-provider serve",
     "start": "ng serve",
     "deploy": "ng deploy --base-href=https://mcfck.github.io/",
     "githubPages": "npx angular-cli-ghpages --dir=dist/personal --repo=https://github.com/McFck/personalSite.git",
@@ -11,6 +10,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "pre-push": [
+    "build",
+    "githubPages"
+  ],
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.2.0",
@@ -34,6 +37,7 @@
     "graphql": "^16.8.0",
     "highcharts": "^11.1.0",
     "highcharts-rounded-corners": "^1.0.6",
+    "pre-push": "^0.1.4",
     "rxjs": "~6.6.0",
     "swiper": "^9.4.1",
     "tslib": "^2.3.0",
