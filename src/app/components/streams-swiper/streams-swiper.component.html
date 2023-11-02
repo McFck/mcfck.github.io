@@ -4,7 +4,7 @@
             <a class="swiper-display-link" href="{{ (data.anime?.url || data.manga?.url) | languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}" target="_blank" rel="noopener noreferrer">
                 <div class="swiper-display-item">
                     <div class="swiper-display-thumbnail-container">
-                        <img class="swiper-display-item-img" src="{{ (data.anime?.thumbnail || data.manga?.thumbnail) }}">
+                        <img loadImage class="swiper-display-item-img" src="{{ (data.anime?.thumbnail || data.manga?.thumbnail) }}">
                     </div>
                     <div class="swiper-display-item-name" >
                         <span>{{data.score}} ❤️</span>
