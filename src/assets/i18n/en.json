@@ -92,6 +92,7 @@
   "tv": "TV Series",
   "movie": "Movie",
   "manga": "Manga",
+  "anime": "Anime",
   "manhwa": "Manhwa",
   "manhua": "Manhua",
   "ranobe": "Ranobe",
@@ -145,5 +146,8 @@
   "COMPARE_HINT_FILL1": "<b>Fill</b> both usernames fields, don't forget to <b>apply changes</b> using send icon.",
   "COMPARE_HINT_FILL2": "After all users loaded <b>press connection button</b> to calculate difference between users.",
   "COMPARE_HINT_FILL3": "Result will be displayed in tables, where the score difference will be highlighted by green and red. Lighter colors means lighter difference.",
-  "COMPARE_INSTRUCTIONS": "Instructions"
+  "COMPARE_INSTRUCTIONS": "Instructions",
+  "ME_VS_COMMUNITY": "Shikimori vs Me",
+  "PERSONALLY_DISLIKED": "They loved it, I hated it",
+  "PERSONALLY_LIKED": "They hated, I enjoyed it"
 }
