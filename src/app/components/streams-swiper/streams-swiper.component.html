@@ -1,5 +1,5 @@
-<swiper-container fmSwiper [config]="config" init="false">
-    <swiper-slide *ngFor="let data of _topArr" #switch>
+<swiper-container class="swiper-display-container" fmSwiper [config]="config" init="false">
+    <swiper-slide class="swiper-display-slider" *ngFor="let data of _topArr" #switch>
         <fm-stream-item>
             <a class="swiper-display-link" href="{{ (data.anime?.url || data.manga?.url) | languageContent: 'ru': (data.anime?.malUrl || data.manga?.malUrl) }}" target="_blank" rel="noopener noreferrer">
                 <div class="swiper-display-item">

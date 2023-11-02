@@ -22,18 +22,6 @@ export class StreamsSwiperComponent {
   
   public config: SwiperOptions = {
     modules: [Navigation, Pagination, A11y, Mousewheel, EffectCoverflow, Autoplay],
-    injectStyles: [
-      `
-      swiper-container {
-        width: 330px;
-        padding-top: 50px;
-        padding-bottom: 50px;
-      }
-      swiper-slide{
-        width: 210px;
-      }
-      `
-    ],
     loop: true,
     speed: 1000,
     autoplay: {
