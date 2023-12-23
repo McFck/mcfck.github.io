@@ -77,7 +77,10 @@ export class AnimeStatsListsComponent extends TableListComponent<TableData> impl
         }
       }
       this.isAnime = value.findIndex((entry)=>entry.anime?.episodes > 0) !== -1;
-      this.dataSources.find(entry=>entry.key === MAIN_ANIME_STATUSES.PLANNED).defaultSort = "updatedAt";
+      const plannedDS = this.dataSources.find(entry=>entry.key === MAIN_ANIME_STATUSES.PLANNED);
+      if (plannedDS?.defaultSort) {
+        plannedDS.defaultSort = "updatedAt";
+      }
     }
   }
 
